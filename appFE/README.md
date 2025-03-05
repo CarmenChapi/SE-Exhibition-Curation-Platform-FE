@@ -1,12 +1,50 @@
-# React + Vite
+#Exhibition Curation Platform
+##Project Overview
+You’ve been invited by a coalition of museums and universities to develop a platform where users can explore virtual exhibitions from combined collections of antiquities and fine art. This platform will serve researchers, students, and art enthusiasts, providing a searchable and interactive experience of the collections.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##Minimum Viable Product (MVP)
+The platform (web app or progressive web app) must include the following features:
 
-Currently, two official plugins are available:
+Users can search artworks across collections from at least two different Museum or University APIs.
+Allow users to browse artworks, from a list view, with "Previous" and "Next" page navigation options to prevent loading of too many items at once.
+Users can filter and/or sort artworks to make it easier to navigate through larger lists of items.
+Display images and essential details about each artwork individually.
+Enable users to create, add items to, and remove items from, personal exhibition collections of saved artworks. A single user can have multiple exhibition collections.
+Users can view their exhibitions and the saved items within each collection.
+Refer to Completion and Submission Requirements for more details.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##Tech Choices
+Programming Languages: Use JavaScript or TypeScript.
+API Integration: Research and choose at least two free museum or university APIs to retrieve collection data. Be sure to sign up for any necessary developer accounts on free tiers.
+Hosting: Use a free distribution platform (e.g., GitHub Pages or Netlify).
+Implement security best practices (e.g. for handling of API keys).
+The following technologies and tools are suggestions, not requirements:
 
-## Expanding the ESLint configuration
+React for the frontend.
+TanStack for managing API calls from the frontend.
+TypeScript Express server.
+UI Requirements
+Design should be responsive and adapt well across various screen sizes.
+Ensure accessibility for users with disabilities (e.g., support screen readers, keyboard navigation).
+The UI should clearly provide feedback on interactions, display errors (e.g., failed requests or missing fields) and show loading states when content is being fetched.
+Design should intuitively guide users to search, view, and create curated exhibitions.
+Completion and Submission Requirements
+The due date will be provided, but it will be no later than four weeks after starting the project.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Your project must fulfill the following criteria:
+
+The project should be hosted and publicly accessible (from a web browser).
+README Documentation should include:
+A summary of the project
+(you may consider recording a video walkthrough of your platform, highlighting key features. Host this video on a free platform (e.g., YouTube) and include a link in your README.)
+Clear instructions on how to run the project locally, including setup steps (e.g., installing dependencies and configuring environment variables).
+Meet the MVP requirements outlined above.
+Failure to meet these requirements may result in project rejection.
+
+Optional Extensions
+If you complete the MVP and have time for additional features, consider implementing the following:
+
+User Accounts: Save curated exhibition collections within user profiles. Consider a back-end solution for securely storing data, and provide access to a whitelisted test account.
+Social Media Integration: Allow users to share exhibitions or individual artworks.
+Cross-Platform Access: Develop both a website and a mobile app.
+Advanced Search Options: Enable multiple filters for more refined search criteria.
