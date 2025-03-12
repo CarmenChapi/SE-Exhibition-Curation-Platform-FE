@@ -1,22 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { auth, provider, signInWithPopup, signOut } from "./firebase";
+import { useContext, useEffect } from "react";
+import { auth, provider, signInWithPopup, signOut } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const GoogleLogin = () => {
-  const [user, setUser] = useState(null);
+  const { userCx, setUserCx } = useContext(UserContext); // ✅ Correctly using Context
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      if (currentUser) {
+        setUserCx({
+          email: currentUser.email,
+          displayName: currentUser.displayName,
+          photoURL: currentUser.photoURL,
+        });
+      } else {
+        setUserCx(null); // Clear user on logout
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [setUserCx]);
 
   const handleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log("User signed in:", result.user);
+      navigate("/home");
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
     }
@@ -33,11 +45,11 @@ const GoogleLogin = () => {
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      {user ? (
+      {userCx ? (
         <>
-          <h2>Welcome, {user.displayName}!</h2>
-          <img src={user.photoURL} alt="Profile" width="100" />
-          <p>Email: {user.email}</p>
+          <h2>Welcome, {userCx.displayName}!</h2>
+          <img src={userCx.photoURL} alt="Profile" width="100" />
+          <p>Email: {userCx.email}</p>
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (

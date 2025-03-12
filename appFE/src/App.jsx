@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import GoogleLogin from "./googleLogin";
-import './App.css'
-import ArticData from './components/articData';
-import VAMData from './components/vamData';
-import HarvardData from './components/harvardData';
-import EuropeanaData from './components/europeanaData';
-import RijksMData from './components/rijksMData';
-import SmithData from './components/smithsonianData';
-import METData from './components/metData';
+import { useState } from "react";
+import GoogleLogin from "./components/GoogleLogin";
+import "./App.css";
+import ArticData from "./components/ArticData";
+import VAMData from "./components/VamData";
+import HarvardData from "./components/HarvardData";
+import EuropeanaData from "./components/EuropeanaData";
+import RijksMData from "./components/RijksMData";
+import SmithData from "./components/SmithsonianData";
+import METData from "./components/MetData";
+import CollectionsUser from "./components/CollectionsByUser";
+import ArtCollection from "./components/ArtCollection";
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
 
 function App() {
-
   return (
     <>
-    
-    <div>
-      <h1>SE Curator</h1>
-      <GoogleLogin />
-      <METData/>
-       <ArticData/> 
-       <VAMData/> 
-        <HarvardData/> 
-      <EuropeanaData/> 
-        <RijksMData/> 
-      <SmithData/> 
-    </div>
-  
-      
+      <h1>Exhibition Curation Platform</h1>
+      <Router>
+        <Routes>
+          <Route path="/" element={<GoogleLogin />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
