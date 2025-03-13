@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, provider, signInWithPopup, signOut } from "../firebase";
-import CollectionsUser from "./CollectionsByUser";
+import ListCollections from "./ListCollections";
 
 const Home = () => {
   const { userCx, setUserCx } = useContext(UserContext);
@@ -44,7 +44,7 @@ const Home = () => {
         <button onClick={handleLogout}>Logout</button>
       </div>
       <div>
-        <CollectionsUser />
+        <ListCollections />
       </div>
     </>
   );

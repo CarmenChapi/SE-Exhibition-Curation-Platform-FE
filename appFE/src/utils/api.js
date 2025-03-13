@@ -5,7 +5,7 @@ const curationAPI = axios.create({
 });
 
 export const getCollectionByUserMail = (user_mail) => {
-  console.log(user_mail);
+  //console.log(user_mail);
   return curationAPI.get(`/collection/${user_mail}`).then(({ data }) => {
     return data.collections;
   });
@@ -27,50 +27,50 @@ export const getCollectionById = (id) => {
   });
 };
 
-export const deleteCollecttion = (id) => {
+export const deleteCollection = (id) => {
+  // console.log(id)
   return curationAPI.delete(`/collection/${id}`).then(() => {
     return "201";
   });
 };
 
-// export const patchCommentVotes = (id, incVts) => {
-//   const curationAPI = { inc_votes: incVts };
-//   return curationAPI.patch(`/comments/${id}/`, bodyComment).then(({ data }) => {
-//     return data.comments;
-//   });
-// };
+export const updateCollection = (id_collection, title) => {
+  return curationAPI
+    .patch(`/collection/${id_collection}`, title)
+    .then(({ data }) => {
+      return data.collection;
+    });
+};
 
-// export const postComment = (id, body2, username2) => {
-//   const curationAPI = { username: username2, body: body2 };
-//   console.log(bodyComment, id);
-//   return curationAPI
-//     .post(`/articles/${id}/comments`, bodyComment)
-//     .then(({ data }) => {
-//       return data.comment;
-//     });
-// };
+export const addCollection = (newCollection) => {
+  //  console.log(newCollection)
+  return curationAPI.post(`/collection/`, newCollection).then(({ data }) => {
+    return data.collection;
+  });
+};
 
-// export const deleteComment = (id) => {
-//   return curationAPI.delete(`comments/${id}`).then(() => {
-//     return "201";
-//   });
-// };
+export const getArtworksByCollection = (id) => {
+  return curationAPI.get(`/artwork/collection/${id}`).then(({ data }) => {
+    return data.artworks;
+  });
+};
 
-// export const getAllUsers = () => {
-//   return curationAPI.get(`/users`).then(({ data }) => {
-//     return data.users;
-//   });
-// };
+export const addArtwork = (newArtwork) => {
+  return curationAPI.post(`/artwork/`, newArtwork).then(({ data }) => {
+    return data.artwork;
+  });
+};
 
-// export const getArtworksByColId = (id) => {
-//   return ncNews.get(`/topics`).then(({ data }) => {
-//     return data.topics;
-//   });
-// };
+export const updateArtwork = (id_collection, newArtwork) => {
+  return curationAPI
+    .patch(`/artwork/${id_collection}`, newArtwork)
+    .then(({ data }) => {
+      return data.collection;
+    });
+};
 
-// export const patchArticleVotes = (id, incVts) => {
-//   const bodyArticle = { inc_votes: incVts };
-//   return ncNews.patch(`/articles/${id}/`, bodyArticle).then(({ data }) => {
-//     return data.article;
-//   });
-// };
+export const deleteArtwork = (id) => {
+  return curationAPI.delete(`/artwork/${id}`).then(() => {
+    return "201";
+  });
+}
