@@ -1,5 +1,6 @@
 import { useState } from "react";
 import GoogleLogin from "./components/GoogleLogin";
+import ListArworks from "./components/ListArtworks"
 import "./App.css";
 import ArticData from "./components/ArticData";
 import VAMData from "./components/VamData";
@@ -8,8 +9,7 @@ import EuropeanaData from "./components/EuropeanaData";
 import RijksMData from "./components/RijksMData";
 import SmithData from "./components/SmithsonianData";
 import METData from "./components/MetData";
-import CollectionsUser from "./components/CollectionsByUser";
-import ArtCollection from "./components/ArtCollection";
+
 
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -23,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<GoogleLogin />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/home/collection/:id_collection" element={<ListArworks />} />
+        <Route path="*" element={<ErrorPage errorMsg={"404 Not Found Invalid URL"}/>} />
         </Routes>
       </Router>
     </>

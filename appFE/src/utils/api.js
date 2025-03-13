@@ -27,11 +27,26 @@ export const getCollectionById = (id) => {
   });
 };
 
-export const deleteCollecttion = (id) => {
+export const deleteCollection = (id) => {
+  console.log(id)
   return curationAPI.delete(`/collection/${id}`).then(() => {
     return "201";
   });
 };
+
+export const updateCollection = (id_collection, title) => {
+  return curationAPI.patch(`/collection/${id_collection}`, title).then(({ data }) => {
+         return data.collection;
+       });
+     };
+
+
+export const addCollection = (newCollection) => {
+  console.log(newCollection)
+  return curationAPI.post(`/collection/`, newCollection).then(({ data }) => {
+           return data.collection;
+         });
+   };
 
 // export const patchCommentVotes = (id, incVts) => {
 //   const curationAPI = { inc_votes: incVts };
