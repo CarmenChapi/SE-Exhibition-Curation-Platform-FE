@@ -1,6 +1,7 @@
 import { useState } from "react";
 import GoogleLogin from "./components/GoogleLogin";
 import ListArworks from "./components/ListArtworks"
+import ErrorPage from "./components/ErrorPage";
 import "./App.css";
 import ArticData from "./components/ArticData";
 import VAMData from "./components/VamData";
