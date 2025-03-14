@@ -15,6 +15,7 @@ import METData from "./components/MetData";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
+import ListApiArtGalleries from "./components/ListApiArts";
 
 function App() {
   return (
@@ -26,6 +27,14 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/home/collection" element={<Home />} />
           <Route path="/home/collection/:collectionId" element={<ListArworks />} />
+          <Route path="/home/artgallery/" element={<ListApiArtGalleries/>} />
+          <Route path="/home/artgallery/chicago" element={<ArticData/>} />
+          <Route path="/home/artgallery/europeana" element={<EuropeanaData/>} />
+          <Route path="/home/artgallery/harvard" element={<HarvardData/>} />
+          <Route path="/home/artgallery/met" element={<METData/>} />
+          <Route path="/home/artgallery/rijksmuseum" element={<RijksMData/>} />
+          <Route path="/home/artgallery/smithsonian" element={<SmithData/>} />
+          <Route path="/home/artgallery/vam" element={<VAMData/>} />
         <Route path="*" element={<ErrorPage errorMsg={"404 Not Found Invalid URL"}/>} />
         </Routes>
       </Router>
