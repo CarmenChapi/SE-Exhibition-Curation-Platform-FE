@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, provider, signInWithPopup, signOut } from "../firebase";
 import ListCollections from "./ListCollections";
+import ListApiArtGalleries from "./ListApiArts";
 
 const Home = () => {
   const { userCx, setUserCx } = useContext(UserContext);
@@ -44,7 +45,8 @@ const Home = () => {
         <button onClick={handleLogout}>Logout</button>
       </div>
       <div>
-        <ListCollections />
+        {/* <ListCollections /> */}
+        <ListApiArtGalleries/>
       </div>
     </>
   );

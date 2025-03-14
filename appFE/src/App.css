@@ -160,7 +160,22 @@ ul{
   max-width: 90vw; 
 }
 
+.gallery-list{
+  flex-direction: column; /* Stack items on top of each other */
+  align-items: flex-start;
+  padding: 10px;;
+  background-color: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 90vw; 
+}
 
+.gallery-photo{
+  width: 100%;  /* Takes full width of parent */
+  max-width: 50vw; 
+}
 
 
 /* Responsive Design */
