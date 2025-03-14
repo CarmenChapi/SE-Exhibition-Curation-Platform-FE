@@ -24,7 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<GoogleLogin />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/home/collection/:id_collection" element={<ListArworks />} />
+          <Route path="/home/collection" element={<Home />} />
+          <Route path="/home/collection/:collectionId" element={<ListArworks />} />
         <Route path="*" element={<ErrorPage errorMsg={"404 Not Found Invalid URL"}/>} />
         </Routes>
       </Router>
