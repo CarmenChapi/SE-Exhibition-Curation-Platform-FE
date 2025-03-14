@@ -36,7 +36,7 @@ const ListCollections = () => {
 
     addCollection(newCollection)
       .then((addedCollection) => {
-        setListCollections([...listCollections, addedCollection]);
+        setListCollections([addedCollection, ...listCollections]);
         setNewCollectionTitle("");
       })
       .catch((err) => setError(err));
@@ -47,17 +47,18 @@ const ListCollections = () => {
 
   return (
     <div>
-      <h2>My Art Collections</h2>
+      <h2 class="collection-title">My Art Collections</h2>
 
       {/* 🔹 Add new collection */}
-      <div>
+      <div class="collection-card">
         <input
           type="text"
+          class="collection-input"
           value={newCollectionTitle}
           onChange={(e) => setNewCollectionTitle(e.target.value)}
           placeholder="New Collection Title"
         />
-        <button onClick={handleAddCollection}>Add</button>
+        <button class="btn-add" onClick={handleAddCollection}>Add</button>
       </div>
 
       {/* 🔹 Collection List */}
@@ -65,6 +66,7 @@ const ListCollections = () => {
         <p>No collections found.</p>
       ) : (
         <ul>
+          <div class="collection-list">
           {listCollections.map((collection) => (
             <CollectionCard
               key={collection.id_collection}
@@ -73,6 +75,7 @@ const ListCollections = () => {
               listCollections={listCollections}
             />
           ))}
+          </div>
         </ul>
       )}
     </div>

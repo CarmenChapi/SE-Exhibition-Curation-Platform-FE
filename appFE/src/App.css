@@ -1,47 +1,174 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* General Page Styling */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Header */
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #222;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+h2 {
+  font-size: 20px;
+  color: #555;
+}
+
+/* Buttons */
+button {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.btn-edit {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-open {
+  background-color: #3498DB;
+  color: white;
+}
+
+.btn-add {
+  background-color: green;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Collection Cards */
+
+
+
+/* Collection Title */
+.collection-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+  flex-grow: 1;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Buttons Group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+ul{
+  list-style: none;
+}
+
+.collection-card:hover {
+  transform: translateY(-2px);
+}
+
+
+/* Input Styling */
+.collection-input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 8px;
+}
+
+
+
+/* Edit Button */
+.btn-edit {
+  background-color: #f1c40f;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #d4ac0d;
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+}
+
+/* Open Collection Button */
+.btn-open {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-open:hover {
+  background-color: #2980b9;
+}
+
+/* Save Button */
+.btn-save {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #27ae60;
+}
+
+/* Cancel Button */
+.btn-cancel {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #7f8c8d;
+}
+
+
+
+
+.collection-list {
+  flex-direction: column; /* Stack items on top of each other */
+  align-items: flex-start;
+  padding: 10px;
+  gap: 10px; /* Space between list items */
+  padding: 0;
+}
+
+.collection-card {
+  flex-direction: column; /* Stack items on top of each other */
+  align-items: flex-start;
+  padding: 10px;;
+  background-color: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;  /* Takes full width of parent */
+  max-width: 90vw; 
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .collection-list {
+    flex-direction: column;
+    gap: 6px;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
+  
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-img{
-  height: 100px;
-      width: 100px; 
 }

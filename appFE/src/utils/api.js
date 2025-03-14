@@ -55,17 +55,19 @@ export const getArtworksByCollection = (id) => {
   });
 };
 
-export const addArtwork = (newArtwork) => {
-  return curationAPI.post(`/artwork/`, newArtwork).then(({ data }) => {
+export const addArtwork = (id, newArtwork) => {
+  console.log(newArtwork)
+  return curationAPI.post(`/artwork/${id}`, newArtwork).then(({ data }) => {
     return data.artwork;
   });
 };
 
-export const updateArtwork = (id_collection, newArtwork) => {
+export const updateArtwork = (id_artwork, updatedArtwork) => {
+  console.log(id_artwork, updatedArtwork)
   return curationAPI
-    .patch(`/artwork/${id_collection}`, newArtwork)
+    .patch(`/artwork/${id_artwork}`, updatedArtwork)
     .then(({ data }) => {
-      return data.collection;
+      return data.artwork;
     });
 };
 
