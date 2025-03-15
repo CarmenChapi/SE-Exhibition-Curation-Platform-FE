@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
@@ -7,6 +8,7 @@ const METData = () => {
   const [query, setQuery] = useState("painting"); // Stores actual search term
   const [page, setPage] = useState(1);
   const ITEMS_PER_PAGE = 6;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArtworks = async () => {
@@ -81,7 +83,8 @@ const METData = () => {
           artworks.map((art) => (
             <li key={art.objectID} >
               <h3>{art.title || "Untitled"}</h3>
-              <img src={art.primaryImage} alt={art.title} className="gallery-photo" />
+              <img src={art.primaryImage} alt={art.title} className="gallery-photo" 
+               onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}/>
             </li>
           ))
         ) : (

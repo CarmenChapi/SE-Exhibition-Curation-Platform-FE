@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
@@ -23,6 +24,8 @@ const SmithData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("painting"); // Default query term
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+
   const { data, error, isLoading } = useQuery({
     queryKey: ["smith", { query }],
     queryFn: fetchSmithData,
@@ -77,9 +80,12 @@ const SmithData = () => {
                 }
                 alt={art.title ? art.title : "Artwork"}
                 className="gallery-photo"
+                onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
               />
             ) : (
-              <p className="text-gray-500">No Image Available</p>
+              <p className="text-gray-500"
+              onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
+              >No Image Available</p>
             )}
           </li>
         ))

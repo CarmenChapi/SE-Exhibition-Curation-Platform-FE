@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
@@ -21,6 +22,7 @@ const RijksMData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["rijksm", { query }],
@@ -67,12 +69,13 @@ const RijksMData = () => {
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
             <li key={art.id}>
-              {art.title ? <h3>{art.title[0]}</h3> : <h3>Untitled</h3>}
-              {art.webImage.url ? (
+              {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
+              {art.webImage ? (
                 <img
                   src={art.webImage.url}
                   alt={art.title ? art.title[0] : "Artwork"}
                   className="gallery-photo"
+                  onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}
                 />
               ) : (
                 <p className="text-gray-500">No Image Available</p>

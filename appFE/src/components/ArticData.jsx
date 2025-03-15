@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const fetchArticData = async ({ queryKey }) => {
@@ -18,6 +19,7 @@ const ArticData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["artic", { page, query }],
@@ -64,6 +66,7 @@ const ArticData = () => {
                   src={`https://www.artic.edu/iiif/2/${art.image_id}/full/843,/0/default.jpg`}
                   alt={art.title}
                   className="gallery-photo"
+                  onClick={() => navigate(`/home/artgallery/chicago/${art.id}`)}
                 />
               ) : (
                 <p className="text-gray-500">No Image Available</p>

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const ITEMS_PER_PAGE = 6;
 
@@ -20,6 +21,7 @@ const VAMData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("painting"); // Default query term
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["vam", { query }],
@@ -76,6 +78,7 @@ const VAMData = () => {
                   src={`https://framemark.vam.ac.uk/collections/${art._primaryImageId}/full/843,/0/default.jpg`}
                   alt={art.title ? art.title[0] : "Artwork"}
                   className="gallery-photo"
+                  onClick={() => navigate(`/home/artgallery/vam/${art.systemNumber}`)}
                 />
               ) : (
                 <p className="text-gray-500">No Image Available</p>

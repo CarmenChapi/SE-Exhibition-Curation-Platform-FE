@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
 
@@ -19,6 +21,7 @@ const EuropeanaData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["euro", { query }],
@@ -71,6 +74,7 @@ const EuropeanaData = () => {
                   className="gallery-photo"
                   src={art.edmIsShownBy[0]}
                   alt={art.title ? art.title[0] : "Artwork"}
+                  onClick={() => navigate(`/home/artgallery/europeana/${art.id.replaceAll("/","-")}`)}
                 />
               ) : (
                 <p className="text-gray-500">No Image Available</p>

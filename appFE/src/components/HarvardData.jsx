@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
@@ -19,6 +20,7 @@ const HarvardData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["harvard", { query, page }],
@@ -65,6 +67,7 @@ const HarvardData = () => {
                   src={art.primaryimageurl}
                   alt={art.title}
                   className="gallery-photo"
+                  onClick={() => navigate(`/home/artgallery/harvard/${art.id}`)}
                 />
               ) : (
                 <p className="text-gray-500">No Image Available</p>
