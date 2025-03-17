@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const fetchArticData = async ({ queryKey }) => {
   const [_key, { page, query }] = queryKey;
@@ -37,6 +39,10 @@ const ArticData = () => {
 
   return (
     <>
+     <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
       <h2>Art Institute of Chicago</h2>
       {/* Search Input */}
       <div>
@@ -49,7 +55,7 @@ const ArticData = () => {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-search"
         >
           Search
         </button>
@@ -59,7 +65,8 @@ const ArticData = () => {
       <ul className="gallery-list">
         {data?.data.length > 0 ? (
           data.data.map((art) => (
-            <li key={art.id}>
+            <li key={art.id}
+            onClick={() => navigate(`/home/artgallery/chicago/${art.id}`)}>
               <h3>{art.title}</h3>
               {art.image_id ? (
                 <img
@@ -69,12 +76,12 @@ const ArticData = () => {
                   onClick={() => navigate(`/home/artgallery/chicago/${art.id}`)}
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p>No results found</p>
         )}
       </ul>
 

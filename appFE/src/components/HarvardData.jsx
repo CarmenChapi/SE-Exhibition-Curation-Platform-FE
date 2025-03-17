@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 10;
@@ -38,9 +39,10 @@ const HarvardData = () => {
 
   return (
     <div>
+      <BackControl/>
       <h2>Harvard Art Museum</h2>
       {/* Search Input */}
-      <div className="mb-4">
+      <div>
         <input
           type="text"
           placeholder="Search for artworks..."
@@ -50,7 +52,7 @@ const HarvardData = () => {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-search"
         >
           Search
         </button>
@@ -60,7 +62,8 @@ const HarvardData = () => {
       <ul className="gallery-list">
         {data.records.length > 0 ? (
           data.records.map((art) => (
-            <li key={art.id}>
+            <li key={art.id} className="gallery-card"
+            onClick={() => navigate(`/home/artgallery/harvard/${art.id}`)}>
               <h3>{art.title || "Untitled"}</h3>
               {art.primaryimageurl ? (
                 <img
@@ -70,12 +73,12 @@ const HarvardData = () => {
                   onClick={() => navigate(`/home/artgallery/harvard/${art.id}`)}
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p >No results found</p>
         )}
       </ul>
 

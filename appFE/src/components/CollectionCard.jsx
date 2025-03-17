@@ -33,11 +33,11 @@ const CollectionCard = ({ collection, setListCollections, listCollections }) => 
 
   const handleOpenCollection = () => {
     console.log(collection.id_collection)
-    navigate(`/home/collection/${collection.id_collection }`);
+    navigate(`/home/collection/${collection.id_collection}-${collection.title}`);
   }
 
   return (
-    <li className="collection-card">
+    <li className="collection-card" onClick={handleOpenCollection}>
       {editing ? (
         <>
           <input
@@ -52,9 +52,9 @@ const CollectionCard = ({ collection, setListCollections, listCollections }) => 
       ) : (
         <div class="button-group">
             <span className="collection-title">{collection.title}</span>
-          <button class="btn-edit" onClick={() => setEditing(true)}>Edit</button>
-          <button class="btn-delete" onClick={handleDelete}>Delete</button>
-          <button class="btn-open" onClick={handleOpenCollection}>Open Collection</button>
+          <button class="btn-edit" onClick={() => setEditing(true)}>Edit Name</button>
+          <button class="btn-delete" onClick={handleDelete}>Delete Collection</button>
+          <button class="btn-open" onClick={handleOpenCollection}>Open</button>
         </div>
       )}
     </li>

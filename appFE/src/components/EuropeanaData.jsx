@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
@@ -46,9 +48,13 @@ const EuropeanaData = () => {
 
   return (
     <>
+  <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
       <h2>Europeana</h2>
       {/* Search Input */}
-      <div className="mb-4">
+      <div>
         <input
           type="text"
           placeholder="Search Europeana Art..."
@@ -58,7 +64,7 @@ const EuropeanaData = () => {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-search"
         >
           Search
         </button>
@@ -67,7 +73,8 @@ const EuropeanaData = () => {
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
-            <li key={art.id} className="mb-4">
+            <li key={art.id}
+            onClick={() => navigate(`/home/artgallery/europeana/${art.id.replaceAll("/","-")}`)}>
               {art.title ? <h3>{art.title[0]}</h3> : <h3>Untitled</h3>}
               {art.edmIsShownBy ? (
                 <img
@@ -77,12 +84,12 @@ const EuropeanaData = () => {
                   onClick={() => navigate(`/home/artgallery/europeana/${art.id.replaceAll("/","-")}`)}
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p >No results found</p>
         )}
       </ul>
       {/* Pagination Controls */}

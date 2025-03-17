@@ -21,16 +21,18 @@ import MetCard from "./components/MetCard"
 import RijksMCard from "./components/RijksMCard";
 import VAMCard from "./components/VamCard";
 import SmithsonianCard from "./components/SmithsonianCard";
+import ListCollections from "./components/ListCollections";
+
 
 function App() {
   return (
     <>
-      <h1>Exhibition Curation Platform</h1>
       <Router>
+      <h1 className="header">Exhibition Curation Platform</h1>
         <Routes>
           <Route path="/" element={<GoogleLogin />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/home/collection" element={<Home />} />
+          <Route path="/home/collection" element={<ListCollections />} />
           <Route path="/home/collection/:collectionId" element={<ListArworks />} />
           <Route path="/home/artgallery/" element={<ListApiArtGalleries/>} />
           <Route path="/home/artgallery/chicago" element={<ArticData/>} />

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
@@ -27,22 +28,16 @@ const HarvardCard = () => {
   console.log(data);
 
   return (
-    <div className="p-4">
-      <button
-        onClick={() => navigate(-1)}
-        className="bg-gray-500 text-white px-4 py-2 rounded"
-      >
-        ⬅ Back
-      </button>
+    <div>
+      <BackControl/>
       <h1 className="text-2xl font-bold mt-4">{artwork.title}</h1>
-      <p className="text-gray-600">
+      <p>
         {artwork.people ? artwork.people[0].name : "Unknown"}
       </p>
       {artwork.primaryimageurl ? (
         <img
           src={artwork.primaryimageurl}
           alt={artwork.title}
-          className="w-full h-auto mt-4 rounded"
         />
       ) : (
         <p>No Image Available</p>
@@ -68,9 +63,9 @@ const HarvardCard = () => {
           ? artwork.verificationleveldescription
           : "Unknown"}
       </p>
-      <p>
-        <strong>URL:</strong> {artwork.url ? artwork.url : "Unknown"}
-      </p>
+      <a
+        href= {artwork.url ? artwork.url : "Unknown"}>  <strong>URL:</strong>{artwork.url ? artwork.url : "Unknown"}
+      </a>
     </div>
   );
 };

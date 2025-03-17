@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { getCollectionByUserMail, addCollection } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 import CollectionCard from "./CollectionCard";
+import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,23 +49,17 @@ const ListCollections = () => {
 
   return (
     <div>
-      <h2 class="collection-title">My Art Collections</h2>
+         <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
+      <h2 class="collection-title">{userCx?.displayName.split(" ")[0]} 's Personal Art Collection"</h2>
 
-      {/* 🔹 Add new collection */}
-      <div class="collection-card">
-        <input
-          type="text"
-          class="collection-input"
-          value={newCollectionTitle}
-          onChange={(e) => setNewCollectionTitle(e.target.value)}
-          placeholder="New Collection Title"
-        />
-        <button class="btn-add" onClick={handleAddCollection}>Add</button>
-      </div>
+  
 
       {/* 🔹 Collection List */}
       {listCollections.length === 0 ? (
-        <p>No collections found.</p>
+        <p>No collections created yet.</p>
       ) : (
         <ul>
           <div class="collection-list">
@@ -78,6 +74,21 @@ const ListCollections = () => {
           </div>
         </ul>
       )}
+
+    {/* 🔹 Add new collection */}
+    <div class="collection-card">
+      <spam>Create a new art collection</spam>
+        <input
+          type="text"
+          class="collection-input"
+          value={newCollectionTitle}
+          onChange={(e) => setNewCollectionTitle(e.target.value)}
+          placeholder="New Collection Title"
+        />
+        <button className="btn-add" onClick={handleAddCollection}>Add New Collection</button>
+      </div>
+
+
     </div>
   );
 };

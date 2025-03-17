@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
@@ -46,6 +47,7 @@ const RijksMData = () => {
 
   return (
     <div>
+      <BackControl/>
       <h2>Rijksmuseum</h2>
       {/* Search Input */}
       <div>
@@ -78,12 +80,12 @@ const RijksMData = () => {
                   onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p>No results found</p>
         )}
       </ul>
 

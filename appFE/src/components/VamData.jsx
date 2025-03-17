@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 const ITEMS_PER_PAGE = 6;
 
 const fetchVAMData = async ({ queryKey }) => {
@@ -45,6 +46,7 @@ const VAMData = () => {
 
   return (
     <div>
+      <BackControl/>
       <h2>Victoria & Albert Museum</h2>
       {/* Search Input */}
       <div className="mb-4">
@@ -57,7 +59,7 @@ const VAMData = () => {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-search"
         >
           Search
         </button>
@@ -67,11 +69,17 @@ const VAMData = () => {
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
-            <li key={art.systemNumber} className="mb-4">
+            <li key={art.systemNumber} 
+            onClick={() => navigate(`/home/artgallery/vam/${art.systemNumber}`)}>
               {art._primaryTitle ? (
                 <h3>{art._primaryTitle}</h3>
               ) : (
                 <h3>Untitled</h3>
+              )}
+               {art._primaryMaker ? (
+                <h3>{art._primaryMaker}</h3>
+              ) : (
+                <h3>Unknown</h3>
               )}
               {art._primaryImageId ? (
                 <img

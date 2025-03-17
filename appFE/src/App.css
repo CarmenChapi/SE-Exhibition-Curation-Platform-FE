@@ -6,16 +6,24 @@ body {
   text-align: center;
 }
 
+#root{
+  background-color: #a2d2ff;
+  padding: 10px;
+  margin:10px;
+  width: 90ch;
+}
+
 /* Header */
 h1 {
-  font-size: 28px;
+  font-size: 32px;
+  padding: 5px;
   margin-bottom: 10px;
-  color: #222;
+  color: black;
 }
 
 h2 {
-  font-size: 20px;
-  color: #555;
+  font-size: 28px;
+  color: black;
 }
 
 /* Buttons */
@@ -29,18 +37,18 @@ button {
 }
 
 .btn-edit {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #4caf50;
+  color: black;
 }
 
 .btn-open {
-  background-color: #3498DB;
-  color: white;
+  background-color: #bad7f2;
+  color: black;
 }
 
 .btn-add {
-  background-color: green;
-  color: white;
+  background-color: #b0f2b4;
+  color: black;
 }
 
 button:hover {
@@ -48,8 +56,6 @@ button:hover {
 }
 
 /* Collection Cards */
-
-
 
 /* Collection Title */
 .collection-title {
@@ -67,7 +73,7 @@ button:hover {
   justify-content: space-between;
 }
 
-ul{
+ul {
   list-style: none;
 }
 
@@ -75,21 +81,18 @@ ul{
   transform: translateY(-2px);
 }
 
-
 /* Input Styling */
 .collection-input {
-  padding: 6px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 8px;
 }
 
-
-
 /* Edit Button */
 .btn-edit {
-  background-color: #f1c40f;
-  color: white;
+  background-color: #e9ff70;
+  color: black;
 }
 
 .btn-edit:hover {
@@ -98,22 +101,12 @@ ul{
 
 /* Delete Button */
 .btn-delete {
-  background-color: #e74c3c;
-  color: white;
+  background-color: #ffafcc;
+  color: black;
 }
 
 .btn-delete:hover {
   background-color: #c0392b;
-}
-
-/* Open Collection Button */
-.btn-open {
-  background-color: #3498db;
-  color: white;
-}
-
-.btn-open:hover {
-  background-color: #2980b9;
 }
 
 /* Save Button */
@@ -122,61 +115,52 @@ ul{
   color: white;
 }
 
-.btn-save:hover {
-  background-color: #27ae60;
-}
-
 /* Cancel Button */
 .btn-cancel {
   background-color: #95a5a6;
   color: white;
 }
 
-.btn-cancel:hover {
-  background-color: #7f8c8d;
-}
-
-
-
-
 .collection-list {
   flex-direction: column; /* Stack items on top of each other */
   align-items: flex-start;
   padding: 10px;
-  gap: 10px; /* Space between list items */
-  padding: 0;
+  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Takes full width of parent */
+  max-width: 90vw;
 }
 
 .collection-card {
   flex-direction: column; /* Stack items on top of each other */
   align-items: flex-start;
-  padding: 10px;;
+  padding: 10px;
   background-color: white;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
+  padding: 10px;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;  /* Takes full width of parent */
-  max-width: 90vw; 
+  width: 90%; /* Takes full width of parent */
+  max-width: 50vw;
 }
 
-.gallery-list{
-  flex-direction: column; /* Stack items on top of each other */
-  align-items: flex-start;
-  padding: 10px;;
+.gallery-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: white;
-  padding: 12px;
-  margin-bottom: 10px;
+  padding: 40px;
+  margin: 40px;
   border-radius: 8px;
+  gap: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 90vw; 
+  max-width: 70vw;
 }
 
-.gallery-photo{
-  width: 100%;  /* Takes full width of parent */
-  max-width: 50vw; 
+.gallery-photo {
+  width: 100%; /* Takes full width of parent */
+  max-width: 45vw;
 }
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -184,6 +168,70 @@ ul{
     flex-direction: column;
     gap: 6px;
   }
-  
+}
 
+.btn-back {
+  background-color : #bde0fe;
+  color: black;
+  padding: 10px;
+}
+
+.btn-search {
+  background-color: #bde0fe;
+  color: black;
+}
+
+a {
+  color: inherit; /* Inherits text color from parent */
+  text-decoration: none; /* Removes underline */
+}
+
+
+.userPhoto{
+  width: 50px;  /* Adjust size */
+  height: 50px; /* Ensure it's a perfect square */
+  border-radius: 50%; /* Makes it round */
+  object-fit: cover; 
+}
+
+.userProfile{
+  display: flex;
+  flex-direction: items-center;
+  align-items: center;
+  justify-content: flex-end; 
+  width: 100%; 
+  padding: 10px; 
+}
+
+.menuCollections{
+  display: flex;
+  flex-direction: items-center;
+  align-items: center;
+  justify-content: space-around; 
+  width: 80%; 
+  padding: 10px; 
+}
+
+.topMenu{
+  display: flex;
+  flex-direction: items-center;
+  align-items: center;
+  justify-content: space-around; 
+  width: 100%; 
+  padding: 10px; 
+}
+
+.btn-menu{
+  background-color: #bde0fe;
+  color: black
+}
+
+.btn-gallery{
+  background-color: #cdb4db;
+  color: black;
+}
+
+.detail-photo{
+  width: 100%; /* Takes full width of parent */
+  max-width: 90vw;
 }

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
@@ -28,42 +29,34 @@ const EuropeanaCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.object;
-  console.log(data.object, artwork.proxies[0].year);
+  console.log(artwork.proxies[1],   artwork.proxies[1].dcDescription );
 
   return (
     <div className="p-4">
-      <button
-        onClick={() => navigate(-1)}
-        className="bg-gray-500 text-white px-4 py-2 rounded"
-      >
-        ⬅ Back
-      </button>
-      <h1 className="text-2xl font-bold mt-4">
-        {artwork.proxies[0].dcTitle.en[0]}
+    <BackControl/>
+      <h1 >
+        {artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en : "Unknown"}
       </h1>
-      <p className="text-gray-600">{artwork.proxies[0].dcCreator?.en[0] ?  artwork.proxies[0].dcCreator?.en[0] : "Unknown" }</p>
+      <p >{artwork.proxies[1].dcCreator ?  artwork.proxies[1].dcCreator.def[0] : "Unknown" }</p>
       {artwork.aggregations[0].edmIsShownBy ? (
         <img
           src={artwork.aggregations[0].edmIsShownBy}
-          alt={artwork.proxies[0].dcTitle.en[0]}
-          className="w-full h-auto mt-4 rounded"
+          alt={artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en : "Unknown" }
+          className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
       )}
+  
       <p>
-        <strong>Location:</strong>{" "}
-        {artwork.proxies[0].dcDescription.en[1] ?  artwork.proxies[0].dcDescription.en[1] : "Unknown"}
+        <strong>Type:</strong> {artwork.proxies[0].edmType ? artwork.proxies[0].edmType :  "Unknown"}
       </p>
       <p>
-        <strong>Type:</strong> {artwork.proxies[0].dcType.en[0] ? artwork.proxies[0].dcType.en[0] :  "Unknown"}
-      </p>
-      <p>
-        <strong>Date:</strong> {artwork.proxies[0].dcDate ? artwork.proxies[0].dcDate.zxx  :  "Unknown"}
+        <strong>Date:</strong> {artwork.proxies[0].dctermsCreated ? artwork.proxies[0].dctermsCreated.def[0] :  "Unknown"}
       </p>
       <p>
         <strong>Description:</strong>{" "}
-        {artwork.proxies[0].dcDescription.en[0] ? artwork.proxies[0].dcDescription.en[0] : "Unknown"}
+        {artwork.proxies[1].dcDescription ? artwork.proxies[1].dcDescription.de[1] : "Unknown"}
       </p>
 
     </div>

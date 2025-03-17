@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackControl from "./BackControl";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
@@ -57,6 +58,8 @@ const METData = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
+    <>
+    <BackControl/>
     <div>
         <h2>The Metropolitan Museum of Art</h2>
       {/* Search Input */}
@@ -70,7 +73,7 @@ const METData = () => {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-search"
         >
           Search
         </button>
@@ -110,6 +113,7 @@ const METData = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

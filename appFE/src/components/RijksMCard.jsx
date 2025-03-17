@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
@@ -28,12 +29,7 @@ const RijksMCard = () => {
 
   return (
     <div className="p-4">
-      <button
-        onClick={() => navigate(-1)}
-        className="bg-gray-500 text-white px-4 py-2 rounded"
-      >
-        ⬅ Back
-      </button>
+      <BackControl/>
       <h1 className="text-2xl font-bold mt-4">{artwork.title}</h1>
       <p className="text-gray-600">
         {artwork.principalMaker ? artwork.principalMaker : "Unknown"}
@@ -68,8 +64,10 @@ const RijksMCard = () => {
 
       <p>
         <strong>URL:</strong>{" "}
-        {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
       </p>
+      <a
+        href= {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}>  {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
+      </a>
     </div>
   );
 };

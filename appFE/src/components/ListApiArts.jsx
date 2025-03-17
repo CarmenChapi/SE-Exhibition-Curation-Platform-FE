@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const apiList = [
   { name: "Art Institute of Chicago", path: "/chicago" },
@@ -15,20 +17,26 @@ const ListApiArtGalleries = () => {
   const navigate = useNavigate(); // React Router navigation
 
   return (
-    <div className="p-4">
-      <p className="text-lg font-bold mb-3">Select an Art Collection</p>
-      <ul className="space-y-2">
+    <div >
+      <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
+       <section className="artApis">
+      <h2>Select an art collection to browse and explore</h2>
+      <ul >
         {apiList.map((artCollection, index) => (
           <li key={index}>
             <button
               onClick={() => navigate(`/home/artgallery${artCollection.path}`)}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md w-full text-left"
+              className="btn-gallery"
             >
               {artCollection.name}
             </button>
           </li>
         ))}
       </ul>
+      </section>
     </div>
   );
 };

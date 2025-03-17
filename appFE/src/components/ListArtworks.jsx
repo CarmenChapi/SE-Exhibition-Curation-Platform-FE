@@ -3,10 +3,15 @@ import { getArtworksByCollection, addArtwork } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 import { useParams } from "react-router-dom";
 import ArtworkCard from "./ArtworkCard";
+import BackControl from "./BackControl";
 
 const ListArtworks = ({  }) => {
 
-  const { collectionId } = useParams();
+  let { collectionId } = useParams();
+  const nameCollection = collectionId.split("-")[1];
+  collectionId = collectionId.split("-")[0];
+  console.log(collectionId, nameCollection)
+
   //console.log(collectionId)
   const [isLoading, setIsLoading] = useState(true);
   const [artworks, setArtworks] = useState([]);
@@ -66,10 +71,11 @@ const ListArtworks = ({  }) => {
 
   return (
     <div>
-      <h2>Artworks in Collection</h2>
+      <BackControl/>
+      <h2>{userCx?.displayName.split(" ")[0]}'s {nameCollection} Collection:</h2>
 
       {/* 🔹 Add new artwork */}
-      <div class="collection-card">
+      <div className="gallery-list ">
         <input
           type="text"
           class= "collection-input"
@@ -109,7 +115,7 @@ const ListArtworks = ({  }) => {
 
       {/* 🔹 Artwork List */}
       {artworks.length === 0 ? (
-        <p>No artworks found.</p>
+        <p>No artworks added.</p>
       ) : (
         <ul class="collection-list">
           {artworks.map((artwork) => (
