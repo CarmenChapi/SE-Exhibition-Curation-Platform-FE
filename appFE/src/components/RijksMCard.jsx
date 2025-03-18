@@ -25,20 +25,20 @@ const RijksMCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.artObject;
-  console.log(data.artObject);
+  //console.log(data.artObject);
 
   return (
     <div className="p-4">
       <BackControl/>
-      <h1 className="text-2xl font-bold mt-4">{artwork.title}</h1>
-      <p className="text-gray-600">
+      <h1>{artwork.title}</h1>
+      <p>
         {artwork.principalMaker ? artwork.principalMaker : "Unknown"}
       </p>
       {artwork.webImage.url ? (
         <img
           src={artwork.webImage.url}
           alt={artwork.title}
-          className="w-full h-auto mt-4 rounded"
+                  className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
@@ -53,7 +53,7 @@ const RijksMCard = () => {
       </p>
       <p>
         <strong>Techniques:</strong>{" "}
-        {artwork.techniques ? artwork.techniques : "Unknown"}
+        {artwork.techniques.length > 0 ? artwork.techniques.toString() : "Unknown"}
       </p>
       <p>
         <strong>Date:</strong>{" "}
@@ -66,7 +66,8 @@ const RijksMCard = () => {
         <strong>URL:</strong>{" "}
       </p>
       <a
-        href= {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}>  {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
+        href= {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : ""}
+        title="See this artwork in www.rijksmuseum.nl">  {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
       </a>
     </div>
   );

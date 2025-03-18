@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
@@ -47,7 +48,10 @@ const RijksMData = () => {
 
   return (
     <div>
-      <BackControl/>
+          <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
       <h2>Rijksmuseum</h2>
       {/* Search Input */}
       <div>
@@ -70,7 +74,8 @@ const RijksMData = () => {
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
-            <li key={art.id}>
+            <li key={art.id}
+            onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
               {art.webImage ? (
                 <img

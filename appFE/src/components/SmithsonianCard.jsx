@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 
@@ -24,40 +25,35 @@ const SmithsonianCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.response;
-  console.log(data.response);
+  //console.log(data.response);
 
   return (
-    <div className="p-4">
-      <button
-        onClick={() => navigate(-1)}
-        className="bg-gray-500 text-white px-4 py-2 rounded"
-      >
-        ⬅ Back
-      </button>
-      <h1 className="text-2xl font-bold mt-4">{artwork.title}</h1>
-      <p className="text-gray-600">
-        {artwork.content.freetext.name.content ? artwork.content.freetext.name.content : "Unknown"}
+    <div>
+  <BackControl/>
+      <h1>{artwork.title ? artwork.title : "Untitle"}</h1>
+      <p>
+        {artwork.content.freetext.name ? artwork.content.freetext.name[0].content : "Unknown"}
       </p>
-      {/* {artwork.webImage.url ? (
+      {artwork.webImage ? (
         <img
           src={artwork.webImage.url}
           alt={artwork.title}
-          className="w-full h-auto mt-4 rounded"
+          className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
-      )} */}
+      )}
       <p>
         <strong>Description:</strong>{" "}
-        {artwork.content.notes ? artwork.content.notes.content : "Unknown"}
+        {artwork.content.freetext.notes[0] ? artwork.content.freetext.notes[0].content : "Unknown"}
       </p>
       <p>
-        <strong>Medium:</strong>{" "}
-        {artwork.physicalMedium ? artwork.physicalMedium : "Unknown"}
+        <strong>Type:</strong>{" "}
+        {artwork.content.indexedStructured.object_type ? artwork.content.indexedStructured.object_type[0] : "Unknown"}
       </p>
       <p>
-        <strong>Techniques:</strong>{" "}
-        {artwork.techniques ? artwork.techniques : "Unknown"}
+        <strong>Topic:</strong>{" "}
+        {artwork.content.indexedStructured.topic ? artwork.content.indexedStructured.topic.toString()  : "Unknown"}
       </p>
       <p>
         <strong>Date:</strong>{" "}
@@ -66,10 +62,12 @@ const SmithsonianCard = () => {
           : "Unknown"}
       </p>
 
-      <p>
+      <a
+      href={artwork.content.descriptiveNonRepeating.record_link || "" }
+      title="See the item in the Smithsonian website">
         <strong>URL:</strong>{" "}
-        {artwork.content.record_link ? artwork.content.record_link : "Unknown"}
-      </p>
+        {artwork.content.descriptiveNonRepeating.record_link ? artwork.content.descriptiveNonRepeating.record_link : "Link no available"}
+      </a>
     </div>
   );
 };

@@ -38,6 +38,7 @@ const HarvardCard = () => {
         <img
           src={artwork.primaryimageurl}
           alt={artwork.title}
+          className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
@@ -64,7 +65,8 @@ const HarvardCard = () => {
           : "Unknown"}
       </p>
       <a
-        href= {artwork.url ? artwork.url : "Unknown"}>  <strong>URL:</strong>{artwork.url ? artwork.url : "Unknown"}
+        href= {artwork.url ? artwork.url : "Unknown"}
+        title="See this artwork in www.HarvardMuseum.org">  <strong>URL:</strong>{artwork.url ? artwork.url : "Unknown"}
       </a>
     </div>
   );

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 10;
@@ -39,7 +40,10 @@ const HarvardData = () => {
 
   return (
     <div>
-      <BackControl/>
+        <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
       <h2>Harvard Art Museum</h2>
       {/* Search Input */}
       <div>

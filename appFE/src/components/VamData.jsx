@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
+
 const ITEMS_PER_PAGE = 6;
 
 const fetchVAMData = async ({ queryKey }) => {
@@ -46,10 +48,16 @@ const VAMData = () => {
 
   return (
     <div>
-      <BackControl/>
+      <section className="topMenu">
+        <MenuCollections />
+        <BackControl />
+      </section>
+
+
       <h2>Victoria & Albert Museum</h2>
+
       {/* Search Input */}
-      <div className="mb-4">
+      <div>
         <input
           type="text"
           placeholder="Search V&A Art..."
@@ -57,10 +65,7 @@ const VAMData = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="collection-input"
         />
-        <button
-          onClick={handleSearch}
-          className="btn-search"
-        >
+        <button onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
@@ -69,34 +74,37 @@ const VAMData = () => {
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
-            <li key={art.systemNumber} 
-            onClick={() => navigate(`/home/artgallery/vam/${art.systemNumber}`)}>
+            <li
+              key={art.systemNumber}
+              onClick={() =>
+                navigate(`/home/artgallery/vam/${art.systemNumber}`)
+              }>
               {art._primaryTitle ? (
                 <h3>{art._primaryTitle}</h3>
               ) : (
                 <h3>Untitled</h3>
-              )}
-               {art._primaryMaker ? (
-                <h3>{art._primaryMaker}</h3>
-              ) : (
-                <h3>Unknown</h3>
               )}
               {art._primaryImageId ? (
                 <img
                   src={`https://framemark.vam.ac.uk/collections/${art._primaryImageId}/full/843,/0/default.jpg`}
                   alt={art.title ? art.title[0] : "Artwork"}
                   className="gallery-photo"
-                  onClick={() => navigate(`/home/artgallery/vam/${art.systemNumber}`)}
+                  onClick={() =>
+                    navigate(`/home/artgallery/vam/${art.systemNumber}`)
+                  }
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p>No results found</p>
         )}
       </ul>
+
+
+      
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button

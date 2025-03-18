@@ -25,46 +25,51 @@ const MetCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;
-  console.log(data);
+  //console.log(data);
 
   return (
-    <div className="p-4">
-      <BackControl/>
-      <h1 className="text-2xl font-bold mt-4">
-        {artwork.title}
-      </h1>
-      <p className="text-gray-600">{artwork.artistDisplayName ?  artwork.artistDisplayName : "Unknown" }</p>
-      {artwork.primaryImage? (
+    <div>
+
+      <BackControl />
+
+      <h1>{artwork.title}</h1>
+
+      <p>{artwork.artistDisplayName ? artwork.artistDisplayName : "Unknown"}</p>
+      {artwork.primaryImage ? (
         <img
           src={artwork.primaryImage}
           alt={artwork.title}
-          className="w-full h-auto mt-4 rounded"
+          className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
       )}
-         <p>
-        <strong>Department:</strong>{" "}
-        {artwork.department ?  artwork.department : "Unknown"}
+      <p>
+        <strong>Department:</strong>
+        {artwork.department ? artwork.department : "Unknown"}
       </p>
       <p>
-        <strong>Culture:</strong>{" "}
-        {artwork.culture ?  artwork.culture : "Unknown"}
+        <strong>Culture:</strong>
+        {artwork.culture ? artwork.culture : "Unknown"}
       </p>
       <p>
-        <strong>Medium:</strong> {artwork.medium ? artwork.medium :  "Unknown"}
+        <strong>Medium:</strong> {artwork.medium ? artwork.medium : "Unknown"}
       </p>
       <p>
-        <strong>Date:</strong> {artwork.objectDate? artwork.objectDate  :  "Unknown"}
+        <strong>Date:</strong>
+        {artwork.objectDate ? artwork.objectDate : "Unknown"}
       </p>
       <p>
-        <strong>Credit Line:</strong> {artwork.creditLine? artwork.creditLine  :  "Unknown"}
+        <strong>Credit Line:</strong>
+        {artwork.creditLine ? artwork.creditLine : "Unknown"}
       </p>
-    
-      <a
-        href= {artwork.objectURL ? artwork.objectURL : "Unknown"}>  <strong>URL:</strong>{artwork.objectURL ? artwork.objectURL : "Unknown"}
-      </a>
 
+      <a href={artwork.objectURL ? artwork.objectURL : "Unknown"}
+      title="See this artwork in the www.MetMuseum.org">
+
+        <strong>URL:</strong>
+        {artwork.objectURL ? artwork.objectURL : "Unknown"}
+      </a>
     </div>
   );
 };

@@ -78,46 +78,46 @@ const ListArtworks = ({  }) => {
       <div className="gallery-list ">
         <input
           type="text"
-          class= "collection-input"
+          className= "collection-input"
           placeholder="Title"
           value={newArtwork.title}
           onChange={(e) => setNewArtwork({ ...newArtwork, title: e.target.value })}
         />
         <input
           type="text"
-          class= "collection-input"
+          className= "collection-input"
           placeholder="Location"
           value={newArtwork.location}
           onChange={(e) => setNewArtwork({ ...newArtwork, location: e.target.value })}
         />
         <input
           type="text"
-          class= "collection-input"
+          className= "collection-input"
           placeholder="Artist"
           value={newArtwork.artist}
           onChange={(e) => setNewArtwork({ ...newArtwork, artist: e.target.value })}
         />
         <input
           type="text"
-          class= "collection-input"
+          className= "collection-input"
           placeholder="Image URL"
           value={newArtwork.image_url}
           onChange={(e) => setNewArtwork({ ...newArtwork, image_url: e.target.value })}
         />
         <textarea
-        class= "collection-input"
+        className= "collection-input"
           placeholder="Description"
           value={newArtwork.description}
           onChange={(e) => setNewArtwork({ ...newArtwork, description: e.target.value })}
         />
-        <button class= "btn-add" onClick={handleAddArtwork}>Add Artwork</button>
+        <button className= "btn-add" onClick={handleAddArtwork}>Add a new artwork</button>
       </div>
 
       {/* 🔹 Artwork List */}
       {artworks.length === 0 ? (
         <p>No artworks added.</p>
       ) : (
-        <ul class="collection-list">
+        <ul className="collection-list">
           {artworks.map((artwork) => (
             <ArtworkCard
               key={artwork.id_artwork}

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MenuCollections from "./MenuCollections";
+import BackControl from "./BackControl";
 import axios from "axios";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
@@ -48,10 +50,15 @@ const SmithData = () => {
 
   return (
     <>
+        <section className="topMenu">
+        <MenuCollections />
+        <BackControl />
+      </section>
+
       <h2>Smithsonian Institution</h2>
 
       {/* Search Input */}
-      <div className="mb-4">
+      <div className="collection-input">
         <input
           type="text"
           placeholder="Search Smithsonian Art..."
@@ -61,7 +68,7 @@ const SmithData = () => {
         />
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-search"
         >
           Search
         </button>
@@ -69,7 +76,8 @@ const SmithData = () => {
     <ul className="gallery-list">
       {paginatedItems.length > 0 ? (
         paginatedItems.map((art) => (
-          <li key={art.id}>
+          <li key={art.id}
+          onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}>
             {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
             {art.content.descriptiveNonRepeating.online_media?.media[0]
               ?.content ? (
@@ -83,14 +91,13 @@ const SmithData = () => {
                 onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
               />
             ) : (
-              <p className="text-gray-500"
-              onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
+              <p 
               >No Image Available</p>
             )}
           </li>
         ))
       ) : (
-        <p className="text-gray-500">No results found</p>
+        <p>No results found</p>
       )}
 
 </ul>

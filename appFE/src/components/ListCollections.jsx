@@ -53,7 +53,7 @@ const ListCollections = () => {
        <MenuCollections/>
        <BackControl/>
        </section>
-      <h2 class="collection-title">{userCx?.displayName.split(" ")[0]} 's Personal Art Collection"</h2>
+      <h2 className="collection-title">{userCx?.displayName.split(" ")[0]} 's Personal Art Collections:"</h2>
 
   
 
@@ -62,7 +62,7 @@ const ListCollections = () => {
         <p>No collections created yet.</p>
       ) : (
         <ul>
-          <div class="collection-list">
+          <div className="collection-list">
           {listCollections.map((collection) => (
             <CollectionCard
               key={collection.id_collection}
@@ -76,11 +76,11 @@ const ListCollections = () => {
       )}
 
     {/* 🔹 Add new collection */}
-    <div class="collection-card">
+    <div className="collection-card">
       <spam>Create a new art collection</spam>
         <input
           type="text"
-          class="collection-input"
+          className="collection-input"
           value={newCollectionTitle}
           onChange={(e) => setNewCollectionTitle(e.target.value)}
           placeholder="New Collection Title"

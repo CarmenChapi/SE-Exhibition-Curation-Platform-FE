@@ -39,7 +39,7 @@ const VAMCard = () => {
         <img
           src={`https://framemark.vam.ac.uk/collections/${id_image}/full/843,/0/default.jpg`}
           alt={artwork.record.titles[0].title}
-          className="w-full h-auto mt-4 rounded"
+           className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
@@ -63,7 +63,8 @@ const VAMCard = () => {
       </p>
       <p>
         <strong>URL:</strong>{" "}
-      <a href={artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : "Unknown"}>{artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : "Unknown"}</a>
+      <a href={artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : ""}
+      title="See this artwork in the VAM website">{artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : "Unknown"}</a>
       </p>
 
     </div>

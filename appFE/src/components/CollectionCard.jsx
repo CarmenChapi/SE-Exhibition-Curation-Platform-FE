@@ -50,11 +50,11 @@ const CollectionCard = ({ collection, setListCollections, listCollections }) => 
           <button className="btn-cancel" onClick={() => setEditing(false)}>Cancel</button>
         </>
       ) : (
-        <div class="button-group">
+        <div className="button-group">
             <span className="collection-title">{collection.title}</span>
-          <button class="btn-edit" onClick={() => setEditing(true)}>Edit Name</button>
-          <button class="btn-delete" onClick={handleDelete}>Delete Collection</button>
-          <button class="btn-open" onClick={handleOpenCollection}>Open</button>
+          <button className="btn-edit" onClick={() => setEditing(true)}>Edit Name</button>
+          <button className="btn-delete" onClick={handleDelete}>Delete Collection</button>
+          <button className="btn-open" onClick={handleOpenCollection}>Open</button>
         </div>
       )}
     </li>

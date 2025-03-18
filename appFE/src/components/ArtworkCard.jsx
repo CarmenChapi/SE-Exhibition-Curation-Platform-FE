@@ -30,51 +30,52 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
   };
 
   return (
-    <li class = "collection-card">
+    <li className = "collection-list">
       {editing ? (
         <>
           <input
-            class = "collection-input"
+            className = "collection-input"
             type="text"
             value={updatedArtwork.title}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, title: e.target.value })}
           />
           <input
             type="text"
-            class = "collection-input"
-            value={updatedArtwork.location}
-            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, location: e.target.value })}
-          />
-          <input
-            type="text"
-            class = "collection-input"
+            className = "collection-input"
             value={updatedArtwork.artist}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, artist: e.target.value })}
           />
           <input
             type="text"
-            class = "collection-input"
+            className = "collection-input"
+            value={updatedArtwork.location}
+            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, location: e.target.value })}
+          />
+          <input
+            type="text"
+            className = "collection-input"
             value={updatedArtwork.image_url}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, image_url: e.target.value })}
           />
           <textarea
-            class = "collection-input"
+            className = "collection-input"
             value={updatedArtwork.description}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, description: e.target.value })}
           />
-          <button class="btn-save" onClick={handleUpdate}>Save</button>
-          <button class="btn-cancel" onClick={() => setEditing(false)}>Cancel</button>
+          <button className="btn-save" onClick={handleUpdate}>Save</button>
+          <button className="btn-cancel" onClick={() => setEditing(false)}>Cancel</button>
         </>
       ) : (
         <>
           <h3>{artwork.title}</h3>
           {artwork.image_url && (
-          <img src={artwork.image_url} alt={artwork.title} width="150" />)}
-          <p>{artwork.description}</p>
+          <img src={artwork.image_url} alt={artwork.title} 
+          className="detail-photo" />)}
+          <p><strong>Description:</strong> {artwork.description}</p>
           <p><strong>Artist:</strong> {artwork.artist}</p>
           <p><strong>Location:</strong> {artwork.location}</p>     
-          <button class = "btn-edit" onClick={() => setEditing(true)}>Edit</button>
-          <button class = "btn-delete" onClick={handleDelete}>Delete</button>
+          <button className = "btn-back" onClick={() => setEditing(true)}>Edit</button>
+          <button className = "btn-back" onClick={handleDelete}>Delete</button>
         </>
       )}
     </li>

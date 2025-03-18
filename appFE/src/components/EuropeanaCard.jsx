@@ -6,12 +6,12 @@ import BackControl from "./BackControl";
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
 const fetchArtworkDetails = async (artworkId) => {
-  const { data } = await axios.get(
-    `https://api.europeana.eu/record/v2/${artworkId.replaceAll(
-      "-",
-      "/"
-    )}.json?wskey=${apiKeyEuro}`
-  );
+  const query = `https://api.europeana.eu/record/v2/${artworkId.replaceAll(
+    "-",
+    "/"
+  )}.json?wskey=${apiKeyEuro}`;
+  // console.log(query)
+  const { data } = await axios.get(query);
   return data;
 };
 
@@ -19,6 +19,7 @@ const EuropeanaCard = () => {
   const { artId } = useParams(); 
   // console.log(artId.replaceAll("-","/"))
   const navigate = useNavigate();
+
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["artworkDetails", artId],
@@ -29,36 +30,51 @@ const EuropeanaCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.object;
-  console.log(artwork.proxies[1],   artwork.proxies[1].dcDescription );
+  //console.log(artwork.proxies[1],   artwork.proxies[1].dcDescription );
+
 
   return (
-    <div className="p-4">
+    <div>
     <BackControl/>
       <h1 >
-        {artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en : "Unknown"}
-      </h1>
-      <p >{artwork.proxies[1].dcCreator ?  artwork.proxies[1].dcCreator.def[0] : "Unknown" }</p>
+      {artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en[0]  : 
+      (artwork.proxies[1].dcTitle ? artwork.proxies[1].dcTitle.en[0] : "Unknown")}
+      </h1> 
+     <p >{artwork.proxies[0].dcCreator ?  artwork.proxies[0].dcCreator.en[0] : "Unknown" }</p> 
       {artwork.aggregations[0].edmIsShownBy ? (
         <img
           src={artwork.aggregations[0].edmIsShownBy}
-          alt={artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en : "Unknown" }
+          alt={artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en : ""} 
           className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
       )}
-  
-      <p>
-        <strong>Type:</strong> {artwork.proxies[0].edmType ? artwork.proxies[0].edmType :  "Unknown"}
+     <p>
+        <strong>Type:</strong> {artwork.proxies[0].edmType ? artwork.proxies[0].edmType : 
+        (artwork.proxies[1].edmType ? artwork.proxies[1].edmType :  "Unknown")}
       </p>
       <p>
-        <strong>Date:</strong> {artwork.proxies[0].dctermsCreated ? artwork.proxies[0].dctermsCreated.def[0] :  "Unknown"}
+        <strong>Medium:</strong> {artwork.proxies[0].dctermsMedium ? artwork.proxies[0].dctermsMedium.en.toString() : 
+         (artwork.proxies[0].dctermsMedium ? artwork.proxies[0].dctermsMedium.en.toString() : "Unknown")}
       </p>
       <p>
-        <strong>Description:</strong>{" "}
-        {artwork.proxies[1].dcDescription ? artwork.proxies[1].dcDescription.de[1] : "Unknown"}
-      </p>
+        <strong>Date:</strong> {artwork.proxies[0].dcDate ? artwork.proxies[0].dcDate.def[0] :  
+        (artwork.proxies[1].dcDate ? artwork.proxies[1].dcDate.def[0] : "Unknown")}
+      </p> 
+       <p>
+        <strong>Description:</strong>
+         {artwork.proxies[0].dcDescription ? artwork.proxies[0].dcDescription.en[0] : 
+         (artwork.proxies[1].dcDescription ? artwork.proxies[1].dcDescription.en[0] : "Not available")}
+        {/* {artwork.concepts[0].note ? artwork.concepts[0].note.en[0] : ""}*/}
+        {artwork.aggregations[0].webResources[0].textAttributionSnippet ? artwork.aggregations[0].webResources[0].textAttributionSnippet : ""} 
+      </p> 
 
+<p>
+        <strong>URL:</strong>{" "}
+      <a href={`https://www.europeana.eu/en/item${artId.replaceAll("-","/")}`}
+      title="See this artwork in www.europeana.eu">{`https://www.europeana.eu/en/item${artId.replaceAll("-","/")}`}</a>
+      </p>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const ITEMS_PER_PAGE = 6;
 
 const fetchEuroData = async ({ queryKey }) => {
   const [_key, { query }] = queryKey;
-  const searchQuery = query ? `&query=${query}` : "&query=painting";
+  const searchQuery = query ? `&query=${query}` : "&query=art curator";
 
   const { data } = await axios.get(
     `https://api.europeana.eu/record/v2/search.json?wskey=${apiKeyEuro}${searchQuery}&media=true&qf=TYPE:IMAGE&rows=30`
@@ -48,11 +48,14 @@ const EuropeanaData = () => {
 
   return (
     <>
-  <section className="topMenu"> 
-       <MenuCollections/>
-       <BackControl/>
-       </section>
+      <section className="topMenu">
+        <MenuCollections />
+        <BackControl />
+      </section>
+
       <h2>Europeana</h2>
+
+
       {/* Search Input */}
       <div>
         <input
@@ -62,26 +65,38 @@ const EuropeanaData = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="collection-input"
         />
-        <button
-          onClick={handleSearch}
-          className="btn-search"
-        >
+        <button onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
+
+
       {/**Europeana ListArworks */}
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
-            <li key={art.id}
-            onClick={() => navigate(`/home/artgallery/europeana/${art.id.replaceAll("/","-")}`)}>
+            <li
+              key={art.id}
+              onClick={() =>
+                navigate(
+                  `/home/artgallery/europeana/${art.id.replaceAll("/", "-")}`
+                )
+              }
+            >
               {art.title ? <h3>{art.title[0]}</h3> : <h3>Untitled</h3>}
               {art.edmIsShownBy ? (
                 <img
                   className="gallery-photo"
                   src={art.edmIsShownBy[0]}
-                  alt={art.title ? art.title[0] : "Artwork"}
-                  onClick={() => navigate(`/home/artgallery/europeana/${art.id.replaceAll("/","-")}`)}
+                  alt={art.dcDescription ? art.dcDescription[0] : "Artwork"}
+                  onClick={() =>
+                    navigate(
+                      `/home/artgallery/europeana/${art.id.replaceAll(
+                        "/",
+                        "-"
+                      )}`
+                    )
+                  }
                 />
               ) : (
                 <p>No Image Available</p>
@@ -89,9 +104,10 @@ const EuropeanaData = () => {
             </li>
           ))
         ) : (
-          <p >No results found</p>
+          <p>No results found</p>
         )}
       </ul>
+
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button

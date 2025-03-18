@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
@@ -59,7 +60,10 @@ const METData = () => {
 
   return (
     <>
-    <BackControl/>
+        <section className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </section>
     <div>
         <h2>The Metropolitan Museum of Art</h2>
       {/* Search Input */}
@@ -84,7 +88,8 @@ const METData = () => {
       
         {artworks.length > 0 ? (
           artworks.map((art) => (
-            <li key={art.objectID} >
+            <li key={art.objectID} 
+            onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}>
               <h3>{art.title || "Untitled"}</h3>
               <img src={art.primaryImage} alt={art.title} className="gallery-photo" 
                onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}/>

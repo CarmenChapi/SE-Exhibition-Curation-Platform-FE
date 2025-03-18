@@ -43,12 +43,16 @@ const ArticCard = () => {
       )}
 
       <p><strong>Date:</strong> {artwork.data.date_display || "Unknown"}</p>
-      <p><strong>Description:</strong> {artwork.data.thumbnail.alt_text || "Unknown"}</p>
+      <p><strong>Description:</strong> {artwork.data.description || "Unknown"}</p>
       <p><strong>Medium:</strong> {artwork.data.medium_display || "Unknown"}</p>
       <p><strong>Type:</strong> {artwork.data.artwork_type_title || "Unknown"}</p>
       <p><strong>Dimensions:</strong> {artwork.data.dimensions || "Unknown"}</p>
       <p><strong>Credit line:</strong> {artwork.data.credit_line || "Unknown"}</p>
       <p><strong>Department:</strong> {artwork.data.department_title || "Unknown"}</p>
+      <a
+        href= {`https://www.artic.edu/artworks/${artId}`}
+        title="See this artwork in the Chicago Art Institute Website">  <strong>URL:</strong>{`https://www.artic.edu/artworks/${artId}`}
+      </a>
 
       
       
