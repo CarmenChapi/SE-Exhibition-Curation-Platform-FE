@@ -3,8 +3,9 @@ import { UserContext } from "../context/UserContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, provider, signInWithPopup, signOut } from "../firebase";
-import ListCollections from "./ListCollections";
-import ListApiArtGalleries from "./ListApiArts";
+import MenuCollections from "./MenuCollections";
+import IntroRandom from "./IntroRandom";
+import Header from "./Header";
 
 const Home = () => {
   const { userCx, setUserCx } = useContext(UserContext);
@@ -19,7 +20,7 @@ const Home = () => {
           photoURL: currentUser.photoURL,
         });
       } else {
-        setUserCx(null); 
+        setUserCx(null);
       }
     });
 
@@ -38,16 +39,23 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <h2> {userCx?.displayName}!</h2>
-        {/* <img src={userCx?.photoURL} alt="Profile" width="50" />
-      <p>Email: {userCx?.email}</p> */}
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-      <div>
-        {/* <ListCollections /> */}
-        <ListApiArtGalleries/>
-      </div>
+        <Header />
+        <div className="userProfile">
+          <img src={userCx?.photoURL} alt="Profile" className="userPhoto" />
+          <p> Welcome, {userCx?.displayName.split(" ")[0]}!</p>
+          <button
+            onClick={handleLogout}
+            className="btn-back"
+          >
+            Logout
+          </button>
+        </div>
+      <nav>
+      <MenuCollections />
+      </nav>
+      <main>
+      <IntroRandom />
+      </main>
     </>
   );
 };

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
+import Footer from "./Footer";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
@@ -13,7 +15,6 @@ const fetchArtworkDetails = async (artworkId) => {
 
 const HarvardCard = () => {
   const { artId } = useParams();
-  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["artworkDetails", artId],
@@ -27,51 +28,54 @@ const HarvardCard = () => {
   console.log(data);
 
   return (
-    <div className="p-4">
-      <button
-        onClick={() => navigate(-1)}
-        className="bg-gray-500 text-white px-4 py-2 rounded"
-      >
-        ⬅ Back
-      </button>
-      <h1 className="text-2xl font-bold mt-4">{artwork.title}</h1>
-      <p className="text-gray-600">
-        {artwork.people ? artwork.people[0].name : "Unknown"}
-      </p>
-      {artwork.primaryimageurl ? (
-        <img
-          src={artwork.primaryimageurl}
-          alt={artwork.title}
-          className="w-full h-auto mt-4 rounded"
-        />
-      ) : (
-        <p>No Image Available</p>
-      )}
-      <p>
-        <strong>Department:</strong>{" "}
-        {artwork.department
-          ? artwork.department
-          : "Unknown"}
-      </p>
-      <p>
-        <strong>Technique:</strong> {artwork.technique
- ? artwork.technique
- : "Unknown"}
-      </p>
-      <p>
-        <strong>Date:</strong> {artwork.dated ? artwork.dated : "Unknown"}
-      </p>
-      <strong>Culture:</strong> {artwork.culture ? artwork.culture : "Unknown"}
-      <p>
-        <strong>Description:</strong>{" "}
-        {artwork.verificationleveldescription
-          ? artwork.verificationleveldescription
-          : "Unknown"}
-      </p>
-      <p>
-        <strong>URL:</strong> {artwork.url ? artwork.url : "Unknown"}
-      </p>
-    </div>
+    <>
+      <h1>Harvard Art Museum</h1>
+      <nav>
+        <BackControl />
+      </nav>
+
+      <section>
+        <h2>{artwork.title}</h2>
+        <p>{artwork.people ? artwork.people[0].name : "Unknown"}</p>
+        {artwork.primaryimageurl ? (
+          <img
+            src={artwork.primaryimageurl}
+            alt={artwork.title}
+            className="detail-photo"
+          />
+        ) : (
+          <p>No Image Available</p>
+        )}
+        <p>
+          <strong>Department:</strong>{" "}
+          {artwork.department ? artwork.department : "Unknown"}
+        </p>
+        <p>
+          <strong>Technique:</strong>{" "}
+          {artwork.technique ? artwork.technique : "Unknown"}
+        </p>
+        <p>
+          <strong>Date:</strong> {artwork.dated ? artwork.dated : "Unknown"}
+        </p>
+        <strong>Culture:</strong>{" "}
+        {artwork.culture ? artwork.culture : "Unknown"}
+        <p>
+          <strong>Description:</strong>{" "}
+          {artwork.verificationleveldescription
+            ? artwork.verificationleveldescription
+            : "Unknown"}
+        </p>
+        <a
+          href={artwork.url ? artwork.url : "Unknown"}
+          title="See this artwork in www.HarvardMuseum.org"
+        >
+          {" "}
+          <strong>URL:</strong>
+          {artwork.url ? artwork.url : "Unknown"}
+        </a>
+      </section>
+      <Footer />
+    </>
   );
 };
 

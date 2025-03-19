@@ -33,28 +33,30 @@ const CollectionCard = ({ collection, setListCollections, listCollections }) => 
 
   const handleOpenCollection = () => {
     console.log(collection.id_collection)
-    navigate(`/home/collection/${collection.id_collection }`);
+    navigate(`/home/collection/${collection.id_collection}-${collection.title}`);
   }
 
   return (
-    <li className="collection-card">
+    <li className="collection-card" >
       {editing ? (
         <>
+        <label>Edit collection title
           <input
             className="collection-input"
             type="text"
             value={updatedTitle}
             onChange={(e) => setUpdatedTitle(e.target.value)}
           />
-          <button className="btn-save" onClick={handleUpdate}>Save</button>
-          <button className="btn-cancel" onClick={() => setEditing(false)}>Cancel</button>
+          </label>
+          <button className="btn-back" onClick={handleUpdate}>Save</button>
+          <button className="btn-back" onClick={() => setEditing(false)}>Cancel</button>
         </>
       ) : (
-        <div class="button-group">
+        <div className="button-group">
             <span className="collection-title">{collection.title}</span>
-          <button class="btn-edit" onClick={() => setEditing(true)}>Edit</button>
-          <button class="btn-delete" onClick={handleDelete}>Delete</button>
-          <button class="btn-open" onClick={handleOpenCollection}>Open Collection</button>
+          <button className="btn-edit" onClick={() => setEditing(true)}>Edit Name</button>
+          <button className="btn-delete" onClick={handleDelete}>Delete Collection</button>
+          <button className="btn-open" onClick={handleOpenCollection}>Open</button>
         </div>
       )}
     </li>

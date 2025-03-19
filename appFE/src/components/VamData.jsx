@@ -2,12 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
+import Header from "./Header";
+import Footer from "./Footer";
+
 const ITEMS_PER_PAGE = 6;
 
 const fetchVAMData = async ({ queryKey }) => {
   const [_key, { query }] = queryKey;
 
-  // Default search term if no query is provided
+
   const searchQuery = query ? encodeURIComponent(query) : "painting";
 
   const { data } = await axios.get(
@@ -21,6 +26,8 @@ const VAMData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("painting"); // Default query term
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState("");
+  const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
@@ -40,55 +47,116 @@ const VAMData = () => {
     setQuery(searchTerm);
   };
 
+  const handleSort = (a, b) => {
+    if (sortBy === "title") {
+      return a._primaryTitle.localeCompare(b._primaryTitle);
+    } else if (sortBy === "artist") {
+      return a._primaryMaker.name.localeCompare(b._primaryMaker.name);
+    }
+    return 0;
+  };
+
+  let filteredData = paginatedItems || [];
+
+  if (filterByImage) {
+    filteredData = filteredData.filter((art) => art._primaryImageId);
+  }
+
+  filteredData = [...filteredData].sort(handleSort);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
+    <>
+      <Header />
+      <nav className="topMenu">
+        <MenuCollections />
+        <BackControl />
+      </nav>
+
       <h2>Victoria & Albert Museum</h2>
+
       {/* Search Input */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search V&A Art..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="collection-input"
-        />
-        <button
-          onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
-        >
+      <div>
+        <label>
+          Search artworks
+          <input
+            type="text"
+            placeholder="Search V&A Art..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="collection-input"
+          />
+        </label>
+        <button onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
 
+      {/* Sorting & Filtering Options */}
+      <div className="filter-sort-container">
+        <label>
+          Sort by
+          <select
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
+            <option value="">Sort By</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="artist">Artist (A-Z)</option>
+          </select>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterByImage}
+            onChange={() => setFilterByImage(!filterByImage)}
+          />
+          Only show artworks with images
+        </label>
+      </div>
+
       {/* Artworks List */}
       <ul className="gallery-list">
-        {paginatedItems.length > 0 ? (
-          paginatedItems.map((art) => (
-            <li key={art.systemNumber} className="mb-4">
+        {filteredData.length > 0 ? (
+          filteredData.map((art) => (
+            <li
+              key={art.systemNumber}
+              onClick={() =>
+                navigate(`/home/artgallery/vam/${art.systemNumber}`)
+              }
+            >
               {art._primaryTitle ? (
                 <h3>{art._primaryTitle}</h3>
               ) : (
                 <h3>Untitled</h3>
               )}
+
+              {art._primaryMaker.name ? (
+                <p>{art._primaryMaker.name}</p>
+              ) : (
+                <h3>Unknown</h3>
+              )}
               {art._primaryImageId ? (
                 <img
                   src={`https://framemark.vam.ac.uk/collections/${art._primaryImageId}/full/843,/0/default.jpg`}
-                  alt={art.title ? art.title[0] : "Artwork"}
+                  alt={art._primaryTitle ? art._primaryTitle : "Artwork-photo"}
                   className="gallery-photo"
-                  onClick={() => navigate(`/home/artgallery/vam/${art.systemNumber}`)}
+                  onClick={() =>
+                    navigate(`/home/artgallery/vam/${art.systemNumber}`)
+                  }
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p>No results found</p>
         )}
       </ul>
+
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button
@@ -111,7 +179,8 @@ const VAMData = () => {
           Next
         </button>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

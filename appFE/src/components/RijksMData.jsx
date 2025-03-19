@@ -2,6 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackControl from "./BackControl";
+import MenuCollections from "./MenuCollections";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
@@ -22,6 +26,8 @@ const RijksMData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState(""); 
+  const [filterByImage, setFilterByImage] = useState(false); 
   const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
@@ -41,14 +47,41 @@ const RijksMData = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
+  const handleSort = (a, b) => {
+    if (sortBy === "title") {
+      return a.title.localeCompare(b.title);
+    } else if (sortBy === "artist") {
+      return a.principalOrFirstMaker.localeCompare(b.principalOrFirstMaker);
+    }
+    return 0;
+  };
+
+  let filteredData = paginatedItems || [];
+
+  // Apply filtering (only show artworks with images if selected)
+  if (filterByImage) {
+    filteredData = filteredData.filter((art) => art.webImage.url);
+  }
+
+  // Apply sorting
+  filteredData = [...filteredData].sort(handleSort);
+
+
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
+    <>
+    <Header/>
+          <nav className="topMenu"> 
+       <MenuCollections/>
+       <BackControl/>
+       </nav>
       <h2>Rijksmuseum</h2>
       {/* Search Input */}
       <div>
+        <label>Search artworks
         <input
           type="text"
           placeholder="Search Rijksmuseum Art..."
@@ -56,34 +89,58 @@ const RijksMData = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="collection-input"
         />
+        </label>
         <button
           onClick={handleSearch}
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="btn-back"
         >
           Search
         </button>
       </div>
 
+
+          {/* Sorting & Filtering Options */}
+          <div className="filter-sort-container">
+            <label>Sort by
+        <select onChange={(e) => setSortBy(e.target.value)} className="sort-dropdown">
+          <option value="">Sort By</option>
+          <option value="title">Title (A-Z)</option>
+          <option value="artist">Artist (A-Z)</option>
+        </select>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterByImage}
+            onChange={() => setFilterByImage(!filterByImage)}
+          />
+          Only show artworks with images
+        </label>
+      </div>
+
+
       {/* Artworks List */}
       <ul className="gallery-list">
-        {paginatedItems.length > 0 ? (
-          paginatedItems.map((art) => (
-            <li key={art.id}>
+        {filteredData.length > 0 ? (
+          filteredData.map((art) => (
+            <li key={art.id}
+            onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
+              {art.principalOrFirstMaker ? <p>{art.principalOrFirstMaker}</p> : <p>Unkown</p>}
               {art.webImage ? (
                 <img
                   src={art.webImage.url}
-                  alt={art.title ? art.title[0] : "Artwork"}
+                  alt={art.title ? art.title : "Artwork-photo"}
                   className="gallery-photo"
                   onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}
                 />
               ) : (
-                <p className="text-gray-500">No Image Available</p>
+                <p>No Image Available</p>
               )}
             </li>
           ))
         ) : (
-          <p className="text-gray-500">No results found</p>
+          <p>No results found</p>
         )}
       </ul>
 
@@ -109,7 +166,8 @@ const RijksMData = () => {
           Next
         </button>
       </div>
-    </div>
+      <Footer/>
+    </>
   );
 };
 
