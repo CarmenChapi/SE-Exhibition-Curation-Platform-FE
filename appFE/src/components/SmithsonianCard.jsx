@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import Footer from "./Footer";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 
@@ -14,7 +15,6 @@ const fetchArtworkDetails = async (artworkId) => {
 
 const SmithsonianCard = () => {
   const { artId } = useParams();
-  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["artworkDetails", artId],
@@ -25,38 +25,47 @@ const SmithsonianCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.response;
-  //console.log(data.response);
+  //console.log(data.response, artwork.content.descriptiveNonRepeating.online_media.media[0].content);
 
   return (
-    <div>
+    <>
+    <h1 className="Header">Smithsonian Institution</h1>
+    <nav>
   <BackControl/>
-      <h1>{artwork.title ? artwork.title : "Untitle"}</h1>
+  </nav>
+  <section>
+      <h2>{artwork.title ? artwork.title : "Untitle"}</h2>
       <p>
         {artwork.content.freetext.name ? artwork.content.freetext.name[0].content : "Unknown"}
       </p>
-      {artwork.webImage ? (
-        <img
-          src={artwork.webImage.url}
-          alt={artwork.title}
-          className="detail-photo"
-        />
-      ) : (
-        <p>No Image Available</p>
-      )}
+      { 
+  artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content && (
+    <img
+      src={artwork.content.descriptiveNonRepeating.online_media.media[0].content}
+      alt={artwork.title || "Artwork Image"}
+      className="detail-photo"
+    />
+  )
+}
+
+{ !artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content && (
+    <p>No Image Available</p>
+)}
+
       <p>
-        <strong>Description:</strong>{" "}
-        {artwork.content.freetext.notes[0] ? artwork.content.freetext.notes[0].content : "Unknown"}
+        <strong>Description:</strong>
+        {artwork.content.freetext?.notes?.[1]?.content ? artwork.content.freetext.notes[1].content : "Unknown"}
       </p>
       <p>
-        <strong>Type:</strong>{" "}
+        <strong>Type:</strong>
         {artwork.content.indexedStructured.object_type ? artwork.content.indexedStructured.object_type[0] : "Unknown"}
       </p>
       <p>
-        <strong>Topic:</strong>{" "}
-        {artwork.content.indexedStructured.topic ? artwork.content.indexedStructured.topic.toString()  : "Unknown"}
+        <strong>Topic:</strong>
+        {artwork.content.freetext.setName ? artwork.content.freetext.setName[1].content  : "Unknown"}
       </p>
       <p>
-        <strong>Date:</strong>{" "}
+        <strong>Date:</strong>
         {artwork.content.indexedStructured.date
           ? artwork.content.indexedStructured.date
           : "Unknown"}
@@ -64,11 +73,13 @@ const SmithsonianCard = () => {
 
       <a
       href={artwork.content.descriptiveNonRepeating.record_link || "" }
-      title="See the item in the Smithsonian website">
+      title="See the item in the oficial website">
         <strong>URL:</strong>{" "}
         {artwork.content.descriptiveNonRepeating.record_link ? artwork.content.descriptiveNonRepeating.record_link : "Link no available"}
       </a>
-    </div>
+      </section>
+      <Footer/>
+    </>
   );
 };
 

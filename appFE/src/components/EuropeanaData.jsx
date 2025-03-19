@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
@@ -23,6 +25,8 @@ const EuropeanaData = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState("");
+  const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
@@ -43,21 +47,41 @@ const EuropeanaData = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
+  const handleSort = (a, b) => {
+    if (sortBy === "title") {
+      return a.title[0].localeCompare(b.title[0]);
+    } else if (sortBy === "artist") {
+      return b.title[0].localeCompare(a.title[0]);
+    }
+    return 0;
+  };
+
+  let filteredData = paginatedItems || [];
+
+  // Apply filtering (only show artworks with images if selected)
+  if (filterByImage) {
+    filteredData = filteredData.filter((art) => art.edmIsShownBy);
+  }
+
+  // Apply sorting
+  filteredData = [...filteredData].sort(handleSort);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
-      <section className="topMenu">
+    <Header/>
+      <nav className="topMenu">
         <MenuCollections />
         <BackControl />
-      </section>
+      </nav>
 
       <h2>Europeana</h2>
 
-
       {/* Search Input */}
       <div>
+        <label>Search artworks
         <input
           type="text"
           placeholder="Search Europeana Art..."
@@ -65,16 +89,40 @@ const EuropeanaData = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="collection-input"
         />
+        </label>
         <button onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
 
+      {/* Sorting & Filtering Options */}
+   
+      <div className="filter-sort-container">
+      <label>Sort by
+        <select
+          onChange={(e) => setSortBy(e.target.value)}
+          className="sort-dropdown"
+        >
+          <option value="">Sort By</option>
+          <option value="title">Title (A-Z)</option>
+          <option value="artist">Title (Z-A)</option>
+        </select>
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            checked={filterByImage}
+            onChange={() => setFilterByImage(!filterByImage)}
+          />
+          Only show artworks with images
+        </label>
+      </div>
 
       {/**Europeana ListArworks */}
       <ul className="gallery-list">
-        {paginatedItems.length > 0 ? (
-          paginatedItems.map((art) => (
+        {filteredData.length > 0 ? (
+          filteredData.map((art) => (
             <li
               key={art.id}
               onClick={() =>
@@ -88,7 +136,7 @@ const EuropeanaData = () => {
                 <img
                   className="gallery-photo"
                   src={art.edmIsShownBy[0]}
-                  alt={art.dcDescription ? art.dcDescription[0] : "Artwork"}
+                  alt={art.title ? art.title[0] : "photo-artwork"}
                   onClick={() =>
                     navigate(
                       `/home/artgallery/europeana/${art.id.replaceAll(
@@ -130,6 +178,7 @@ const EuropeanaData = () => {
           Next
         </button>
       </div>
+      <Footer/>
     </>
   );
 };

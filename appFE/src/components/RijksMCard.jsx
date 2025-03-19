@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import Footer from "./Footer";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
@@ -14,7 +15,6 @@ const fetchArtworkDetails = async (artworkId) => {
 
 const RijksMCard = () => {
   const { artId } = useParams();
-  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["artworkDetails", artId],
@@ -28,9 +28,13 @@ const RijksMCard = () => {
   //console.log(data.artObject);
 
   return (
-    <div className="p-4">
+    <>
+      <h1>Rijksmuseum</h1>
+    <nav>
       <BackControl/>
-      <h1>{artwork.title}</h1>
+      </nav>
+      <section>
+      <h2>{artwork.title}</h2>
       <p>
         {artwork.principalMaker ? artwork.principalMaker : "Unknown"}
       </p>
@@ -69,7 +73,9 @@ const RijksMCard = () => {
         href= {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : ""}
         title="See this artwork in www.rijksmuseum.nl">  {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
       </a>
-    </div>
+      </section>
+      <Footer/>
+    </>
   );
 };
 

@@ -28,7 +28,6 @@ function App() {
   return (
     <>
       <Router>
-      <h1 className="header">Exhibition Curation Platform</h1>
         <Routes>
           <Route path="/" element={<GoogleLogin />} />
           <Route path="/home" element={<Home />} />

@@ -30,44 +30,55 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
   };
 
   return (
-    <li className = "collection-list">
+    <li className = "collection-card">
       {editing ? (
         <>
+        <h2>Edit artwork</h2>
+        <label> Edit title
           <input
             className = "collection-input"
             type="text"
             value={updatedArtwork.title}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, title: e.target.value })}
           />
+          </label>
+          <label> Edit artist
           <input
             type="text"
             className = "collection-input"
             value={updatedArtwork.artist}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, artist: e.target.value })}
           />
+           </label>
+           <label> Edit location
           <input
             type="text"
             className = "collection-input"
             value={updatedArtwork.location}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, location: e.target.value })}
           />
+              </label>
+              <label> Edit image url
           <input
             type="text"
             className = "collection-input"
             value={updatedArtwork.image_url}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, image_url: e.target.value })}
           />
+            </label>
+            <label> Edit description
           <textarea
             className = "collection-input"
             value={updatedArtwork.description}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, description: e.target.value })}
           />
-          <button className="btn-save" onClick={handleUpdate}>Save</button>
-          <button className="btn-cancel" onClick={() => setEditing(false)}>Cancel</button>
+              </label>
+          <button className="btn-back" onClick={handleUpdate}>Save</button>
+          <button className="btn-back" onClick={() => setEditing(false)}>Cancel</button>
         </>
       ) : (
         <>
-          <h3>{artwork.title}</h3>
+          <h2>{artwork.title}</h2>
           {artwork.image_url && (
           <img src={artwork.image_url} alt={artwork.title} 
           className="detail-photo" />)}

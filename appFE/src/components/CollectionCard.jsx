@@ -37,17 +37,19 @@ const CollectionCard = ({ collection, setListCollections, listCollections }) => 
   }
 
   return (
-    <li className="collection-card" onClick={handleOpenCollection}>
+    <li className="collection-card" >
       {editing ? (
         <>
+        <label>Edit collection title
           <input
             className="collection-input"
             type="text"
             value={updatedTitle}
             onChange={(e) => setUpdatedTitle(e.target.value)}
           />
-          <button className="btn-save" onClick={handleUpdate}>Save</button>
-          <button className="btn-cancel" onClick={() => setEditing(false)}>Cancel</button>
+          </label>
+          <button className="btn-back" onClick={handleUpdate}>Save</button>
+          <button className="btn-back" onClick={() => setEditing(false)}>Cancel</button>
         </>
       ) : (
         <div className="button-group">

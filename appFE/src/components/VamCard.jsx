@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import Footer from "./Footer";
 
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -29,11 +30,16 @@ const VAMCard = () => {
   //console.log(id_image);
 
   return (
-    <div>
+    <>
+    <h1 className="Header">Victoria & Albert Museum</h1>
+    <nav>
       <BackControl/>
-      <h1 >
+      </nav>
+
+      <section>
+      <h2 >
         {artwork.record.titles[0].title}
-      </h1>
+      </h2>
       <p >{artwork.record.artistMakerPerson[0] ?  artwork.record.artistMakerPerson[0].name.text : "Unknown" }</p>
       {id_image ? (
         <img
@@ -66,8 +72,9 @@ const VAMCard = () => {
       <a href={artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : ""}
       title="See this artwork in the VAM website">{artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : "Unknown"}</a>
       </p>
-
-    </div>
+      </section>
+      <Footer/>
+    </>
   );
 };
 

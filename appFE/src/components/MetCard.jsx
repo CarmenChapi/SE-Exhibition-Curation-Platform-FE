@@ -1,19 +1,18 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
-
+import Footer from "./Footer";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
-  `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artworkId}`
+    `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artworkId}`
   );
   return data;
 };
 
 const MetCard = () => {
-  const { artId } = useParams(); 
+  const { artId } = useParams();
   const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery({
@@ -28,11 +27,14 @@ const MetCard = () => {
   //console.log(data);
 
   return (
-    <div>
+    <>
+      <h1>The Metropolitan Museum of Art</h1>
+      <nav>
+        <BackControl />
+      </nav>
 
-      <BackControl />
-
-      <h1>{artwork.title}</h1>
+    <section>
+      <h2>{artwork.title}</h2>
 
       <p>{artwork.artistDisplayName ? artwork.artistDisplayName : "Unknown"}</p>
       {artwork.primaryImage ? (
@@ -64,13 +66,16 @@ const MetCard = () => {
         {artwork.creditLine ? artwork.creditLine : "Unknown"}
       </p>
 
-      <a href={artwork.objectURL ? artwork.objectURL : "Unknown"}
-      title="See this artwork in the www.MetMuseum.org">
-
+      <a
+        href={artwork.objectURL ? artwork.objectURL : "Unknown"}
+        title="See this artwork in the www.MetMuseum.org"
+      >
         <strong>URL:</strong>
         {artwork.objectURL ? artwork.objectURL : "Unknown"}
       </a>
-    </div>
+      </section>
+      <Footer/>
+    </>
   );
 };
 
