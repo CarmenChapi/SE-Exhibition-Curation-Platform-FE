@@ -57,7 +57,7 @@ const ArticData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Chicago Art Institute Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

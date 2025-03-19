@@ -12,7 +12,7 @@ const ITEMS_PER_PAGE = 6;
 
 const fetchEuroData = async ({ queryKey }) => {
   const [_key, { query }] = queryKey;
-  const searchQuery = query ? `&query=${query}` : "&query=art curator";
+  const searchQuery = query ? `&query=${query}` : "&query=art";
 
   const { data } = await axios.get(
     `https://api.europeana.eu/record/v2/search.json?wskey=${apiKeyEuro}${searchQuery}&media=true&qf=TYPE:IMAGE&rows=30`
@@ -66,7 +66,7 @@ const EuropeanaData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Europeana artworks...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

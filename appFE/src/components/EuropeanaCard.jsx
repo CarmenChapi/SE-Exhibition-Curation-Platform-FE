@@ -27,7 +27,7 @@ const EuropeanaCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Europeana Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.object;

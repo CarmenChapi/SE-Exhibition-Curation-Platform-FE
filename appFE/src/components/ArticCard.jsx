@@ -5,6 +5,9 @@ import BackControl from "./BackControl";
 import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
 
+
+
+
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
     `https://api.artic.edu/api/v1/artworks/${artworkId}`
@@ -20,7 +23,7 @@ const ArticCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Art Chicago Institute Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;
@@ -77,10 +80,16 @@ const ArticCard = () => {
           {`https://www.artic.edu/artworks/${artId}`}
         </a>
       </section>
+
+
+
+
       <ShareArtwork
         title={artwork.data.title}
         url={`https://www.artic.edu/artworks/${artId}`}
       />
+
+
 
       <Footer />
     </>

@@ -21,7 +21,7 @@ const MetCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading MET Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;

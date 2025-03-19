@@ -23,7 +23,7 @@ const VAMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading V&A Museum Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;

@@ -22,7 +22,7 @@ const HarvardCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Harvard Museum Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;

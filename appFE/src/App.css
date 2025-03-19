@@ -117,8 +117,8 @@ ul {
 
 .collection-list {
   flex-direction: column; /* Stack items on top of each other */
-  align-items: flex-start;
   align-items: center;
+
   padding: 10px;
   gap: 10px;
   width: 90%; /* Takes full width of parent */
@@ -127,10 +127,9 @@ ul {
 
 .collection-card {
   flex-direction: column; /* Stack items on top of each other */
-  align-items: flex-start;
+  align-items: center;
   padding: 10px;
   background-color: white;
-  align-items: center;
   width: 90%; /* Takes full width of parent */
   max-width: 100vw;
 }
@@ -276,11 +275,17 @@ a {
 .share-container {
   text-align: center;
   margin-top: 20px;
+  background-color: white;
 }
 
 .share-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
+
 }
 
+
+.Footer{
+  margin-top: auto;
+}
