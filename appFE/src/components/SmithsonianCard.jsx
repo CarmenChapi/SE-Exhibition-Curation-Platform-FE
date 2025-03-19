@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
@@ -21,7 +22,7 @@ const SmithsonianCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Smithsonian Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.response;
@@ -74,10 +75,14 @@ const SmithsonianCard = () => {
       <a
       href={artwork.content.descriptiveNonRepeating.record_link || "" }
       title="See the item in the oficial website">
-        <strong>URL:</strong>{" "}
+        <strong>URL:</strong>
         {artwork.content.descriptiveNonRepeating.record_link ? artwork.content.descriptiveNonRepeating.record_link : "Link no available"}
       </a>
       </section>
+
+      <ShareArtwork title={artwork.title} 
+      url={artwork.content.descriptiveNonRepeating.record_link} />
+
       <Footer/>
     </>
   );

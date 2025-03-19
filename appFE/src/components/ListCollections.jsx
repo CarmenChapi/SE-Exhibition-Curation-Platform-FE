@@ -5,35 +5,36 @@ import CollectionCard from "./CollectionCard";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
 import Header from "./Header";
+import UserProfile from "./UserProfile";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [listCollections, setListCollections] = useState([]);
   const [error, setError] = useState(null);
   const [newCollectionTitle, setNewCollectionTitle] = useState("");
-  //const { userCx } = useContext(UserContext);
-  const userCx ={
-    email : "mariachaparro58@gmail.com",
-    displayName: "Mari del Car"}
+  const { userCx, setUserCx } = useContext(UserContext);
+  // const userCx ={
+  //   email : "mariachaparro58@gmail.com",
+  //   displayName: "Mari del Car"}
 
   useEffect(() => {
-    if (userCx?.email) {
-      fetchCollections();
-    }
-  },[]);// [userCx]);
-
-  const fetchCollections = () => {
-    setIsLoading(true);
-    getCollectionByUserMail(userCx.email)
-      .then((collections) => {
-        setListCollections(collections);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setIsLoading(false);
-      });
-  };
+    const fetchData = async () => {
+      if (userCx?.email) {
+        setIsLoading(true);
+        try {
+          const collections = await getCollectionByUserMail(userCx.email);
+          setListCollections(collections);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+  
+    fetchData(); // Call the function
+  }, [userCx?.email]); // Only re-run when user email changes
+  
 
   const handleAddCollection = () => {
     if (!newCollectionTitle.trim()) return alert("Title cannot be empty!");
@@ -51,7 +52,7 @@ const ListCollections = () => {
       .catch((err) => setError(err));
   };
 
-  if (isLoading) return <h3 className="loading">...Loading</h3>;
+  if (isLoading) return <h3 className="loading">...Loading Collections</h3>;
   if (error && error.status !== 404)
     return <p style={{ color: "red" }}>Error: {error.message}</p>;
 
@@ -61,6 +62,7 @@ const ListCollections = () => {
       <nav className="topMenu">
         <MenuCollections />
         <BackControl />
+        <UserProfile/>
       </nav>
       <h2 className="collection-title">
         {userCx?.displayName.split(" ")[0]} 's Personal Art Collections:
@@ -73,6 +75,7 @@ const ListCollections = () => {
         <ul>
           <div className="collection-list">
             {listCollections.map((collection) => (
+             
               <CollectionCard
                 key={collection.id_collection}
                 collection={collection}
@@ -86,17 +89,17 @@ const ListCollections = () => {
 
       {/* 🔹 Add new collection */}
       <div className="collection-card">
-        <label>Create a new art collection
+        <label>Create a new collection
         <input
           type="text"
           className="collection-input"
           value={newCollectionTitle}
           onChange={(e) => setNewCollectionTitle(e.target.value)}
-          placeholder="New Collection Title"
+          placeholder="Title"
         />
         </label>
         <button className="btn-add" onClick={handleAddCollection}>
-          Add New Collection
+          Add Collection
         </button>
       </div>
     </>

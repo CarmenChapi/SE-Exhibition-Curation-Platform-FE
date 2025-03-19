@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -20,7 +21,7 @@ const MetCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading MET Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;
@@ -74,6 +75,9 @@ const MetCard = () => {
         {artwork.objectURL ? artwork.objectURL : "Unknown"}
       </a>
       </section>
+      
+      <ShareArtwork title={artwork.title} url={artwork.objectURL} />
+
       <Footer/>
     </>
   );

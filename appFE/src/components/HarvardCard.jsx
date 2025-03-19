@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
+import ShareArtwork from "./ShareArt";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
@@ -21,7 +22,7 @@ const HarvardCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Harvard Museum Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;
@@ -74,6 +75,9 @@ const HarvardCard = () => {
           {artwork.url ? artwork.url : "Unknown"}
         </a>
       </section>
+
+      <ShareArtwork title={artwork.title} url={artwork.url} />
+
       <Footer />
     </>
   );

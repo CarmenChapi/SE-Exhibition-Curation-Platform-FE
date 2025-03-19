@@ -73,7 +73,7 @@ const SmithData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Smithsonian Artworks...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

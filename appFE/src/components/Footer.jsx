@@ -1,13 +1,15 @@
-
-
 const Footer = () => {
-    function handleClic(){
-        window.scrollTo(0, 0)
-    }
+  function handleClic() {
+    window.scrollTo(0, 0);
+  }
 
-return(
-<button onClick={handleClic} className="btn-back">Top &#8593;</button> 
-)
-}
+  return (
+    <div className="Footer">
+      <button onClick={handleClic} className="btn-back">
+        Top &#8593;
+      </button>
+    </div>
+  );
+};
 
-export default Footer
+export default Footer;

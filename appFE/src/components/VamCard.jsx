@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
 
 
@@ -22,7 +23,7 @@ const VAMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading V&A Museum Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;
@@ -73,6 +74,9 @@ const VAMCard = () => {
       title="See this artwork in the VAM website">{artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : "Unknown"}</a>
       </p>
       </section>
+      <ShareArtwork title={artwork.record.titles[0].title} 
+      url={artwork.meta._links.collection_page.href} />
+
       <Footer/>
     </>
   );

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
+import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
@@ -21,7 +22,7 @@ const RijksMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading RijksM Artwork...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data.artObject;
@@ -74,6 +75,10 @@ const RijksMCard = () => {
         title="See this artwork in www.rijksmuseum.nl">  {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
       </a>
       </section>
+
+      <ShareArtwork title={artwork.title} 
+      url={`http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}`} />
+
       <Footer/>
     </>
   );

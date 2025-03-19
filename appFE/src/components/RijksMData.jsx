@@ -68,7 +68,7 @@ const RijksMData = () => {
 
 
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading RijksM Artworks...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

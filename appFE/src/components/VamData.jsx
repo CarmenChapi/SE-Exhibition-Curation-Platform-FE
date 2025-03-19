@@ -64,7 +64,7 @@ const VAMData = () => {
 
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading V&A Museum Artworks...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

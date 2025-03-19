@@ -59,7 +59,7 @@ const HarvardData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading Harvard Art Museum Arworks...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

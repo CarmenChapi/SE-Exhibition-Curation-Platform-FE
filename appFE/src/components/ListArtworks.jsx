@@ -66,7 +66,7 @@ const ListArtworks = ({}) => {
       .catch((err) => setError(err));
   };
 
-  if (isLoading) return <h3 className="loading">...Loading</h3>;
+  if (isLoading) return <h3 className="loading">...Loading Arworks</h3>;
   if (error && error.status !== 404)
     return <p style={{ color: "red" }}>Error: {error.message}</p>;
 
