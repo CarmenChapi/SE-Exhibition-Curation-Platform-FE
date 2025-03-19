@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
+import ShareArtwork from "./ShareArt";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
@@ -110,6 +111,16 @@ const EuropeanaCard = () => {
           >{`https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`}</a>
         </p>
       </section>
+
+      <ShareArtwork
+        title={artwork.proxies[0].dcTitle
+          ? artwork.proxies[0].dcTitle.en[0]
+          : artwork.proxies[1].dcTitle
+          ? artwork.proxies[1].dcTitle.en[0]
+          : "Unknown"}
+        url={`https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`}
+      />
+
       <Footer />
     </>
   );

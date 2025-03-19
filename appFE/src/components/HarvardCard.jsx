@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
+import ShareArtwork from "./ShareArt";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
@@ -74,6 +75,9 @@ const HarvardCard = () => {
           {artwork.url ? artwork.url : "Unknown"}
         </a>
       </section>
+
+      <ShareArtwork title={artwork.title} url={artwork.url} />
+
       <Footer />
     </>
   );

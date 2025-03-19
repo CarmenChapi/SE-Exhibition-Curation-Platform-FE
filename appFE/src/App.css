@@ -272,3 +272,15 @@ a {
   width: 90%; 
   padding: 10px; 
 }
+
+.share-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
