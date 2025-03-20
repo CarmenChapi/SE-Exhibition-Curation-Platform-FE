@@ -82,9 +82,18 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
       ) : (
         <>
           <h2>{artwork.title}</h2>
-          {artwork.image_url && (
-          <img src={artwork.image_url} alt={artwork.title} 
-          className="detail-photo" />)}
+
+     
+          {artwork.image_url ? (
+            <img
+              src={artwork.image_url}
+              alt={artwork.title}
+              className="detail-photo"
+            />
+          ) : (
+            <p>No Image Added</p>
+          )}
+   
           <p><strong>Description:</strong> {artwork.description}</p>
           <p><strong>Artist:</strong> {artwork.artist}</p>
           <p><strong>Location:</strong> {artwork.location}</p>     

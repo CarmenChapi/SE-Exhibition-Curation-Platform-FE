@@ -80,8 +80,6 @@ const ListArtworks = ({}) => {
       <BackControl />
       </nav>
 
-
-
       {/* 🔹 Artwork List */}
       {artworks.length === 0 ? (
         <p>No artworks added.</p>
@@ -101,7 +99,7 @@ const ListArtworks = ({}) => {
 
       <section className="gallery-list">
       <h3>Add an artwork in your collection</h3>
-      <div className="input-list">
+
     
         <label>
           Add a name
@@ -166,8 +164,10 @@ const ListArtworks = ({}) => {
         <button className="btn-add" onClick={handleAddArtwork}>
           Add a new artwork
         </button>
-      </div>
+
       </section>
+
+
       <Footer/>
     </>
   );
