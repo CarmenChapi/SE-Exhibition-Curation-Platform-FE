@@ -52,7 +52,7 @@ const CollectionCard = ({
       {editing ? (
         <>
           <label>
-            Edit collection title
+            Edit title
             <input
               className="collection-input"
               type="text"

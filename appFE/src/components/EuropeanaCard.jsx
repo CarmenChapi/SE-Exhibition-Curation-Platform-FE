@@ -41,11 +41,9 @@ const EuropeanaCard = () => {
       </nav>
       <section>
         <h2>
-          {artwork.proxies[0].dcTitle
-            ? artwork.proxies[0].dcTitle.en[0]
-            : artwork.proxies[1].dcTitle
-            ? artwork.proxies[1].dcTitle.en[0]
-            : "Unknown"}
+          {  artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
+  artwork?.proxies?.[1]?.dcTitle?.en?.[0] ??
+  "Unknown"}
         </h2>
         <p>
           {artwork.proxies[0].dcCreator
@@ -65,11 +63,9 @@ const EuropeanaCard = () => {
         )}
         <p>
           <strong>Type:</strong>{" "}
-          {artwork.proxies[0].edmType
-            ? artwork.proxies[0].edmType
-            : artwork.proxies[1].edmType
-            ? artwork.proxies[1].edmType
-            : "Unknown"}
+          {  artwork?.proxies?.[0]?.edmType?.en?.[0] ??
+  artwork?.proxies?.[1]?.edmType?.en?.[0] ??
+  "Unknown"}
         </p>
         <p>
           <strong>Medium:</strong>{" "}
@@ -113,11 +109,9 @@ const EuropeanaCard = () => {
       </section>
 
       <ShareArtwork
-        title={artwork.proxies[0].dcTitle
-          ? artwork.proxies[0].dcTitle.en[0]
-          : artwork.proxies[1].dcTitle
-          ? artwork.proxies[1].dcTitle.en[0]
-          : "Unknown"}
+        title={  artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
+          artwork?.proxies?.[1]?.dcTitle?.en?.[0] ??
+          "Untitle"}
         url={`https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`}
       />
 

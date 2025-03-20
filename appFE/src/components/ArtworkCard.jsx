@@ -33,6 +33,7 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
     <li className = "collection-card">
       {editing ? (
         <>
+        <div className="gallery-list">
         <h2>Edit artwork</h2>
         <label> Edit title
           <input
@@ -72,7 +73,9 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
             value={updatedArtwork.description}
             onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, description: e.target.value })}
           />
+          
               </label>
+              </div>
           <button className="btn-back" onClick={handleUpdate}>Save</button>
           <button className="btn-back" onClick={() => setEditing(false)}>Cancel</button>
         </>

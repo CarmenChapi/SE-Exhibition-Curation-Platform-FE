@@ -86,7 +86,7 @@ const ListArtworks = ({}) => {
       {artworks.length === 0 ? (
         <p>No artworks added.</p>
       ) : (
-        <ul className="gallery-list">
+        <ul className="collection-list">
           {artworks.map((artwork) => (
             <ArtworkCard
               key={artwork.id_artwork}

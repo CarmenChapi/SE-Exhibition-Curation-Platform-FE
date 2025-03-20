@@ -72,7 +72,7 @@ const EuropeanaData = () => {
   return (
     <>
     <Header/>
-      <nav className="topMenu">
+    <nav className="menuCollections">
         <MenuCollections />
         <BackControl />
       </nav>
