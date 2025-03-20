@@ -13,9 +13,9 @@ const images = [
 const IntroRandom = () => {
   return (
     <div className="intro">
-      <p>
-        Uncover a world of inspiration. Explore thousands of masterpieces from
-        the museum’s collection and curate your own private gallery
+      <p><strong>
+        Discover a world of inspiration. Explore thousands of masterpieces from
+        the museum’s collection and curate your private gallery</strong>
       </p>
 
       <div className="collage">

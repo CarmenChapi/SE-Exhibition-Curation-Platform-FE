@@ -126,7 +126,7 @@ const VAMData = () => {
               onClick={() =>
                 navigate(`/home/artgallery/vam/${art.systemNumber}`)
               }
-            >
+              title={`Click to see more info+`}>
               {art._primaryTitle ? (
                 <h3>{art._primaryTitle}</h3>
               ) : (

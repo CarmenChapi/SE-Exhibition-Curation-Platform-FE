@@ -19,8 +19,8 @@ const fetchArticData = async ({ queryKey }) => {
   return data;
 };
 
-const ArticData = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+const ArticData = ({ searchValue = "" }) => {
+  const [searchTerm, setSearchTerm] = useState(searchValue);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("");
@@ -119,6 +119,7 @@ const ArticData = () => {
             <li
               key={art.id}
               onClick={() => navigate(`/home/artgallery/chicago/${art.id}`)}
+              title={`Click to see more info+`}
             >
               <h3>{art.title}</h3>
               <p>{art.artist_display ? art.artist_display : "Unknown"}</p>

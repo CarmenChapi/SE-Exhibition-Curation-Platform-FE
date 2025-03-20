@@ -52,7 +52,7 @@ const ListCollections = () => {
       .catch((err) => setError(err));
   };
 
-  if (isLoading) return <h3 className="loading">...Loading Collections</h3>;
+  if (isLoading) return <h3 className="loading">...Loading User's Collections</h3>;
   if (error && error.status !== 404)
     return <p style={{ color: "red" }}>Error: {error.message}</p>;
 

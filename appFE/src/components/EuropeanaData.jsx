@@ -130,6 +130,7 @@ const EuropeanaData = () => {
                   `/home/artgallery/europeana/${art.id.replaceAll("/", "-")}`
                 )
               }
+              title={`Click to see more info+`}
             >
               {art.title ? <h3>{art.title[0]}</h3> : <h3>Untitled</h3>}
               {art.edmIsShownBy ? (

@@ -138,7 +138,9 @@ const METData = () => {
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li key={art.objectID} 
-            onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}>
+            onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}
+            title={`Click to see more info+`}>
+              
               <h3>{art.title || "Untitled"}</h3>
               <p>{art.artistDisplayName || "Unknown"}</p>
               <img src={art.primaryImage} alt={art.title} className="gallery-photo" 

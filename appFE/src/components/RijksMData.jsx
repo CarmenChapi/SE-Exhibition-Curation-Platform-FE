@@ -124,7 +124,8 @@ const RijksMData = () => {
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li key={art.id}
-            onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}>
+            onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}
+            title={`Click to see more info+`}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
               {art.principalOrFirstMaker ? <p>{art.principalOrFirstMaker}</p> : <p>Unkown</p>}
               {art.webImage ? (

@@ -37,7 +37,7 @@ const UserProfile = () => {
 return(
     <div className="userProfile">
     <img src={userCx?.photoURL} alt="Profile" className="userPhoto" />
-    <p> Welcome, {userCx?.displayName.split(" ")[0]}!</p>
+    <p> Hi, {userCx?.displayName.split(" ")[0]}!</p>
     <button
       onClick={handleLogout}
       className="btn-back"

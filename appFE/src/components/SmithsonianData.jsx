@@ -130,7 +130,7 @@ const SmithData = () => {
             <li
               key={art.id}
               onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
-            >
+              title={`Click to see more info+`}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
               {art.content.freetext.name ? (
                 <p>{art.content.freetext.name[0].content}</p>

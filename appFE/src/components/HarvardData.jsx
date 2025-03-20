@@ -117,6 +117,7 @@ const HarvardData = () => {
               key={art.id}
               className="gallery-card"
               onClick={() => navigate(`/home/artgallery/harvard/${art.id}`)}
+              title={`Click to see more info+`}
             >
               <h3>{art.title || "Untitled"}</h3>
               <p>{art.people ? art.people[0].displayname : "Unknown"}</p>
