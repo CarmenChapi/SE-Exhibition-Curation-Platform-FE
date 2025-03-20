@@ -83,21 +83,33 @@ export { auth, provider, signInWithPopup, signOut };
 ### 4️⃣ Set up API Keys
 Get API keys from the museum APIs and add them to .env:
 
+- Environment variable to add in .env:
 #### VITE_API_KEY_SMITHSONIAN="ApikeyValue"
-- ApiInfo: **https://github.com/Smithsonian/OpenAccess**
-- KeyRequest: **https://api.data.gov/signup/**
+- ApiInfo: 
+#### https://github.com/Smithsonian/OpenAccess
+- KeyRequest: 
+#### https://api.data.gov/signup/
 
+- Environment variable:
 #### VITE_API_KEY_EUROPEANA="ApikeyValue"
-- ApiInfo: **https://europeana.atlassian.net/wiki/spaces/EF/pages/2462351393/Accessing+the+APIs**
-- KeyRequest: **https://pro.europeana.eu/pages/get-api**
+- ApiInfo: 
+#### https://europeana.atlassian.net/wiki/spaces/EF/pages/2462351393/Accessing+the+APIs
+- KeyRequest: 
+#### https://pro.europeana.eu/pages/get-api
 
+- Environment variable:
 #### VITE_API_KEY_HARVARD="ApikeyValue"
-- ApiInfo: **https://github.com/harvardartmuseums/api-docs**
-- KeyRequest: **https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform**
+- ApiInfo: 
+#### https://github.com/harvardartmuseums/api-docs
+- KeyRequest: 
+#### https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform**
 
+- Environment variable:
 #### VITE_API_KEY_RIJKS="ApikeyValue"
-- ApiInfo: **https://data.rijksmuseum.nl/docs/api/#access-to-api**
-- KeyRequest: Create an account in **https://www.rijksmuseum.nl/nl** and with your account request key
+- ApiInfo: 
+#### https://data.rijksmuseum.nl/docs/api/#access-to-api
+- KeyRequest: 
+#### Create an account in **https://www.rijksmuseum.nl/nl** and with your account request key
 
 
 Add in .gitignore file:
