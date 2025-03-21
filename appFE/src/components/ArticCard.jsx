@@ -35,7 +35,7 @@ const ArticCard = () => {
         <BackControl />
       </nav>
 
-      <section>
+      <section className="collection-card">
         <h2>{artwork.data.title}</h2>
         <p>{artwork.data.artist_display}</p>
 
