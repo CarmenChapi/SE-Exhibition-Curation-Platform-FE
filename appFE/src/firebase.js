@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
-const apikey = import.meta.env.VITE_FIREBASE_API_KEY;
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 const authDomain =  import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
 const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
 const storageBucket = import.meta.env.VITE_FIREBASE_SENDER_ID;
@@ -10,7 +10,7 @@ const appId = import.meta.env.VITE_FIREBASE_APP_ID;
 const measurementId = import.meta.env.VITE_FIREBASE_MEASURE_ID;
 
 const firebaseConfig = {
-  apikey: apikey,
+  apiKey: apiKey,
   authDomain: authDomain,
   projectId: projectId,
   storageBucket: storageBucket,
