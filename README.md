@@ -60,15 +60,14 @@ Copy from Firebase/Console/YourProject/Setting the config and create in the main
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
-
 const firebaseConfig = {
-  apiKey: "your_api_key",
-  authDomain: "your_auth_domain.firebaseapp.com",
-  projectId: "your_project_id",
-  storageBucket: "your_storage_bucket.firebasestorage.app",
-  messagingSenderId: "your_messagingSenderId",
-  appId: "your_sender_id",
-  measurementId: "your_measurementId"
+    VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASURE_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -76,6 +75,16 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 export { auth, provider, signInWithPopup, signOut };
+---
+In the .env we add the enviroment variables for firebase config tak
+---
+VITE_FIREBASE_API_KEY="AIzaSyBI4TsroR6Qc29Cll0kSLrTVczbbVSriRI"
+VITE_FIREBASE_AUTH_DOMAIN="securator-5bdfe.firebaseapp.com"
+VITE_FIREBASE_PROJECT_ID="securator-5bdfe"
+VITE_FIREBASE_STORAGE_B="securator-5bdfe.firebasestorage.app"
+VITE_FIREBASE_SENDER_ID="151665604743"
+VITE_FIREBASE_APP_ID="1:151665604743:web:e9cff3a93b23add9972022"
+VITE_FIREBASE_MEASURE_ID="G-PJD1B4BH5E"
 ---
 
 
@@ -114,7 +123,6 @@ Get API keys from the museum APIs and add them to .env:
 
 Add in .gitignore file:
 #### .env
-#### firebase.js
 
 ### 5️⃣ Run the project
 
