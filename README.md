@@ -51,9 +51,20 @@ And move to the main directory
 npm install
 
 ### 3️⃣ Set up Firebase
-Create a project in Firebase Console
-Enable Authentication (Google, Email/Password)
-Copy from Firebase/Console/YourProject/Setting the config and create in the main directory a file named firebase.js and add this:
+3️⃣ Set up Firebase Authentication
+Your app uses Firebase for user sign‑in (Google + Email/Password). Follow these steps to configure it:
+
+1️⃣ Create a Firebase Project
+Go to the Firebase Console and click Add project.
+Give it a name (e.g. “Exhibition Curation”) and finish the setup.
+2️⃣ Enable Authentication Providers
+In your project’s sidebar, select Authentication → Sign‑in method
+Enable Google and Email/Password, then save.
+3️⃣ Copy Your Firebase Config
+In Firebase Console navigate to Project settings → General
+Under Your apps, copy the configuration object.
+4️⃣ Create src/firebase.js
+At the root of your project, create a file named src/firebase.js and paste:
 
 ---
 
@@ -61,32 +72,38 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
-    VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASURE_ID
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
 export { auth, provider, signInWithPopup, signOut };
----
-In the .env we add the enviroment variables for firebase config tak
----
-VITE_FIREBASE_API_KEY="AIzaSyBI4TsroR6Qc29Cll0kSLrTVczbbVSriRI"
-VITE_FIREBASE_AUTH_DOMAIN="securator-5bdfe.firebaseapp.com"
-VITE_FIREBASE_PROJECT_ID="securator-5bdfe"
-VITE_FIREBASE_STORAGE_B="securator-5bdfe.firebasestorage.app"
-VITE_FIREBASE_SENDER_ID="151665604743"
-VITE_FIREBASE_APP_ID="1:151665604743:web:e9cff3a93b23add9972022"
-VITE_FIREBASE_MEASURE_ID="G-PJD1B4BH5E"
----
 
+--- 
+
+🔒 Put  **.env** in **.gitignore** file to no be committed
+
+5️⃣ Add Environment Variables
+Create a file called .env in your project root and populate it with the values from your Firebase config:
+
+--- 
+
+VITE_FIREBASE_API_KEY="YOUR_API_KEY"
+VITE_FIREBASE_AUTH_DOMAIN="your-project.firebaseapp.com"
+VITE_FIREBASE_PROJECT_ID="your-project-id"
+VITE_FIREBASE_STORAGE_BUCKET="your-project.appspot.com"
+VITE_FIREBASE_SENDER_ID="1234567890"
+VITE_FIREBASE_APP_ID="1:1234567890:web:abcdef123456"
+VITE_FIREBASE_MEASUREMENT_ID="G-XXXXXXXXXX"
+
+---
 
 
 ### 4️⃣ Set up API Keys
