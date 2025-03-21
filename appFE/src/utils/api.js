@@ -56,14 +56,14 @@ export const getArtworksByCollection = (id) => {
 };
 
 export const addArtwork = (id, newArtwork) => {
-  console.log(newArtwork)
+ // console.log(newArtwork)
   return curationAPI.post(`/artwork/${id}`, newArtwork).then(({ data }) => {
     return data.artwork;
   });
 };
 
 export const updateArtwork = (id_artwork, updatedArtwork) => {
-  console.log(id_artwork, updatedArtwork)
+  //console.log(id_artwork, updatedArtwork)
   return curationAPI
     .patch(`/artwork/${id_artwork}`, updatedArtwork)
     .then(({ data }) => {

@@ -10,7 +10,7 @@ const ListArtworks = ({}) => {
   let { collectionId } = useParams();
   const nameCollection = collectionId.split("-")[1];
   collectionId = collectionId.split("-")[0];
-  console.log(collectionId, nameCollection);
+  //console.log(collectionId, nameCollection);
 
   //console.log(collectionId)
   const [isLoading, setIsLoading] = useState(true);

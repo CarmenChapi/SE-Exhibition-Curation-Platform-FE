@@ -8,7 +8,7 @@ const CollectionCard = ({
   setListCollections,
   listCollections,
 }) => {
-  console.log(collection);
+ // console.log(collection);
   const [editing, setEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(collection.title);
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const CollectionCard = ({
   };
 
   const handleOpenCollection = () => {
-    console.log(collection.id_collection);
+    //console.log(collection.id_collection);
     navigate(
       `/home/collection/${collection.id_collection}-${collection.title}`
     );

@@ -124,6 +124,7 @@ const RijksMData = () => {
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li key={art.id}
+            className="gallery-card"
             onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.id.slice(3)}`)}
             title={`Click to see more info+`}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}

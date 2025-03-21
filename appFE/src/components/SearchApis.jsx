@@ -8,7 +8,7 @@ const SearchApis = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (gallery, query) => {
-    console.log(`Searching ${gallery} for: ${query}`);
+   // console.log(`Searching ${gallery} for: ${query}`);
     setSelectedGallery(gallery);
     setSearchQuery(query);
   };

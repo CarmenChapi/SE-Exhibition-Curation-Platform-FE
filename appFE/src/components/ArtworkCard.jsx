@@ -7,7 +7,7 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
 
   const handleUpdate = () => {
     if (!updatedArtwork.title.trim()) return alert("Title cannot be empty!");
-    console.log(artwork, updatedArtwork);
+    //console.log(artwork, updatedArtwork);
 
     updateArtwork(artwork.id_artwork, updatedArtwork)
       .then((updated) => {

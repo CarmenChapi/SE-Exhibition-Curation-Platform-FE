@@ -16,6 +16,7 @@ const GoogleLogin = () => {
           displayName: currentUser.displayName,
           photoURL: currentUser.photoURL,
         });
+        navigate("/home", { replace: true });
       } else {
         setUserCx(null); // Clear user on logout
       }

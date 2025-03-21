@@ -120,6 +120,7 @@ const ArticData = ({ searchValue = "" }) => {
               key={art.id}
               onClick={() => navigate(`/home/artgallery/chicago/${art.id}`)}
               title={`Click to see more info+`}
+              className="gallery-card"
             >
               <h3>{art.title}</h3>
               <p>{art.artist_display ? art.artist_display : "Unknown"}</p>

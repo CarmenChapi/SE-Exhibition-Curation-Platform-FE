@@ -19,7 +19,7 @@ const fetchSmithData = async ({ queryKey }) => {
     `https://api.si.edu/openaccess/api/v1.0/category/art_design/search?q=${searchQuery}&api_key=${apiKeySmith}&rows=30&fq=online_media_type:image`
   );
   //console.log(data)
-  console.log(apiKeySmith);
+  //console.log(apiKeySmith);
 
   return data;
 };
@@ -129,6 +129,7 @@ const SmithData = () => {
           filteredData.map((art) => (
             <li
               key={art.id}
+              className="gallery-card"
               onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
               title={`Click to see more info+`}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}

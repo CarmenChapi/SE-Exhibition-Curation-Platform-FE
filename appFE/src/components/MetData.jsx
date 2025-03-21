@@ -139,7 +139,8 @@ const METData = () => {
           filteredData.map((art) => (
             <li key={art.objectID} 
             onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}
-            title={`Click to see more info+`}>
+            title={`Click to see more info+`}
+            className="gallery-card">
               
               <h3>{art.title || "Untitled"}</h3>
               <p>{art.artistDisplayName || "Unknown"}</p>

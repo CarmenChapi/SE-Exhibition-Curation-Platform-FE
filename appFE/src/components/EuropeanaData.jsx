@@ -124,6 +124,7 @@ const EuropeanaData = () => {
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li
+            className="gallery-card"
               key={art.id}
               onClick={() =>
                 navigate(

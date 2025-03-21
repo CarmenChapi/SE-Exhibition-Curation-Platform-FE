@@ -26,7 +26,7 @@ const HarvardCard = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const artwork = data;
-  console.log(data);
+  //console.log(data);
 
   return (
     <>

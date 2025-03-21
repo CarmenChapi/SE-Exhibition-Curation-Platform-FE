@@ -122,6 +122,7 @@ const VAMData = () => {
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li
+            className="gallery-card"
               key={art.systemNumber}
               onClick={() =>
                 navigate(`/home/artgallery/vam/${art.systemNumber}`)
