@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { auth, provider, signInWithPopup, signOut } from "../firebase";
+import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
