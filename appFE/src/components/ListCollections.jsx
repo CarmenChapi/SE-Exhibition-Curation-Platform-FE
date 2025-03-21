@@ -67,7 +67,7 @@ const ListCollections = () => {
       <h2 className="collection-title">
         {userCx?.displayName.split(" ")[0]} 's Personal Art Collections:
       </h2>
-      <p><strong>
+      <p className="subtitle"><strong>
       Organize your private gallery by creating collections and adding your artwork.</strong>
       </p>
 

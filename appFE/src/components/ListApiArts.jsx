@@ -25,7 +25,8 @@ const ListApiArtGalleries = () => {
        <MenuCollections/>
        {/* <BackControl/> */}
        </nav>
-       <section >
+       <section className="gallery-list">
+
       <h2>Select an art collection to browse and explore</h2>
      
       <ul className="artApis">

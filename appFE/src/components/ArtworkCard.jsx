@@ -7,7 +7,7 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
 
   const handleUpdate = () => {
     if (!updatedArtwork.title.trim()) return alert("Title cannot be empty!");
-    console.log(artwork, updatedArtwork)
+    console.log(artwork, updatedArtwork);
 
     updateArtwork(artwork.id_artwork, updatedArtwork)
       .then((updated) => {
@@ -24,66 +24,111 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
   const handleDelete = () => {
     deleteArtwork(artwork.id_artwork)
       .then(() => {
-        setArtworks(artworks.filter((art) => art.id_artwork !== artwork.id_artwork));
+        setArtworks(
+          artworks.filter((art) => art.id_artwork !== artwork.id_artwork)
+        );
       })
       .catch((err) => console.error("Error deleting artwork:", err));
   };
 
   return (
-    <li className = "collection-card">
+    <li className="collection-card">
       {editing ? (
         <>
-        <div className="gallery-list">
-        <h2>Edit artwork</h2>
-        <label> Edit title
-          <input
-            className = "collection-input"
-            type="text"
-            value={updatedArtwork.title}
-            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, title: e.target.value })}
-          />
-          </label>
-          <label> Edit artist
-          <input
-            type="text"
-            className = "collection-input"
-            value={updatedArtwork.artist}
-            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, artist: e.target.value })}
-          />
-           </label>
-           <label> Edit location
-          <input
-            type="text"
-            className = "collection-input"
-            value={updatedArtwork.location}
-            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, location: e.target.value })}
-          />
+          <form className="artwork-form">
+            <h2>Edit artwork</h2>
+            <div className="form-row">
+              <label>
+                {" "}
+                Edit title
+                <input
+                  type="text"
+                  value={updatedArtwork.title}
+                  onChange={(e) =>
+                    setUpdatedArtwork({
+                      ...updatedArtwork,
+                      title: e.target.value,
+                    })
+                  }
+                />
               </label>
-              <label> Edit image url
-          <input
-            type="text"
-            className = "collection-input"
-            value={updatedArtwork.image_url}
-            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, image_url: e.target.value })}
-          />
-            </label>
-            <label> Edit description
-          <textarea
-            className = "collection-input"
-            value={updatedArtwork.description}
-            onChange={(e) => setUpdatedArtwork({ ...updatedArtwork, description: e.target.value })}
-          />
-          
+            </div>
+            <div className="form-row">
+              <label>
+                {" "}
+                Edit artist
+                <input
+                  type="text"
+                  value={updatedArtwork.artist}
+                  onChange={(e) =>
+                    setUpdatedArtwork({
+                      ...updatedArtwork,
+                      artist: e.target.value,
+                    })
+                  }
+                />
               </label>
-              </div>
-          <button className="btn-back" onClick={handleUpdate}>Save</button>
-          <button className="btn-back" onClick={() => setEditing(false)}>Cancel</button>
+            </div>
+            <div className="form-row">
+              <label>
+                {" "}
+                Edit location
+                <input
+                  type="text"
+                  value={updatedArtwork.location}
+                  onChange={(e) =>
+                    setUpdatedArtwork({
+                      ...updatedArtwork,
+                      location: e.target.value,
+                    })
+                  }
+                />
+              </label>
+            </div>
+            <div className="form-row">
+              <label>
+                {" "}
+                Edit image url
+                <input
+                  type="text"
+                  value={updatedArtwork.image_url}
+                  onChange={(e) =>
+                    setUpdatedArtwork({
+                      ...updatedArtwork,
+                      image_url: e.target.value,
+                    })
+                  }
+                />
+              </label>
+            </div>
+            <div className="form-row">
+              <label>
+                {" "}
+                Edit description
+                <textarea
+                  className="collection-input"
+                  value={updatedArtwork.description}
+                  onChange={(e) =>
+                    setUpdatedArtwork({
+                      ...updatedArtwork,
+                      description: e.target.value,
+                    })
+                  }
+                />
+              </label>
+            </div>
+          </form>
+          <button className="btn-back" onClick={handleUpdate}>
+            Save
+          </button>
+          <button className="btn-back" onClick={() => setEditing(false)}>
+            Cancel
+          </button>
         </>
       ) : (
         <>
           <h2>{artwork.title}</h2>
 
-     
           {artwork.image_url ? (
             <img
               src={artwork.image_url}
@@ -93,12 +138,22 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
           ) : (
             <p>No Image Added</p>
           )}
-   
-          <p><strong>Description:</strong> {artwork.description}</p>
-          <p><strong>Artist:</strong> {artwork.artist}</p>
-          <p><strong>Location:</strong> {artwork.location}</p>     
-          <button className = "btn-back" onClick={() => setEditing(true)}>Edit</button>
-          <button className = "btn-back" onClick={handleDelete}>Delete</button>
+
+          <p>
+            <strong>Description:</strong> {artwork.description}
+          </p>
+          <p>
+            <strong>Artist:</strong> {artwork.artist}
+          </p>
+          <p>
+            <strong>Location:</strong> {artwork.location}
+          </p>
+          <button className="btn-back" onClick={() => setEditing(true)}>
+            Edit
+          </button>
+          <button className="btn-back" onClick={handleDelete}>
+            Delete
+          </button>
         </>
       )}
     </li>

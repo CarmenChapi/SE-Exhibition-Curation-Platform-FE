@@ -100,12 +100,12 @@ const ListArtworks = ({}) => {
       <section className="gallery-list">
       <h3>Add an artwork in your collection</h3>
 
-    
+      <form className="artwork-form">
+      <div className="form-row">
         <label>
           Add a name
           <input
             type="text"
-            className="collection-input"
             placeholder="Title"
             value={newArtwork.title}
             onChange={(e) =>
@@ -113,11 +113,12 @@ const ListArtworks = ({}) => {
             }
           />
         </label>
+        </div>
+        <div className="form-row">
         <label>
           Add a location
           <input
             type="text"
-            className="collection-input"
             placeholder="Location"
             value={newArtwork.location}
             onChange={(e) =>
@@ -125,11 +126,12 @@ const ListArtworks = ({}) => {
             }
           />
         </label>
+        </div>
+        <div className="form-row">
         <label>
           Add a author name
           <input
             type="text"
-            className="collection-input"
             placeholder="Artist"
             value={newArtwork.artist}
             onChange={(e) =>
@@ -137,11 +139,12 @@ const ListArtworks = ({}) => {
             }
           />
         </label>
+        </div>
+        <div className="form-row">
         <label>
           Add a valid URL
           <input
             type="text"
-            className="collection-input"
             placeholder="Image URL"
             value={newArtwork.image_url}
             onChange={(e) =>
@@ -149,10 +152,11 @@ const ListArtworks = ({}) => {
             }
           />
         </label>
+        </div>
+        <div className="form-row">
         <label>
           Add a description
           <textarea
-            className="collection-input"
             placeholder="Description"
             value={newArtwork.description}
             onChange={(e) =>
@@ -160,11 +164,12 @@ const ListArtworks = ({}) => {
             }
           />
         </label>
+        </div>
 
         <button className="btn-add" onClick={handleAddArtwork}>
           Add a new artwork
         </button>
-
+        </form>
       </section>
 
 
