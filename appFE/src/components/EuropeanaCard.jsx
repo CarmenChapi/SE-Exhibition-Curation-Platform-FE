@@ -41,12 +41,12 @@ const EuropeanaCard = () => {
       </nav>
       <section>
         <h2>
-          {artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
+           {artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
             artwork?.proxies?.[1]?.dcTitle?.en?.[0] ??
             "Unknown"}
         </h2>
         <p>
-          {artwork.proxies[0].dcCreator
+             {artwork.proxies[0].dcCreator
             ? artwork.proxies[0].dcCreator.en[0]
             : "Unknown"}
         </p>
@@ -63,37 +63,32 @@ const EuropeanaCard = () => {
         )}
         <p>
           <strong>Type:</strong>{" "}
-          {artwork?.proxies?.[0]?.edmType?.en?.[0] ??
+           {artwork?.proxies?.[0]?.edmType?.en?.[0] ??
             artwork?.proxies?.[1]?.edmType?.en?.[0] ??
             "Unknown"}
         </p>
         <p>
           <strong>Medium:</strong>{" "}
-          {artwork.proxies[0].dctermsMedium
-            ? artwork.proxies[0].dctermsMedium.en.toString()
-            : artwork.proxies[0].dctermsMedium
-            ? artwork.proxies[0].dctermsMedium.en.toString()
-            : "Unknown"}
+           {artwork?.proxies?.[0]?.dctermsMedium?.en?.[0].toString() ??
+            artwork?.proxies?.[1]?.dctermsMedium?.en?.[0].toString() ??
+            "Unknown"}
         </p>
         <p>
           <strong>Date:</strong>{" "}
-          {artwork.proxies[0].dcDate
-            ? artwork.proxies[0].dcDate.def[0]
-            : artwork.proxies[1].dcDate
-            ? artwork.proxies[1].dcDate.def[0]
-            : "Unknown"}
+     
+           {artwork?.proxies?.[0]?.dcDate?.def?.[0]??
+            artwork?.proxies?.[1]?.dcDate?.def?.[0] ??
+            "Unknown"}
         </p>
         <p>
           <strong>Description:</strong>
-          {artwork.proxies[0].dcDescription
-            ? artwork.proxies[0].dcDescription.en[0]
-            : artwork.proxies[1].dcDescription
-            ? artwork.proxies[1].dcDescription.en[0]
-            : "Not available"}
+           {artwork?.proxies?.[0]?.dcDescription?.en?.[0]??
+            artwork?.proxies?.[1]?.dcDescription?.en?.[0] ??
+            "Not available"}
           {/* {artwork.concepts[0].note ? artwork.concepts[0].note.en[0] : ""}*/}
-          {artwork.aggregations[0].webResources[0].textAttributionSnippet
+          {/* {artwork.aggregations[0]?.webResources[0]?.textAttributionSnippet
             ? artwork.aggregations[0].webResources[0].textAttributionSnippet
-            : ""}
+            : ""} */}
         </p>
 
         <p>

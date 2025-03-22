@@ -64,8 +64,8 @@ const ListCollections = () => {
         <BackControl />
         <UserProfile/>
       </nav>
-      <h2 className="collection-title">
-        {userCx?.displayName.split(" ")[0]} 's Personal Art Collections:
+      <h2 className="subtitle">
+        {userCx?.displayName.split(" ")[0]} 's Art Collections:
       </h2>
       <p className="subtitle"><strong>
       Organize your private gallery by creating collections and adding your artwork.</strong>

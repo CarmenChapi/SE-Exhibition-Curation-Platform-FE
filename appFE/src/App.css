@@ -401,3 +401,9 @@ body {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
+.filter-sort-container{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
