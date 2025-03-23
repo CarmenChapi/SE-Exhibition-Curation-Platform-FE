@@ -30,7 +30,7 @@ const RijksMData = () => {
   const [filterByImage, setFilterByImage] = useState(false); 
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError } = useQuery({
     queryKey: ["rijksm", { query }],
     queryFn: fetchRijksMData,
     keepPreviousData: true,
@@ -68,8 +68,8 @@ const RijksMData = () => {
 
 
 
-  if (isLoading) return <p>Loading RijksM Artworks...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading RijksM...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>

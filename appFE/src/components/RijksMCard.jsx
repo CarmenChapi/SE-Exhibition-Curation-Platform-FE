@@ -4,6 +4,7 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
+import ErrorPage from "./ErrorPage";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
@@ -17,16 +18,22 @@ const fetchArtworkDetails = async (artworkId) => {
 const RijksMCard = () => {
   const { artId } = useParams();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading RijksM Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+
+
+  if (isLoading) return <p>Loading RijksM...</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if ( isSuccess && !data?.artObject) {
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+  }
+
 
   const artwork = data.artObject;
-  //console.log(data.artObject);
+  //console.log(artwork, error);
 
   return (
     <>
@@ -35,7 +42,7 @@ const RijksMCard = () => {
       <BackControl/>
       </nav>
       <section>
-      <h2>{artwork.title}</h2>
+      <h2>{artwork.title ? artwork.title : "Untitled"}</h2>
       <p>
         {artwork.principalMaker ? artwork.principalMaker : "Unknown"}
       </p>

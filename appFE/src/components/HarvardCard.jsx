@@ -4,26 +4,33 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
-
+import ErrorPage from "./ErrorPage";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
     `https://api.harvardartmuseums.org/object/${artworkId}?apikey=${apikeyHarvard}`
   );
+  if (!data) {
+    throw new Error("Artwork not found");
+  }
   return data;
 };
 
 const HarvardCard = () => {
   const { artId } = useParams();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError, isSuccess} = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading Harvard Museum Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+
+  if (isLoading)  return <p>Loading Harvard...</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isSuccess && !data) {
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+  }
 
   const artwork = data;
   //console.log(data);

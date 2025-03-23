@@ -81,7 +81,7 @@ const METData = () => {
 
 
 
-  if (loading) return <p>Loading MET Arworks...</p>;
+  if (loading) return <p>Loading MET...</p>;
 
 
   return (

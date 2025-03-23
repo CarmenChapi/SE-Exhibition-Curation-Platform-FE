@@ -32,7 +32,7 @@ const SmithData = () => {
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError } = useQuery({
     queryKey: ["smith", { query }],
     queryFn: fetchSmithData,
     keepPreviousData: true,
@@ -73,8 +73,8 @@ const SmithData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading Smithsonian Artworks...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading Smithsonian...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>

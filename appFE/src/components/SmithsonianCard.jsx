@@ -4,6 +4,7 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
+import ErrorPage from "./ErrorPage";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 
@@ -17,13 +18,17 @@ const fetchArtworkDetails = async (artworkId) => {
 const SmithsonianCard = () => {
   const { artId } = useParams();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading Smithsonian Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+
+  if (isLoading) return <p>Loading Smithsonian...</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isSuccess && !data?.response) {
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+  }
 
   const artwork = data.response;
   //console.log(data.response, artwork.content.descriptiveNonRepeating.online_media.media[0].content);
