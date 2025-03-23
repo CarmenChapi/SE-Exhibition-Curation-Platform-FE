@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import ArtworkCard from "./ArtworkCard";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
+import ErrorPage from "./ErrorPage";
 
 const ListArtworks = ({}) => {
   let { collectionId } = useParams();
@@ -66,9 +67,10 @@ const ListArtworks = ({}) => {
       .catch((err) => setError(err));
   };
 
-  if (isLoading) return <h3 className="loading">...Loading Arworks</h3>;
-  if (error && error.status !== 404)
-    return <p style={{ color: "red" }}>Error: {error.message}</p>;
+  if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
+  if (error )//&& error.status !== 404)
+    return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+
 
   return (
     <>

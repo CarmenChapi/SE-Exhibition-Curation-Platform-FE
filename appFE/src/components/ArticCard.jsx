@@ -4,7 +4,7 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
-
+import ErrorPage from "./ErrorPage";
 
 
 
@@ -18,13 +18,18 @@ const fetchArtworkDetails = async (artworkId) => {
 const ArticCard = () => {
   const { artId } = useParams();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading ,  isError, isSuccess} = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading Art Chicago Institute Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+
+  
+  if (isLoading) return <p>Loading Chicago...</p>;
+  if (isError) return <ErrorPage errorMsg={error.message}/>;
+  if (isSuccess && !data) {
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+  }
 
   const artwork = data;
 

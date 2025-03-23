@@ -4,6 +4,7 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
+import ErrorPage from "./ErrorPage";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
@@ -22,13 +23,18 @@ const EuropeanaCard = () => {
   // console.log(artId.replaceAll("-","/"))
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError, isSuccess} = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading Europeana Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+
+
+  if (isLoading) return <p>Loading Europeana...</p>;
+  if (isError) return<ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isSuccess && !data?.object) {
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+  }
 
   const artwork = data.object;
   //console.log(artwork.proxies[1],   artwork.proxies[1].dcDescription );

@@ -1,11 +1,11 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import ShareArtwork from "./ShareArt";
 import Footer from "./Footer";
-
+import ErrorPage from "./ErrorPage";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -16,18 +16,20 @@ const fetchArtworkDetails = async (artworkId) => {
 
 const VAMCard = () => {
   const { artId } = useParams(); 
-  const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading V&A Museum Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading V&A...</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isSuccess && !data) {
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+  }
 
   const artwork = data;
-  const id_image = artwork.meta.images._images_meta[0].assetRef;
+  const id_image = artwork?.meta?.images?._images_meta?.[0]?.assetRef;
   //console.log(id_image);
 
   return (

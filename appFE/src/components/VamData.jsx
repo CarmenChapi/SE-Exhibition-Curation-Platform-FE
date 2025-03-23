@@ -30,7 +30,7 @@ const VAMData = () => {
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError } = useQuery({
     queryKey: ["vam", { query }],
     queryFn: fetchVAMData,
     keepPreviousData: true,
@@ -64,8 +64,8 @@ const VAMData = () => {
 
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading V&A Museum Artworks...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading V&A...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>
