@@ -27,7 +27,7 @@ const ArticData = ({ searchValue = "" }) => {
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError } = useQuery({
     queryKey: ["artic", { page, query }],
     queryFn: fetchArticData,
     keepPreviousData: true,
@@ -57,8 +57,8 @@ const ArticData = ({ searchValue = "" }) => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading Chicago Art Institute Artwork...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading Chicago...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>

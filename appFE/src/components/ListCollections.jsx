@@ -6,6 +6,7 @@ import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
 import Header from "./Header";
 import UserProfile from "./UserProfile";
+import ErrorPage from "./ErrorPage";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,9 +14,9 @@ const ListCollections = () => {
   const [error, setError] = useState(null);
   const [newCollectionTitle, setNewCollectionTitle] = useState("");
   const { userCx, setUserCx } = useContext(UserContext);
-  // const userCx ={
+  //  const userCx ={
   //   email : "mariachaparro58@gmail.com",
-  //   displayName: "Mari del Car"}
+  //  displayName: "catia rodrigue"}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,10 +31,14 @@ const ListCollections = () => {
           setIsLoading(false);
         }
       }
+      else{
+        setError({message:"No user email provided"})
+        setIsLoading(false);
+      }
     };
   
-    fetchData(); // Call the function
-  }, [userCx?.email]); // Only re-run when user email changes
+    fetchData();
+  }, [userCx?.email]); 
   
 
   const handleAddCollection = () => {
@@ -54,9 +59,9 @@ const ListCollections = () => {
       .catch((err) => setError(err));
   };
 
-  if (isLoading) return <h3 className="loading">...Loading User's Collections</h3>;
+  if (isLoading) return <h3 className="loading">Loading User Collections...</h3>;
   if (error && error.status !== 404)
-    return <p style={{ color: "red" }}>Error: {error.message}</p>;
+    return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
 
   return (
     <>

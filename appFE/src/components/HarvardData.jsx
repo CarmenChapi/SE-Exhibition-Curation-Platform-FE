@@ -28,7 +28,7 @@ const HarvardData = () => {
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, isError} = useQuery({
     queryKey: ["harvard", { query, page }],
     queryFn: fetchHarvardData,
     keepPreviousData: true,
@@ -59,8 +59,8 @@ const HarvardData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading Harvard Art Museum Arworks...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading Harvard...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>

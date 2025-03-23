@@ -2,10 +2,13 @@ import BackControl from "./BackControl";
 
 const ErrorPage = ({ errorMsg }) => {
   return (
-    <section className="error">
+    <div className="error-wrapper">
       <BackControl />
-      <h1 className="errorTitle">{errorMsg}</h1>{" "}
-    </section>
+      <div className="error-card">
+        <h1 className="error-title">Oops — Something went wrong</h1>
+        <p className="error-message">{errorMsg}</p>
+      </div>
+    </div>
   );
 };
 
