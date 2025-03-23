@@ -48,9 +48,9 @@ const CollectionCard = ({
   };
 
   return (
-    <li className="collection-card">
+    <li className="collection-card"> 
       {editing ? (
-        <>
+        <form>
           <label>
             Edit title
             <input
@@ -66,7 +66,7 @@ const CollectionCard = ({
           <button className="btn-back" onClick={() => setEditing(false)}>
             Cancel
           </button>
-        </>
+        </form>
       ) : (
         <div className="button-group">
           <span className="collection-title">{collection.title}</span>

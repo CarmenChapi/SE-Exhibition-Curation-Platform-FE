@@ -32,7 +32,7 @@ const ArtworkCard = ({ artwork, setArtworks, artworks }) => {
   };
 
   return (
-    <li className="collection-card">
+    <li >
       {editing ? (
         <>
           <form className="artwork-form">

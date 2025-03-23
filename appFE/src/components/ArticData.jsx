@@ -63,7 +63,7 @@ const ArticData = ({ searchValue = "" }) => {
   return (
     <>
       <Header />
-      <nav className="menuCollections">
+      <nav className="topMenu">
         <MenuCollections />
         <BackControl />
       </nav>

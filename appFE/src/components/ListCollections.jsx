@@ -42,10 +42,12 @@ const ListCollections = () => {
     const newCollection = {
       title: newCollectionTitle,
       user_mail: userCx.email,
+      art_count: 0,
     };
 
     addCollection(newCollection)
       .then((addedCollection) => {
+        addedCollection.art_count = 0;
         setListCollections([addedCollection, ...listCollections]);
         setNewCollectionTitle("");
       })
