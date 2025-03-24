@@ -153,6 +153,9 @@ The app will be available at http://localhost:5173/.
 ## Node version required
 v>=18.0.0
 
-## link to the BackEnd Part of the project
+## Link to the BackEnd Part of the project
 https://se-curator-be.onrender.com/api
 https://github.com/CarmenChapi/SE-ExhibitionCurationP-BE.git
+
+## Link to a video, no audio
+https://youtube.com/shorts/i8MpB6xUJkQ
