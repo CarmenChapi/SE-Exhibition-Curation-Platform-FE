@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const GoogleLogin = () => {
-  const { userCx, setUserCx } = useContext(UserContext); // ✅ Correctly using Context
+  const { userCx, setUserCx } = useContext(UserContext); 
   const navigate = useNavigate();
 
   useEffect(() => {

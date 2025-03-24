@@ -29,7 +29,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<GoogleLogin />} />
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/collection" element={<ListCollections />} />
           <Route path="/home/collection/:collectionId" element={<ListArworks />} />

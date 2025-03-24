@@ -9,8 +9,8 @@ import ErrorPage from "./ErrorPage";
 
 const ListArtworks = ({}) => {
   let { collectionId } = useParams();
-  const nameCollection = collectionId.split("-")[1];
-  collectionId = collectionId.split("-")[0];
+ // const nameCollection = collectionId.split("-")[1];
+ // collectionId = collectionId.split("-")[0];
   //console.log(collectionId, nameCollection);
 
   //console.log(collectionId)
@@ -43,7 +43,13 @@ const ListArtworks = ({}) => {
       })
       .catch((err) => {
         console.log("err", err);
-        setError(err);
+        if (err.response?.status === 404) {
+          setArtworks([]);
+          setError(null);
+        } else {
+          setError(err);
+
+        }
         setIsLoading(false);
       });
   };
@@ -68,7 +74,7 @@ const ListArtworks = ({}) => {
   };
 
   if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
-  if (error )//&& error.status !== 404)
+  if (error)
     return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
 
 
@@ -76,7 +82,7 @@ const ListArtworks = ({}) => {
     <>
       
       <h1 className="Header">
-        {userCx?.displayName.split(" ")[0]}'s {nameCollection} Collection:
+        {userCx?.displayName.split(" ")[0]}'s Collection:
       </h1>
       <nav>
       <BackControl />

@@ -9,42 +9,42 @@ const UserProfile = () => {
     const { userCx, setUserCx } = useContext(UserContext);
     const navigate = useNavigate();
 
-     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          if (currentUser) {
-            setUserCx({
-              email: currentUser.email,
-              displayName: currentUser.displayName,
-              photoURL: currentUser.photoURL,
-            });
-          } else {
-            setUserCx(null);
-          }
-        });
+    //  useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //       if (currentUser) {
+    //         setUserCx({
+    //           email: currentUser.email,
+    //           displayName: currentUser.displayName,
+    //           photoURL: currentUser.photoURL,
+    //         });
+    //       } else {
+    //         setUserCx(null);
+    //       }
+    //     });
     
-        return () => unsubscribe();
-      }, [setUserCx]);
+    //     return () => unsubscribe();
+    //   }, [setUserCx]);
     
-      const handleLogout = async () => {
-        try {
-          await signOut(auth);
-          console.log("User signed out");
-          navigate("/");
-        } catch (error) {
-          console.error("Error signing out:", error.message);
-        }
-      };
+    //   const handleLogout = async () => {
+    //     try {
+    //       await signOut(auth);
+    //       console.log("User signed out");
+    //       navigate("/");
+    //     } catch (error) {
+    //       console.error("Error signing out:", error.message);
+    //     }
+    //   };
   
 return(
     <div className="userProfile">
     <img src={userCx?.photoURL} alt="Profile" className="userPhoto" />
     <p>{  } Hi, {userCx?.displayName.split(" ")[0]}!</p>
-    <button
+    {/* <button
       onClick={handleLogout}
       className="btn-back"
     >
       Logout
-    </button>
+    </button> */}
   </div>
 )}
 
