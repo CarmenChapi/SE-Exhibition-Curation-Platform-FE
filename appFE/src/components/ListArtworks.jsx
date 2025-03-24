@@ -80,7 +80,7 @@ const ListArtworks = ({}) => {
     <>
       
       <h1 className="Header">
-        {userCx?.displayName.split(" ")[0]}'s Collection:
+        {userCx?.displayName?.split(" ")[0] ? userCx?.displayName?.split(" ")[0] : "User"}'s Collection:
       </h1>
       <h2>{nameCollection}</h2>
       <nav>

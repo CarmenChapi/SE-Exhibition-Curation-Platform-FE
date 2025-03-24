@@ -403,11 +403,6 @@ body {
   box-sizing: border-box;
 }
 
-.filter-sort-container{
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-}
 
 .error-wrapper {
   min-height: calc(100vh - 4rem);

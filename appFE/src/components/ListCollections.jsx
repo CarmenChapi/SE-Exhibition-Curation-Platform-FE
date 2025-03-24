@@ -32,7 +32,7 @@ const ListCollections = () => {
         }
       }
       else{
-        setError({message:"No user email provided"})
+       // setError({message:"No user email provided"})
         setIsLoading(false);
       }
     };

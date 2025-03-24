@@ -86,40 +86,43 @@ const METData = () => {
 
   return (
     <>
-    <Header/>
-    <nav className="topMenu">
-       <MenuCollections/>
-       <BackControl/>
-       </nav>
-    <div>
+      <Header />
+      <nav className="topMenu">
+        <MenuCollections />
+        <BackControl />
+      </nav>
+      <div>
         <h2>The Metropolitan Museum of Art</h2>
-      {/* Search Input */}
-      <div >
-        <label>Search artworks
-        <input
-          type="text"
-          placeholder="Search MET Art..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="collection-input"
-        />
-        </label>
-        <button
-          onClick={handleSearch}
-          className="btn-search"
-        >
-          Search
-        </button>
-      </div>
+        {/* Search Input */}
+        <form>
+          <label>
+            Search artworks
+            <input
+              type="text"
+              placeholder="Search MET Art..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="collection-input"
+            />
+          </label>
+          <button onClick={handleSearch} className="btn-search">
+            Search
+          </button>
+        </form>
 
-             {/* Sorting & Filtering Options */}
-             <div className="filter-sort-container">
-              <label>Sort by
-        <select onChange={(e) => setSortBy(e.target.value)} className="sort-dropdown">
-          <option value="">Sort By</option>
-          <option value="title">Title (A-Z)</option>
-          <option value="artist">Artist (A-Z)</option>
-        </select>
+         {/* Sorting & Filtering Options */}
+      <form className="filter-sort-container">
+        <label>
+          {" "}
+          Sort by
+          <select
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
+            <option value="">Sort By</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="artist">Artist (A-Z)</option>
+          </select>
         </label>
 
         <label>
@@ -130,48 +133,54 @@ const METData = () => {
           />
           Only show artworks with images
         </label>
-      </div>
+      </form>
 
-      {/* Artworks List */}
-      <ul className="gallery-list">
-      
-        {filteredData.length > 0 ? (
-          filteredData.map((art) => (
-            <li key={art.objectID} 
-            onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}
-            title={`Click to see more info+`}
-            className="gallery-card">
-              
-              <h3>{art.title || "Untitled"}</h3>
-              <p>{art.artistDisplayName || "Unknown"}</p>
-              <img src={art.primaryImage} alt={art.title} className="gallery-photo" 
-               onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}/>
-            </li>
-          ))
-        ) : (
-          <p>No results found</p>
-        )}
-      </ul>
+        {/* Artworks List */}
+        <ul className="gallery-list">
+          {filteredData.length > 0 ? (
+            filteredData.map((art) => (
+              <li
+                key={art.objectID}
+                onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}
+                title={`Click to see more info+`}
+                className="gallery-card"
+              >
+                <h3>{art.title || "Untitled"}</h3>
+                <p>{art.artistDisplayName || "Unknown"}</p>
+                <img
+                  src={art.primaryImage}
+                  alt={art.title}
+                  className="gallery-photo"
+                  onClick={() =>
+                    navigate(`/home/artgallery/met/${art.objectID}`)
+                  }
+                />
+              </li>
+            ))
+          ) : (
+            <p>No results found</p>
+          )}
+        </ul>
 
-      {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={page === 1}
-          className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span className="px-4 py-2">Page {page}</span>
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          className="bg-gray-500 text-white px-4 py-2 rounded"
-        >
-          Next
-        </button>
+        {/* Pagination Controls */}
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+            className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="px-4 py-2">Page {page}</span>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Next
+          </button>
+        </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 };
