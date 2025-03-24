@@ -14,6 +14,8 @@ Enable users to create, add, and remove items from personal exhibition collectio
 ## Link to the deployed version using Firebase Authentication
 [![Netlify Status](https://api.netlify.com/api/v1/badges/18dd1137-9cf1-4dcb-912a-f482cff0dead/deploy-status)](https://app.netlify.com/sites/curationplatform/deploys)
 #### https://curationplatform.netlify.app/
+## Link to the deployed version with a user logged
+####   https://userlogincuratorplatorm.netlify.app
 
 ---
 
@@ -150,3 +152,7 @@ The app will be available at http://localhost:5173/.
 
 ## Node version required
 v>=18.0.0
+
+## link to the BackEnd Part of the project
+https://se-curator-be.onrender.com/api
+https://github.com/CarmenChapi/SE-ExhibitionCurationP-BE.git

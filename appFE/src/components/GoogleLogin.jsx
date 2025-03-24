@@ -18,7 +18,7 @@ const GoogleLogin = () => {
         });
         navigate("/home", { replace: true });
       } else {
-        setUserCx(null); // Clear user on logout
+        setUserCx(null); 
       }
     });
 

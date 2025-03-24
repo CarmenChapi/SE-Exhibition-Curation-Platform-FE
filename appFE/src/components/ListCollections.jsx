@@ -16,7 +16,7 @@ const ListCollections = () => {
   const { userCx, setUserCx } = useContext(UserContext);
   //  const userCx ={
   //   email : "mariachaparro58@gmail.com",
-  //  displayName: "catia rodrigue"}
+  //  displayName: "Ada Lovelace"}
 
   useEffect(() => {
     const fetchData = async () => {
