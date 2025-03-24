@@ -32,7 +32,7 @@ function App() {
           <Route path="/" element={<GoogleLogin />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/collection" element={<ListCollections />} />
-          <Route path="/home/collection/:collectionId" element={<ListArworks />} />
+          <Route path="/home/collection/:nameCollection/:collectionId" element={<ListArworks />} />
           <Route path="/home/artgallery/" element={<ListApiArtGalleries/>} />
           <Route path="/home/artgallery/chicago" element={<ArticData/>} />
           <Route path="/home/artgallery/europeana" element={<EuropeanaData/>} />

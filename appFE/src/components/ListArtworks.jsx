@@ -8,12 +8,10 @@ import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 
 const ListArtworks = ({}) => {
-  let { collectionId } = useParams();
- // const nameCollection = collectionId.split("-")[1];
- // collectionId = collectionId.split("-")[0];
-  //console.log(collectionId, nameCollection);
+  const  { collectionId, nameCollection } = useParams();
+  const {}  = useParams();
 
-  //console.log(collectionId)
+ // console.log(collectionId, nameCollection);
   const [isLoading, setIsLoading] = useState(true);
   const [artworks, setArtworks] = useState([]);
   const [error, setError] = useState(null);
@@ -84,6 +82,7 @@ const ListArtworks = ({}) => {
       <h1 className="Header">
         {userCx?.displayName.split(" ")[0]}'s Collection:
       </h1>
+      <h2>{nameCollection}</h2>
       <nav>
       <BackControl />
       </nav>
