@@ -72,13 +72,17 @@ const MetCard = () => {
         {artwork.creditLine ? artwork.creditLine : "Unknown"}
       </p>
 
-      <a
+      <p>
+          <strong>URL:</strong>{" "}
+          <a
         href={artwork.objectURL ? artwork.objectURL : "Unknown"}
         title="See this artwork in the www.MetMuseum.org"
-      >
-        <strong>URL:</strong>
-        {artwork.objectURL ? artwork.objectURL : "Unknown"}
-      </a>
+        target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >      Visit this artwork on the MET Museum</a>
+        </p>
+    
       </section>
       
       <ShareArtwork title={artwork.title} url={artwork.objectURL} />

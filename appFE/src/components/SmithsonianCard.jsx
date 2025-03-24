@@ -77,14 +77,18 @@ const SmithsonianCard = () => {
           : "Unknown"}
       </p>
 
-      <a
+      <p>
+          <strong>URL:</strong>{" "}
+          <a
       href={artwork.content.descriptiveNonRepeating.record_link || "" }
-      title="See the item in the oficial website">
-        <strong>URL:</strong>
-        {artwork.content.descriptiveNonRepeating.record_link ? artwork.content.descriptiveNonRepeating.record_link : "Link no available"}
-      </a>
+      title="See the item in the oficial website"
+        target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >      Visit this artwork on Smithsonian</a>
+        </p>
       </section>
-
+     
       <ShareArtwork title={artwork.title} 
       url={artwork.content.descriptiveNonRepeating.record_link} />
 

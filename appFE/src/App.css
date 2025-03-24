@@ -445,3 +445,14 @@ body {
 .error-wrapper .btn-back {
   margin-bottom: 1rem;
 }
+
+
+.detail-link {
+  color: #0066cc;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.detail-link:hover {
+  color: #004999;
+}

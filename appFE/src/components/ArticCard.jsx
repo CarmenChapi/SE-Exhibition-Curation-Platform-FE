@@ -76,14 +76,20 @@ const ArticCard = () => {
           <strong>Department:</strong>{" "}
           {artwork.data.department_title || "Unknown"}
         </p>
-        <a
+        <p>
+          <strong>URL:</strong>{" "}
+          <a
           href={`https://www.artic.edu/artworks/${artId}`}
           title="See this artwork in the Chicago Art Institute Website"
-        >
-          {" "}
-          <strong>URL:</strong>
-          {`https://www.artic.edu/artworks/${artId}`}
-        </a>
+          target="_blank"
+          rel="noopener noreferrer"
+          className="detail-link"
+        >      Visit this artwork on Chicago Art Institue</a>
+      </p>
+
+
+  
+        
       </section>
 
 

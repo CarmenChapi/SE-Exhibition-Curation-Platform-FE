@@ -73,15 +73,19 @@ const HarvardCard = () => {
             ? artwork.verificationleveldescription
             : "Unknown"}
         </p>
-        <a
+        <p>
+          <strong>URL:</strong>{" "}
+          <a
           href={artwork.url ? artwork.url : "Unknown"}
           title="See this artwork in www.HarvardMuseum.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="detail-link"
         >
-          {" "}
-          <strong>URL:</strong>
-          {artwork.url ? artwork.url : "Unknown"}
-        </a>
+         Visit this artwork on Harvard Museum</a>
+        </p>
       </section>
+     
 
       <ShareArtwork title={artwork.title} url={artwork.url} />
 

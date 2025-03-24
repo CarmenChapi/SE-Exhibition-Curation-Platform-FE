@@ -105,7 +105,10 @@ const EuropeanaCard = () => {
               "/"
             )}`}
             title="See this artwork in www.europeana.eu"
-          >{`https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`}</a>
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >      Visit this artwork on Europeana</a>
         </p>
       </section>
 

@@ -73,8 +73,14 @@ const VAMCard = () => {
       <p>
         <strong>URL:</strong>{" "}
       <a href={artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : ""}
-      title="See this artwork in the VAM website">{artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : "Unknown"}</a>
-      </p>
+      title="See this artwork in the V&A website"
+         target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >      Visit this artwork on V&A Museum</a>
+          </p>
+  
+
       </section>
       <ShareArtwork title={artwork.record.titles[0].title} 
       url={artwork.meta._links.collection_page.href} />

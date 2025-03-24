@@ -77,11 +77,19 @@ const RijksMCard = () => {
       <p>
         <strong>URL:</strong>{" "}
       </p>
-      <a
+      <p>
+          <strong>URL:</strong>{" "}
+          <a
         href= {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : ""}
-        title="See this artwork in www.rijksmuseum.nl">  {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : "Unknown"}
-      </a>
+        title="See this artwork in www.rijksmuseum.nl"
+        target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >      Visit this artwork on RijksMuseum</a>
+        </p>
+
       </section>
+    
 
       <ShareArtwork title={artwork.title} 
       url={`http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}`} />
