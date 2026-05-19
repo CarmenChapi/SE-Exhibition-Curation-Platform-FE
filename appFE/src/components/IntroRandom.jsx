@@ -14,8 +14,7 @@ const IntroRandom = () => {
   return (
     <div className="intro">
       <p className="subtitle">
-        Discover a world of inspiration. Explore thousands of masterpieces from
-        the museum’s collection and curate your private gallery
+        Discover a world of inspiration. Explore thousands of masterpieces from world-renowned museums and curate your private gallery
       </p>
 
       <div className="collage">

@@ -1,9 +1,10 @@
 
-
+import Logo from '/src/assets/logo.png';
 const Header = () => {
   return (
     <section className="header">
-        <h1 className="header">Exhibition Curation Platform</h1>
+        <img src={Logo} alt="Logo" className="logo" />
+  
     </section>
   );
 };

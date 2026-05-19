@@ -12,34 +12,46 @@ body {
   background-color: #a2d2ff;
   padding: 10px;
   margin:10px;
-  width: 90ch;
+  width: 100%;
   justify-items: center;
 }
 
+
+p{
+  font-size: 4ch;
+}
 /* Header */
 h1 {
-  font-size: 30px;
+  font-size: 10ch;
   padding: 5px;
   margin-bottom: 10px;
   color: black;
 }
 
 h2 {
-  font-size: 25px;
+  font-size: 6ch;
   color: black;
   margin: 25px;
 }
 
 /* Buttons */
 button {
-  padding: 8px 16px;
-  margin: 5px;
+  background-color: white;
+  color: black;
+  padding: 12px 20px;
+  border-radius: 10px;
   border: none;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 5px;
+  font-size: 2rem;
+  font-weight: 500;
+  min-width: 130px;
+  transition: 0.3s ease;
+  margin: 1rem;
 }
 
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
 
 
 .btn-open {
@@ -52,9 +64,6 @@ button {
   color: black;
 }
 
-button:hover {
-  opacity: 0.8;
-}
 
 .collection-title {
   font-weight: bold;
@@ -87,7 +96,14 @@ ul {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 8px;
+  font-size: 2rem;
+  margin: 2rem;
+}
+
+.collection-input:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  border-color: #5b9df9;
 }
 
 /* Cancel Button */
@@ -102,8 +118,8 @@ ul {
   align-items: center;
   padding: 10px;
   gap: 25px;
-  width: 90%; 
-  max-width: 120vw;
+  width: 100%; 
+  max-width: 100%;
 }
 
 
@@ -114,7 +130,7 @@ ul {
   justify-content: center; 
   background-color: white;
   border-radius: 5px;
-  gap: 30px;
+  gap: 60px;
   margin: 15px;
   padding: 20px;
 }
@@ -130,7 +146,7 @@ ul {
   margin: 40px;
   border-radius: 8px;
   gap: 50px;
-  max-width: 70vw;
+  max-width: 100%;
   margin-bottom: 1rem;
 }
 
@@ -147,7 +163,7 @@ ul {
 
 .gallery-photo {
   width: 100%; 
-  max-width: 30vw;
+  max-width: 900px;
 }
 
 /* Responsive Design */
@@ -156,6 +172,13 @@ ul {
     flex-direction: column;
     gap: 6px;
   }
+}
+label{
+  padding: 12px 16px;
+  font-size: 2.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin: 1rem;
 }
 
 .btn-back {
@@ -176,10 +199,10 @@ a {
 
 
 .userPhoto{
-  width: 50px;  
-  height: 50px; 
+  width: 2ch; 
   border-radius: 50%; 
   object-fit: cover; 
+  padding: 1ch;
 }
 
 .userProfile{
@@ -188,6 +211,7 @@ a {
   align-items: center;
   justify-content: center; 
   width: 100%; 
+  max-width: 100%;
   padding: 10px; 
 }
 
@@ -196,7 +220,7 @@ a {
   flex-direction: items-center;
   align-items: center;
   justify-content: center; 
-  width: 80%; 
+  width: 100%; 
   padding: 10px; 
 }
 
@@ -207,6 +231,7 @@ a {
   justify-content: center; 
   width: 100%; 
   padding: 10px; 
+  margin: 50px;
 }
 
 .btn-menu{
@@ -223,7 +248,7 @@ a {
   display: block;         
   margin: 4rem auto;    
   max-width: 100%;           
-  width: 600px;            
+  width: 100%;            
   height: auto;           
   border-radius: 4px;   
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
@@ -231,7 +256,7 @@ a {
 
 .logo-gallery{
   width: 100%;
-  max-width: 20vw;
+  max-width: 100%;
 }
 
 .collage {
@@ -239,7 +264,7 @@ a {
   grid-template-columns: repeat(4, 1fr); 
   grid-template-rows: repeat(2, 1fr); 
   gap: 10px; 
-  width: 90%;
+  width: 100%;
   max-width: 80vw;
   overflow: hidden;
   padding: 10px;
@@ -250,13 +275,23 @@ a {
   height: 100%;
   object-fit: cover;
 }
+.collage-img:hover {
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+.logo:hover{
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
 
 .intro{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around; 
-  width: 90%; 
+  width: 100%; 
   padding: 10px; 
 }
 
@@ -283,21 +318,17 @@ a {
 .artApis{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 2fr)); 
-  gap: 20px;
+  gap: 40px;
   align-items: center;
   justify-content: center;
-  width: 90%;
+  width: 100%;
 }
 
 button {
   padding: 12px 16px;
 }
 
-@media (max-width: 768px) {
-  .collection-grid {
-    grid-template-columns: 1fr;
-  }
-}
+
 
 button:hover, .collection-grid , img:hover {
   transform: scale(1.05);
@@ -392,15 +423,18 @@ body {
 .artwork-form label {
   text-align: right;
   font-weight: 500;
+  margin : 10px;
 }
 
-.artwork-form input,
+.artwork-form,
 .artwork-form textarea {
+  height: max-content;
   width: 100%;
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  margin-left: 1rem;
 }
 
 
@@ -450,4 +484,56 @@ body {
 
 .detail-link:hover {
   color: #004999;
+}
+
+@media (max-width: 768px) {
+  #root{
+    padding: 5px;
+    margin: 5px;
+  }
+  .header{
+    max-width:  768px;
+    width: 100%;
+  }
+  .collection-grid {
+    grid-template-columns: 1fr;
+  }
+
+p{
+  font-size: 2ch;
+}
+/* Header */
+h1 {
+  font-size: 5ch;
+  padding: 2px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+h2 {
+  font-size: 2ch;
+  color: black;
+  margin: 12px;
+}
+
+  button {
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 250;
+  min-width: 65px;
+  margin: 0.5rem;
+
+}
+img{
+  width: 100%;
+  height: auto;
+}
+.topMenu{
+  padding: 5px; 
+  margin: 15px; 
+}
+.menuCollections{
+  padding: 5px; 
+}
 }

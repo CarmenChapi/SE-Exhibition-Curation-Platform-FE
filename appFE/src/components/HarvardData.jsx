@@ -70,9 +70,11 @@ const HarvardData = () => {
         <BackControl />
       </nav>
       <h2>Harvard Art Museum</h2>
+         <h2>Collection</h2>
+         
       {/* Search Input */}
-      <div>
-      <label>Search artworks
+      <div className="searchMenu">
+      <label className="label">Search artworks
         <input
           type="text"
           placeholder="Search for artworks..."
@@ -81,12 +83,7 @@ const HarvardData = () => {
           className="collection-input"
         />
         </label>
-        <button onClick={handleSearch} className="btn-search">
-          Search
-        </button>
-      </div>
 
-      {/* Sorting & Filtering Options */}
       <div className="filter-sort-container">
       <label>Sort by
         <select
@@ -101,14 +98,19 @@ const HarvardData = () => {
 
         <label>
           <input
+            className="input"
             type="checkbox"
             checked={filterByImage}
             onChange={() => setFilterByImage(!filterByImage)}
           />
           Only show artworks with images
         </label>
+           <button onClick={handleSearch} 
+         className="btn-search">
+          Search
+        </button>
       </div>
-
+        </div>
       {/* Artworks List */}
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
