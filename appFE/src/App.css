@@ -1,25 +1,125 @@
+/* Contenedor principal en cuadrícula responsiva */
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 80vw;
+  margin: 0 auto;
+}
 
+/* La tarjeta individual */
+.collection-card {
+  background: #ffffff;
+  border-radius: 15px;
+  overflow: hidden; /* Corta las esquinas de la imagen si sobresale */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap : 5px;
+}
+.collection-card2{
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden; /* Corta las esquinas de la imagen si sobresale */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  gap : 0px;
+  margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.collection-card:hover {
+  transform: translateY(-5px); /* Flota un poco al pasar el ratón */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  height: 180px;
+  object-fit: cover;
+  background-color: white;
+}
+.card-image:hover {
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+
+/* Botón de los tres puntos (arriba a la derecha) */
+.btn-options {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+.btn-options:hover {
+  background: #ffffff;
+}
+
+/* Parte de texto y botones de abajo */
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
 
 .collection-title {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 5px;
-  flex-grow: 1;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 5px;
-  margin: 40px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 10px 0;
+  color: #1a1a1a;
+   padding: 0; 
+  background-color: white;
+  text-transform: capitalize; /* Pone la primera letra en mayúscula */
+}
+
+/* Botón principal de añadir */
+.btn-add-art {
+  width: auto;
+  padding: 10px;
+  background: white; /* Negro para mantener el estilo minimalista */
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add-art:hover {
+  background: #a2d2ff;
+    transform: translateY(-2px);
+
 }
 
 .button-group {
   display: flex;
   justify-content: space-between;
   border-radius: 5px;
+  margin: 5px;
+  max-width: 100%;
 }
 
-.collection-card:hover {
-  transform: translateY(-2px);
-}
 .label {
   text-align: center;
 }
@@ -30,6 +130,7 @@
       text-align: center;
     margin : 1rem;
 }
+
 
 .collection-input:hover {
   transform: translateY(-2px);
@@ -66,17 +167,7 @@ input[type="checkbox"] {
   max-width: 100%;
 }
 
-.collection-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 5px;
-  gap: 60px;
-  margin: 15px;
-  padding: 20px;
-}
+
 
 .gallery-list {
   display: flex;
@@ -158,8 +249,10 @@ input[type="checkbox"] {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: fit-content;
   padding: 10px;
   margin: 50px;
+  gap: 80px
 }
 
 
@@ -487,5 +580,52 @@ input[type="checkbox"] {
   
   gap: 15px;       
   padding: 5px;
+}
+.artApis {
+  grid-template-columns: repeat(auto-fit, minmax(50px, 3fr));
+  gap: 10px;
+  max-width: 72vw;
+}
+.collection-title {
+  font-size: 0.7rem;
+  font-weight: 200;
+  margin: 4px 0;
+}
+.collections-grid {
+  grid-template-columns: 1fr;
+  align-items: center;
+    justify-content: center;
+  gap: 5px;
+  padding: 3px;
+}
+.card-image {
+  height: 60px;}
+
+
+  .topMenu {
+   flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  padding: 5px;
+  margin: 5px;
+  gap: 20px
+}
+.collection-card2{
+  border-radius: 10px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+  width: 100%;
+    max-width: max-content;
+}
+.collection-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+  margin: 5px;
+    width: 100%;
+    max-width: 650px;
+}
+.button-group {
+  border-radius: 3px;
+  margin: 2px;
+  max-width: 90%;
 }
 }

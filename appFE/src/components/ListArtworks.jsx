@@ -3,9 +3,11 @@ import { getArtworksByCollection, addArtwork } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 import { useParams } from "react-router-dom";
 import ArtworkCard from "./ArtworkCard";
-import BackControl from "./BackControl";
+import Header from "./Header";
 import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
+import UserProfile from "./UserProfile";
+import MenuCollections from "./MenuCollections";
 
 const ListArtworks = ({}) => {
   const  { collectionId, nameCollection } = useParams();
@@ -23,7 +25,10 @@ const ListArtworks = ({}) => {
     image_url: "",
   });
 
-  const { userCx } = useContext(UserContext);
+  //const { userCx } = useContext(UserContext);
+      const userCx ={
+     email : "mariachaparro58@gmail.com",
+    displayName: "Maria Chaparro"}
 
   useEffect(() => {
     if (collectionId) {
@@ -52,24 +57,6 @@ const ListArtworks = ({}) => {
       });
   };
 
-  const handleAddArtwork = () => {
-    if (!newArtwork.title.trim()) return alert("Title cannot be empty!");
-
-    // const artworkToAdd = { ...newArtwork, id_collection: collectionId };
-
-    addArtwork(collectionId, newArtwork)
-      .then((addedArtwork) => {
-        setArtworks([addedArtwork, ...artworks]);
-        setNewArtwork({
-          title: "",
-          location: "",
-          artist: "",
-          description: "",
-          image_url: "",
-        });
-      })
-      .catch((err) => setError(err));
-  };
 
   if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
   if (error)
@@ -79,18 +66,20 @@ const ListArtworks = ({}) => {
   return (
     <>
       
-      <h1 className="Header">
-        {userCx?.displayName?.split(" ")[0] ? userCx?.displayName?.split(" ")[0] : "User"}'s Collection:
-      </h1>
-      <h2>{nameCollection}</h2>
-      <nav>
-      <BackControl />
+       <Header />
+      <nav className="topMenu">
+        <UserProfile />
+        <MenuCollections />
       </nav>
+     
+      <h1>Collection <strong>{nameCollection}</strong></h1>
+  
 
       {/* 🔹 Artwork List */}
       {artworks.length === 0 ? (
         <p>No artworks added.</p>
       ) : (
+        <div>
         <ul className="collection-list">
           {artworks.map((artwork) => (
             <ArtworkCard
@@ -100,89 +89,16 @@ const ListArtworks = ({}) => {
               artworks={artworks}
             />
           ))}
-        </ul>
+        </ul> 
+        <Footer/>
+        </div>
       )}
-      {/* 🔹 Add new artwork */}
+    
 
-      <section className="gallery-list">
-      <h3>Add an artwork in your collection</h3>
-
-      <form className="artwork-form">
-      <div className="form-row">
-        <label>
-          Add a name
-          <input
-            type="text"
-            placeholder="Title"
-            value={newArtwork.title}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, title: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a location
-          <input
-            type="text"
-            placeholder="Location"
-            value={newArtwork.location}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, location: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a author name
-          <input
-            type="text"
-            placeholder="Artist"
-            value={newArtwork.artist}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, artist: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a valid URL
-          <input
-            type="text"
-            placeholder="Image URL"
-            value={newArtwork.image_url}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, image_url: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a description
-          <textarea
-            placeholder="Description"
-            value={newArtwork.description}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, description: e.target.value })
-            }
-          />
-        </label>
-        </div>
-
-        <button className="btn-add" onClick={handleAddArtwork}>
-          Add a new artwork
-        </button>
-        </form>
-      </section>
-
-
-      <Footer/>
+     
     </>
   );
 };
+
 
 export default ListArtworks;
