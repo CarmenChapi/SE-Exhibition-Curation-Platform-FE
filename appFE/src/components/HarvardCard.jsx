@@ -5,6 +5,8 @@ import BackControl from "./BackControl";
 import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "./ErrorPage";
+import MenuCollections from "./MenuCollections";
+import Header from "./Header";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -37,14 +39,17 @@ const HarvardCard = () => {
 
   return (
     <>
-      <h1>Harvard Art Museum</h1>
+       <Header/>
+    <nav className="topMenu">
+        <MenuCollections />
+      </nav>
+      <h2>Harvard Art Museum</h2>
       <nav>
         <BackControl />
       </nav>
 
-      <section>
+      <section className="description-section">
         <h2>{artwork.title}</h2>
-        <p>{artwork.people ? artwork.people[0].name : "Unknown"}</p>
         {artwork.primaryimageurl ? (
           <img
             src={artwork.primaryimageurl}
@@ -54,26 +59,31 @@ const HarvardCard = () => {
         ) : (
           <p>No Image Available</p>
         )}
-        <p>
+        <p className="description-artwork"><strong>
+          Title:</strong>{" "}{artwork.title ? artwork.title : "Unknown"}</p>
+        <p className="description-artwork"><strong>
+          People:</strong>{" "}{artwork.people ? artwork.people[0].name : "Unknown"}</p>
+        <p className="description-artwork">
           <strong>Department:</strong>{" "}
           {artwork.department ? artwork.department : "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Technique:</strong>{" "}
           {artwork.technique ? artwork.technique : "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Date:</strong> {artwork.dated ? artwork.dated : "Unknown"}
         </p>
+          <p className="description-artwork">
         <strong>Culture:</strong>{" "}
-        {artwork.culture ? artwork.culture : "Unknown"}
-        <p>
+        {artwork.culture ? artwork.culture : "Unknown"}</p>
+        <p className="description-artwork">
           <strong>Description:</strong>{" "}
           {artwork.verificationleveldescription
             ? artwork.verificationleveldescription
             : "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
           href={artwork.url ? artwork.url : "Unknown"}
@@ -82,7 +92,7 @@ const HarvardCard = () => {
           rel="noopener noreferrer"
           className="detail-link"
         >
-         Visit this artwork on Harvard Museum</a>
+         Visit this artwork on Harvard Museum for more information</a>
         </p>
       </section>
      

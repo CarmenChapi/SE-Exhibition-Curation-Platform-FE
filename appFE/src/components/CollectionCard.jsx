@@ -2,13 +2,18 @@ import { useState } from "react";
 import { updateCollection, deleteCollection } from "../utils/api";
 
 import { useNavigate } from "react-router-dom";
+import { RiEditLine } from "react-icons/ri";
+import { AiOutlineDelete } from "react-icons/ai";
+import { TiPlusOutline } from "react-icons/ti";
+import { VscFolderOpened } from "react-icons/vsc";
+import CollectionPreview from "/src/assets/collectionPreview.png";
 
 const CollectionCard = ({
   collection,
   setListCollections,
   listCollections,
 }) => {
- // console.log(collection);
+  // console.log(collection);
   const [editing, setEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(collection.title);
   const navigate = useNavigate();
@@ -20,8 +25,10 @@ const CollectionCard = ({
       .then((updatedCollection) => {
         setListCollections(
           listCollections.map((col) =>
-            col.id_collection === updatedCollection.id ? updatedCollection : col
-          )
+            col.id_collection === updatedCollection.id
+              ? updatedCollection
+              : col,
+          ),
         );
         setEditing(false);
       })
@@ -33,8 +40,8 @@ const CollectionCard = ({
       .then(() => {
         setListCollections(
           listCollections.filter(
-            (col) => col.id_collection !== collection.id_collection
-          )
+            (col) => col.id_collection !== collection.id_collection,
+          ),
         );
       })
       .catch((err) => console.error("Error deleting collection:", err));
@@ -43,23 +50,30 @@ const CollectionCard = ({
   const handleOpenCollection = () => {
     //console.log(collection.id_collection);
     navigate(
-      `/home/collection/${collection.title}/${collection.id_collection}`
+      `/home/collection/${collection.title}/${collection.id_collection}`,
     );
   };
 
   return (
-    <li className="collection-card"> 
+    <li className="collection-card">
+      <p className="collection-title">{collection.title}</p>
+
+      <img
+        src={CollectionPreview}
+        alt="Collection preview"
+        className="card-image"
+      />
       {editing ? (
         <form>
           <label>
-            Edit title
+            Edit title    </label>
             <input
               className="collection-input"
               type="text"
               value={updatedTitle}
               onChange={(e) => setUpdatedTitle(e.target.value)}
             />
-          </label>
+      
           <button className="btn-back" onClick={handleUpdate}>
             Save
           </button>
@@ -69,17 +83,17 @@ const CollectionCard = ({
         </form>
       ) : (
         <div className="button-group">
-          <span className="collection-title">{collection.title}</span>
-          <button className="btn-edit" onClick={() => setEditing(true)}>
-            Edit Name
+          <button className="btn-add-art" onClick={() => setEditing(true)}>
+            <RiEditLine />
           </button>
-          <button className="btn-delete" onClick={handleDelete}>
-            Delete Collection
+          <button className="btn-add-art" onClick={handleOpenCollection}>
+            <TiPlusOutline />
           </button>
-          <button className="btn-open" onClick={handleOpenCollection}>
-            {collection.art_count < 1
-              ? "Add to Collection"
-              : `Manage ${collection.art_count} artwork${collection.art_count > 1 ? "s" : ""}`}
+            {collection.art_count >= 1 ?
+                <button className="btn-add-art" onClick={handleOpenCollection}>
+            <VscFolderOpened /></button> : null}
+          <button className="btn-add-art" onClick={handleDelete}>
+            <AiOutlineDelete />
           </button>
         </div>
       )}
@@ -88,3 +102,4 @@ const CollectionCard = ({
 };
 
 export default CollectionCard;
+//         /** `Manage ${collection.art_count} artwork${collection.art_count > 1 ? "s" : ""}`}**/

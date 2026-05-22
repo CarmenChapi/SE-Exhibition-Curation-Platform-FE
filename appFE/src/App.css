@@ -1,112 +1,157 @@
-/* General Page Styling */
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
+/* Contenedor principal en cuadrícula responsiva */
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 80vw;
+  margin: 0 auto;
 }
 
-#root{
-  background-color: #a2d2ff;
-  padding: 10px;
-  margin:10px;
+/* La tarjeta individual */
+.collection-card {
+  background: #ffffff;
+  border-radius: 15px;
+  overflow: hidden; /* Corta las esquinas de la imagen si sobresale */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap : 5px;
+}
+.collection-card2{
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden; /* Corta las esquinas de la imagen si sobresale */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  gap : 0px;
+  margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.collection-card:hover {
+  transform: translateY(-5px); /* Flota un poco al pasar el ratón */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+.card-image {
   width: 100%;
-  justify-items: center;
-}
-
-
-p{
-  font-size: 4ch;
-}
-/* Header */
-h1 {
-  font-size: 10ch;
-  padding: 5px;
-  margin-bottom: 10px;
-  color: black;
-}
-
-h2 {
-  font-size: 6ch;
-  color: black;
-  margin: 25px;
-}
-
-/* Buttons */
-button {
+  height: 100%;
+  height: 180px;
+  object-fit: cover;
   background-color: white;
-  color: black;
-  padding: 12px 20px;
-  border-radius: 10px;
+}
+.card-image:hover {
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+
+/* Botón de los tres puntos (arriba a la derecha) */
+.btn-options {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.85);
   border: none;
-  font-size: 2rem;
-  font-weight: 500;
-  min-width: 130px;
-  transition: 0.3s ease;
-  margin: 1rem;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+.btn-options:hover {
+  background: #ffffff;
 }
 
-
-.btn-open {
-  background-color: #bad7f4;
-  color: black;
+/* Parte de texto y botones de abajo */
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
-
-.btn-add, .btn-edit {
-  background-color: #bad7f1;
-  color: black;
-}
-
 
 .collection-title {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 5px;
-  flex-grow: 1;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 5px;
-  margin: 40px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 10px 0;
+  color: #1a1a1a;
+   padding: 0; 
+  background-color: white;
+  text-transform: capitalize; /* Pone la primera letra en mayúscula */
 }
 
+/* Botón principal de añadir */
+.btn-add-art {
+  width: auto;
+  padding: 10px;
+  background: white; /* Negro para mantener el estilo minimalista */
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add-art:hover {
+  background: #a2d2ff;
+    transform: translateY(-2px);
+
+}
 
 .button-group {
   display: flex;
   justify-content: space-between;
   border-radius: 5px;
+  margin: 5px;
+  max-width: 100%;
 }
 
-ul {
-  list-style: none;
-  border-radius: 5px;
+.label {
+  text-align: center;
 }
-
-.collection-card:hover {
-  transform: translateY(-2px);
-}
-
 .collection-input {
+  border-radius: 5px;
+  font-size: 2rem;
+    align-items: center;
+      text-align: center;
+    margin : 1rem;
+}
+
+
+.collection-input:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  border-color: #5b9df9;
+}
+input[type="checkbox"] {
+  transform: scale(2.2);
+}
+.box-input {
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 2rem;
   margin: 2rem;
 }
 
-.collection-input:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+.box-input:hover {
+  transform: translateY(-0.2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
   border-color: #5b9df9;
 }
-
-/* Cancel Button */
 .btn-cancel {
   background-color: #95a5a6;
   color: white;
@@ -114,25 +159,12 @@ ul {
 
 .collection-list {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
   padding: 10px;
   gap: 25px;
-  width: 100%; 
+  width: 100%;
   max-width: 100%;
-}
-
-
-.collection-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; 
-  background-color: white;
-  border-radius: 5px;
-  gap: 60px;
-  margin: 15px;
-  padding: 20px;
 }
 
 
@@ -142,15 +174,15 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  margin: 40px;
+  padding: 10px;
   border-radius: 8px;
   gap: 50px;
   max-width: 100%;
-  margin-bottom: 1rem;
+  width: 100%;
+  margin: 5rem;
 }
 
-.gallery-card{
+.gallery-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,30 +191,16 @@ ul {
   background-color: white;
   border-radius: 5px;
   padding: 20px;
+  max-width: 100%;
 }
 
 .gallery-photo {
-  width: 100%; 
+  width: 100%;
   max-width: 900px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .collection-list {
-    flex-direction: column;
-    gap: 6px;
-  }
-}
-label{
-  padding: 12px 16px;
-  font-size: 2.5rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin: 1rem;
-}
-
 .btn-back {
-  background-color : #bde0fe;
+  background-color: #bde0fe;
   color: black;
   padding: 10px;
 }
@@ -192,78 +210,85 @@ label{
   color: black;
 }
 
-a {
-  color: inherit; 
-  text-decoration: none; 
+/* El contenedor principal de los enlaces */
+.mainMenu {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center;     /* Los centra verticalmente */
+  gap: 80px;               /* Controla el espacio entre cada enlace */
+  padding: 15px;
 }
 
-
-.userPhoto{
-  width: 2ch; 
-  border-radius: 50%; 
-  object-fit: cover; 
-  padding: 1ch;
+/* El enlace que envuelve a la imagen */
+.link-menu {
+  display: inline-block;
+  text-decoration: none;   /* Elimina cualquier subrayado por defecto */
+  border: none;
+  background: transparent; /* Por si heredaba estilos de botón */
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease; /* Efecto suave al pasar el ratón */
 }
 
-.userProfile{
+/* Efecto visual cuando el usuario pasa el cursor por encima (Hover) */
+.link-menu:hover {
+  transform: scale(1.05);  /* Agranda la imagen un 5% para que se note el "click" */
+  opacity: 0.9;            /* Suaviza un poco el color */
+}
+
+/* Control estricto del tamaño de las imágenes */
+.menu-img {
+  display: block;          /* Elimina un pequeño espacio blanco que las imágenes traen por defecto debajo */
+  height: 200px;
+   width: auto;           /* Mantiene la proporción original de la imagen sin deformarla */
+  border-radius: 8px;      /* Opcional: le da esquinas redondeadas si tus imágenes lo necesitan */
+  object-fit: cover;       /* Asegura que la imagen llene el espacio de forma limpia */
+}
+.topMenu {
   display: flex;
   flex-direction: items-center;
   align-items: center;
-  justify-content: center; 
-  width: 100%; 
-  max-width: 100%;
-  padding: 10px; 
-}
-
-.menuCollections{
-  display: flex;
-  flex-direction: items-center;
-  align-items: center;
-  justify-content: center; 
-  width: 100%; 
-  padding: 10px; 
-}
-
-.topMenu{
-  display: flex;
-  flex-direction: items-center;
-  align-items: center;
-  justify-content: center; 
-  width: 100%; 
-  padding: 10px; 
+  justify-content: center;
+  width: 100%;
+  max-width: fit-content;
+  padding: 10px;
   margin: 50px;
+  gap: 80px
 }
 
-.btn-menu{
-  background-color: #bde0fe;
-  color: black
-}
 
-.btn-gallery{
+.btn-gallery {
   background-color: #cdb4db;
   color: black;
 }
 
-.detail-photo{
-  display: block;         
-  margin: 4rem auto;    
-  max-width: 100%;           
-  width: 100%;            
-  height: auto;           
-  border-radius: 4px;   
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+.detail-photo {
+  display: block;
+  margin: 4rem auto;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.detail-photo:hover{
+    transform: none;
+  opacity: 1;
+  filter: none;
 }
 
-.logo-gallery{
+.logo-gallery {
   width: 100%;
   max-width: 100%;
 }
-
+.subtitle{
+    width: 100%;
+  max-width: 80vw;
+}
 .collage {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
-  grid-template-rows: repeat(2, 1fr); 
-  gap: 10px; 
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
   width: 100%;
   max-width: 80vw;
   overflow: hidden;
@@ -273,6 +298,7 @@ a {
 .collage-img {
   width: 100%;
   height: 100%;
+  max-height: 20vh;
   object-fit: cover;
 }
 .collage-img:hover {
@@ -280,86 +306,86 @@ a {
   opacity: 1;
   filter: none;
 }
-.logo:hover{
+.logo:hover {
   transform: none;
   opacity: 1;
   filter: none;
 }
 
-.intro{
+.intro {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around; 
-  width: 100%; 
-  padding: 10px; 
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px;
+}
+.searchMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+}
+.sort-dropdown {
+  font-size: 2rem;
+  margin: 1em;
+}
+.sort-dropdown:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  border-color: #5b9df9;
 }
 
 .share-container {
   text-align: center;
-  margin-top: 20px;
-  background-color: white;
+  margin: 5rem;
+  background-color:#bad7f1;
   border-radius: 5px;
+     padding: 6px 10px;
+     max-width: 100%;
 }
 
-.share-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-
+.sr-only{
+  font-size: 2.5ch;
 }
-
-
-.Footer{
-  margin-top: auto;
-}
-
-
-.artApis{
+.artApis {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 2fr)); 
+  grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
   gap: 40px;
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 72vw;
+}
+.description-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+  padding-right: 20px;   
 }
 
-button {
-  padding: 12px 16px;
+.description-section > * {
+  margin-left: 0;       
+  margin-right: 0;
+  width: auto;           
+  text-align: right;    
 }
 
-
-
-button:hover, .collection-grid , img:hover {
+.collection-grid {
   transform: scale(1.05);
   transition: transform 0.3s ease-in-out;
 }
 
-.art-list{
-
+.art-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #a2d2ff;
 }
 
-/* ===== Global resets ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(135deg, #a3d8f4 0%, #7bbfea 100%);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ===== Card container ===== */
 .signin-wrapper {
   width: 100%;
   padding: 2rem;
@@ -370,15 +396,9 @@ body {
   width: 100%;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   text-align: center;
-}
-
-.Header {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
 }
 
 .signin-subtitle {
@@ -386,7 +406,6 @@ body {
   margin-bottom: 2rem;
   color: #545454;
 }
-
 
 .signin-btn {
   display: flex;
@@ -401,7 +420,9 @@ body {
   border: 2px solid #ddd;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .signin-btn:hover {
@@ -420,10 +441,10 @@ body {
   margin-bottom: 1rem;
 }
 
-.artwork-form label {
+.artwork-form{
   text-align: right;
   font-weight: 500;
-  margin : 10px;
+  margin: 10px;
 }
 
 .artwork-form,
@@ -436,7 +457,6 @@ body {
   box-sizing: border-box;
   margin-left: 1rem;
 }
-
 
 .error-wrapper {
   min-height: calc(100vh - 4rem);
@@ -470,70 +490,142 @@ body {
   color: #333;
 }
 
-
 .error-wrapper .btn-back {
   margin-bottom: 1rem;
 }
 
-
 .detail-link {
-  color: #0066cc;
-  text-decoration: underline;
-  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
 }
 
 .detail-link:hover {
   color: #004999;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
-  #root{
-    padding: 5px;
-    margin: 5px;
+  .collection-list {
+    flex-direction: column;
+    gap: 6px;
   }
-  .header{
-    max-width:  768px;
-    width: 100%;
-  }
+
   .collection-grid {
     grid-template-columns: 1fr;
   }
 
-p{
-  font-size: 2ch;
-}
-/* Header */
-h1 {
-  font-size: 5ch;
-  padding: 2px;
-  margin-bottom: 5px;
-  color: black;
-}
-
-h2 {
-  font-size: 2ch;
-  color: black;
-  margin: 12px;
-}
-
-  button {
-  padding: 6px 10px;
-  border-radius: 5px;
+  .topMenu {
+    padding: 5px;
+    margin: 15px;
+  }
+  .mainMenu {
+    padding: 5px;
+  }
+  .sort-dropdown {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 1rem;
+    margin: 0.5em;
+  }
+  .collection-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
   font-size: 1rem;
-  font-weight: 250;
-  min-width: 65px;
   margin: 0.5rem;
+  align-items: center;
+  font-display: center;
+}
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin: 0.5rem;
+}
+
+.gallery-list {
+
+  padding: 4px;
+  margin: 4px;
+  border-radius: 3px;
+  gap: 20px;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+}
+.gallery-card {
+  gap: 10px;
+  padding: 8px;
+}
+
+.description-artwork{
+  margin : 0.3rem;
+  padding: 0.3rem;
+}
+.detail-photo {
+  margin: 1rem auto;
 
 }
-img{
+.sr-only{
+  font-size: 1.2ch;
+}
+.share-container {
+  margin: 2rem;
+     padding: 2px 4px;
+     max-width: 100%;
+}
+.menu-img {
+
+  height: 60px;   
+}
+.mainMenu {
+  
+  gap: 15px;       
+  padding: 5px;
+}
+.artApis {
+  grid-template-columns: repeat(auto-fit, minmax(50px, 3fr));
+  gap: 10px;
+  max-width: 72vw;
+}
+.collection-title {
+  font-size: 0.7rem;
+  font-weight: 200;
+  margin: 4px 0;
+}
+.collections-grid {
+  grid-template-columns: 1fr;
+  align-items: center;
+    justify-content: center;
+  gap: 5px;
+  padding: 3px;
+}
+.card-image {
+  height: 60px;}
+
+
+  .topMenu {
+   flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  padding: 5px;
+  margin: 5px;
+  gap: 20px
+}
+.collection-card2{
+  border-radius: 10px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
   width: 100%;
-  height: auto;
+    max-width: max-content;
 }
-.topMenu{
-  padding: 5px; 
-  margin: 15px; 
+.collection-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+  margin: 5px;
+    width: 100%;
+    max-width: 650px;
 }
-.menuCollections{
-  padding: 5px; 
+.button-group {
+  border-radius: 3px;
+  margin: 2px;
+  max-width: 90%;
 }
 }

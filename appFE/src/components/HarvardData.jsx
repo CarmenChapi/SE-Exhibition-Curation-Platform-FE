@@ -8,7 +8,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 6;
 
 const fetchHarvardData = async ({ queryKey }) => {
   const [_key, { query, page }] = queryKey;
@@ -67,10 +67,9 @@ const HarvardData = () => {
     <Header/>
     <nav className="topMenu">
         <MenuCollections />
-        <BackControl />
       </nav>
-      <h2>Harvard Art Museum</h2>
-         <h2>Collection</h2>
+      <h2>Harvard Art Museum </h2>
+  
          
       {/* Search Input */}
       <div className="searchMenu">
@@ -83,8 +82,6 @@ const HarvardData = () => {
           className="collection-input"
         />
         </label>
-
-      <div className="filter-sort-container">
       <label>Sort by
         <select
           onChange={(e) => setSortBy(e.target.value)}
@@ -98,7 +95,7 @@ const HarvardData = () => {
 
         <label>
           <input
-            className="input"
+            className="box-input"
             type="checkbox"
             checked={filterByImage}
             onChange={() => setFilterByImage(!filterByImage)}
@@ -109,7 +106,6 @@ const HarvardData = () => {
          className="btn-search">
           Search
         </button>
-      </div>
         </div>
       {/* Artworks List */}
       <ul className="gallery-list">
