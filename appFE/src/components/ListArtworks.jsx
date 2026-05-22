@@ -8,6 +8,8 @@ import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 import UserProfile from "./UserProfile";
 import MenuCollections from "./MenuCollections";
+import { TiPlusOutline } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 
 const ListArtworks = ({}) => {
   const  { collectionId, nameCollection } = useParams();
@@ -25,6 +27,7 @@ const ListArtworks = ({}) => {
     image_url: "",
   });
 
+    const navigate = useNavigate();
   //const { userCx } = useContext(UserContext);
       const userCx ={
      email : "mariachaparro58@gmail.com",
@@ -58,6 +61,13 @@ const ListArtworks = ({}) => {
   };
 
 
+  const handleAddArtwork = () => {
+    navigate(
+      `/home/collection/${nameCollection}/${collectionId}`,
+    );
+  };
+  
+
   if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
   if (error)
     return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
@@ -72,12 +82,22 @@ const ListArtworks = ({}) => {
         <MenuCollections />
       </nav>
      
-      <h1>Collection <strong>{nameCollection}</strong></h1>
+      <h2><strong>{nameCollection}</strong></h2>
+
+
+
+            {/** Add Collection Form */}
+            <div className="collection-card2">
+              
+              <button className="btn-add-art" onClick={handleAddArtwork}>
+                <TiPlusOutline />new artwork
+              </button>
+            </div>
   
 
       {/* 🔹 Artwork List */}
       {artworks.length === 0 ? (
-        <p>No artworks added.</p>
+        <p>Collection is empty.</p>
       ) : (
         <div>
         <ul className="collection-list">
@@ -98,7 +118,7 @@ const ListArtworks = ({}) => {
      
     </>
   );
-};
+}
 
 
 export default ListArtworks;

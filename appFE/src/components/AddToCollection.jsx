@@ -31,27 +31,7 @@ const ListArtworks = ({}) => {
     }
   }, [collectionId]);
 
-  const fetchArtworks = () => {
-    setIsLoading(true);
-    getArtworksByCollection(collectionId)
-      .then((artworks) => {
-        console.log("artworks", artworks);
-        setArtworks(artworks);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        if (err.response?.status === 404) {
-          setArtworks([]);
-          setError(null);
-        } else {
-          setError(err);
-
-        }
-        setIsLoading(false);
-      });
-  };
-
+  
   const handleAddArtwork = () => {
     if (!newArtwork.title.trim()) return alert("Title cannot be empty!");
 
@@ -87,21 +67,7 @@ const ListArtworks = ({}) => {
       <BackControl />
       </nav>
 
-      {/* 🔹 Artwork List */}
-      {artworks.length === 0 ? (
-        <p>No artworks added.</p>
-      ) : (
-        <ul className="collection-list">
-          {artworks.map((artwork) => (
-            <ArtworkCard
-              key={artwork.id_artwork}
-              artwork={artwork}
-              setArtworks={setArtworks}
-              artworks={artworks}
-            />
-          ))}
-        </ul>
-      )}
+    
       {/* 🔹 Add new artwork */}
 
       <section className="gallery-list">
