@@ -8,30 +8,27 @@ import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 import UserProfile from "./UserProfile";
 import MenuCollections from "./MenuCollections";
+import { AiOutlineDelete } from "react-icons/ai";
 import { TiPlusOutline } from "react-icons/ti";
+import { TbListDetails } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
 const ListArtworks = ({}) => {
-  const  { collectionId, nameCollection } = useParams();
-  const {}  = useParams();
+  const { collectionId, nameCollection } = useParams();
+  const {} = useParams();
 
- // console.log(collectionId, nameCollection);
+  // console.log(collectionId, nameCollection);
   const [isLoading, setIsLoading] = useState(true);
   const [artworks, setArtworks] = useState([]);
   const [error, setError] = useState(null);
-  const [newArtwork, setNewArtwork] = useState({
-    title: "",
-    location: "",
-    artist: "",
-    description: "",
-    image_url: "",
-  });
+  const [idArtwork, setIdArtwork] = useState(null);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   //const { userCx } = useContext(UserContext);
-      const userCx ={
-     email : "mariachaparro58@gmail.com",
-    displayName: "Maria Chaparro"}
+  const userCx = {
+    email: "mariachaparro58@gmail.com",
+    displayName: "Maria Chaparro",
+  };
 
   useEffect(() => {
     if (collectionId) {
@@ -54,71 +51,76 @@ const ListArtworks = ({}) => {
           setError(null);
         } else {
           setError(err);
-
         }
         setIsLoading(false);
       });
   };
 
-
   const handleAddArtwork = () => {
-    navigate(
-      `/home/collection/${nameCollection}/${collectionId}`,
-    );
+    navigate(`/home/collections/${nameCollection}/${collectionId}/add`);
   };
-  
+    const handleOpenArtworkDetail = (id) => {
+    navigate(`/home/collections/${nameCollection}/${collectionId}/artworks/${id} `);
+
+  };
+
+  const handleDeleteArtwork = (id) => {};
 
   if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
-  if (error)
-    return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
-
+  if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>
-      
-       <Header />
+      <Header />
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />
       </nav>
-     
-      <h2><strong>{nameCollection}</strong></h2>
 
+      <h2>
+        <strong>{nameCollection}</strong>
+      </h2>
 
+      {/** Add Artwork */}
 
-            {/** Add Collection Form */}
-            <div className="collection-card2">
-              
-              <button className="btn-add-art" onClick={handleAddArtwork}>
-                <TiPlusOutline />new artwork
-              </button>
-            </div>
-  
+      <button className="btn-add-art" onClick={handleAddArtwork}>
+        <TiPlusOutline /> Artwork
+      </button>
 
       {/* 🔹 Artwork List */}
       {artworks.length === 0 ? (
         <p>Collection is empty.</p>
       ) : (
         <div>
-        <ul className="collection-list">
-          {artworks.map((artwork) => (
-            <ArtworkCard
-              key={artwork.id_artwork}
-              artwork={artwork}
-              setArtworks={setArtworks}
-              artworks={artworks}
-            />
-          ))}
-        </ul> 
-        <Footer/>
-        </div>
-      )}
-    
+          <ul>
 
-     
+            <div className="collections-grid">
+            {artworks.map((artwork) => (
+              <li className="collection-card">
+                 <p className="collection-title">{artwork.title}</p>
+                    <img
+                      src={artwork.image_url}
+                      alt="Collection preview"
+                      className="card-image"
+                    />
+   <div className="button-group">
+    
+                <button className="btn-add-art" onClick={handleOpenArtworkDetail(artwork.id_artwork)}>
+            <TbListDetails /> </button> 
+          
+          <button className="btn-add-art" onClick={handleDeleteArtwork(artwork.id_artwork)}>
+            <AiOutlineDelete />
+          </button>
+        </div>
+              </li>
+            ))}
+                  </div>
+          </ul>
+          <Footer />
+        </div>
+          )}
     </>
   );
-}
-
+};
 
 export default ListArtworks;
