@@ -48,9 +48,16 @@ const CollectionCard = ({
   };
 
   const handleOpenCollection = () => {
+    console.log("open" ,collection.id_collection);
+    navigate(
+      `/home/collections/${collection.title}/${collection.id_collection}`,
+    );
+  };
+
+    const handleAddCollection = () => {
     //console.log(collection.id_collection);
     navigate(
-      `/home/collection/${collection.title}/${collection.id_collection}`,
+      `/home/collections/${collection.title}/${collection.id_collection}/add`,
     );
   };
 
@@ -86,7 +93,7 @@ const CollectionCard = ({
           <button className="btn-add-art" onClick={() => setEditing(true)}>
             <RiEditLine />
           </button>
-          <button className="btn-add-art" onClick={handleOpenCollection}>
+          <button className="btn-add-art" onClick={handleAddCollection}>
             <TiPlusOutline />
           </button>
             {collection.art_count >= 1 ?

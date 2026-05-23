@@ -22,6 +22,8 @@ import RijksMCard from "./components/RijksMCard";
 import VAMCard from "./components/VamCard";
 import SmithsonianCard from "./components/SmithsonianCard";
 import ListCollections from "./components/ListCollections";
+import AddToCollection from "./components/AddToCollection";
+import ArtworkDetail from "./components/ArtworkDetail";
 
 
 function App() {
@@ -31,8 +33,10 @@ function App() {
         <Routes>
           <Route path="/" element={<GoogleLogin />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/home/collection" element={<ListCollections />} />
-          <Route path="/home/collection/:nameCollection/:collectionId" element={<ListArworks />} />
+          <Route path="/home/collections" element={<ListCollections />} />
+          <Route path="/home/collections/:nameCollection/:collectionId" element={<ListArworks />} />
+          <Route path="/home/collections/:nameCollection/:collectionId/add" element={<AddToCollection />} />
+          <Route path="/home/collections/:nameCollection/:collectionId/artworks/:artworkId" element={<ArtworkDetail />} />
           <Route path="/home/artgallery/" element={<ListApiArtGalleries/>} />
           <Route path="/home/artgallery/chicago" element={<ArticData/>} />
           <Route path="/home/artgallery/europeana" element={<EuropeanaData/>} />

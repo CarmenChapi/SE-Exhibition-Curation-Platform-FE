@@ -71,7 +71,7 @@ const ListCollections = () => {
         <UserProfile />
         <MenuCollections />
       </nav>
-      <h2>{userCx?.displayName.split(" ")[0]} 's Art Collections:</h2>
+      <h2>Collections</h2>
       <p>
         <strong>
           Organize your private gallery by creating collections and adding your

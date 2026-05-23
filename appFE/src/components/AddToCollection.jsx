@@ -1,19 +1,12 @@
-import { useEffect, useState, useContext } from "react";
-import { getArtworksByCollection, addArtwork } from "../utils/api";
-import { UserContext } from "../context/UserContext";
+import { useState } from "react";
+import { addArtwork } from "../utils/api";
 import { useParams } from "react-router-dom";
-import ArtworkCard from "./ArtworkCard";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ListArtworks = ({}) => {
-  const  { collectionId, nameCollection } = useParams();
-  const {}  = useParams();
-
- // console.log(collectionId, nameCollection);
-  const [isLoading, setIsLoading] = useState(true);
-  const [artworks, setArtworks] = useState([]);
+const AddToCollection = () => {
+  const { collectionId, nameCollection } = useParams();
   const [error, setError] = useState(null);
   const [newArtwork, setNewArtwork] = useState({
     title: "",
@@ -23,23 +16,17 @@ const ListArtworks = ({}) => {
     image_url: "",
   });
 
-  const { userCx } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (collectionId) {
-      fetchArtworks();
-    }
-  }, [collectionId]);
 
-  
-  const handleAddArtwork = () => {
+  const handleAddArtwork = (e) => {
+    e.preventDefault();
     if (!newArtwork.title.trim()) return alert("Title cannot be empty!");
 
     // const artworkToAdd = { ...newArtwork, id_collection: collectionId };
 
     addArtwork(collectionId, newArtwork)
-      .then((addedArtwork) => {
-        setArtworks([addedArtwork, ...artworks]);
+      .then(() => {
         setNewArtwork({
           title: "",
           location: "",
@@ -47,108 +34,103 @@ const ListArtworks = ({}) => {
           description: "",
           image_url: "",
         });
+            navigate(
+      `/home/collections/${nameCollection}/${collectionId}`,
+    );
       })
       .catch((err) => setError(err));
   };
 
-  if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
-  if (error)
-    return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
-
-
+  if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   return (
     <>
-      
-      <h1 className="Header">
-        {userCx?.displayName?.split(" ")[0] ? userCx?.displayName?.split(" ")[0] : "User"}'s Collection:
-      </h1>
+      <section className="collection-add-main">
+      <Link to={`/home/collections/${nameCollection}/${collectionId}`} className="link-menu">
       <h2>{nameCollection}</h2>
-      <nav>
-      <BackControl />
-      </nav>
+  </Link>
+   
 
-    
       {/* 🔹 Add new artwork */}
 
-      <section className="gallery-list">
-      <h3>Add an artwork in your collection</h3>
 
-      <form className="artwork-form">
-      <div className="form-row">
-        <label>
-          Add a name
-          <input
-            type="text"
-            placeholder="Title"
-            value={newArtwork.title}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, title: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a location
-          <input
-            type="text"
-            placeholder="Location"
-            value={newArtwork.location}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, location: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a author name
-          <input
-            type="text"
-            placeholder="Artist"
-            value={newArtwork.artist}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, artist: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a valid URL
-          <input
-            type="text"
-            placeholder="Image URL"
-            value={newArtwork.image_url}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, image_url: e.target.value })
-            }
-          />
-        </label>
-        </div>
-        <div className="form-row">
-        <label>
-          Add a description
-          <textarea
-            placeholder="Description"
-            value={newArtwork.description}
-            onChange={(e) =>
-              setNewArtwork({ ...newArtwork, description: e.target.value })
-            }
-          />
-        </label>
-        </div>
+        
+        <h3>Add an artwork in your collection</h3>
 
-        <button className="btn-add" onClick={handleAddArtwork}>
-          Add a new artwork
-        </button>
+        <form className="artwork-form">
+          <div className="form-row">
+            <label>
+              Add a title
+              <input
+                type="text"
+                placeholder="Title"
+                value={newArtwork.title}
+                onChange={(e) =>
+                  setNewArtwork({ ...newArtwork, title: e.target.value })
+                }
+              />
+            </label>
+          </div>
+          <div className="form-row">
+            <label>
+              Add a location
+              <input
+                type="text"
+                placeholder="Location"
+                value={newArtwork.location}
+                onChange={(e) =>
+                  setNewArtwork({ ...newArtwork, location: e.target.value })
+                }
+              />
+            </label>
+          </div>
+          <div className="form-row">
+            <label>
+              Add a author name
+              <input
+                type="text"
+                placeholder="Artist"
+                value={newArtwork.artist}
+                onChange={(e) =>
+                  setNewArtwork({ ...newArtwork, artist: e.target.value })
+                }
+              />
+            </label>
+          </div>
+          <div className="form-row">
+            <label>
+              Add a valid URL
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={newArtwork.image_url}
+                onChange={(e) =>
+                  setNewArtwork({ ...newArtwork, image_url: e.target.value })
+                }
+              />
+            </label>
+          </div>
+          <div className="form-row">
+            <label>
+              Add a description
+              <textarea
+                placeholder="Description"
+                value={newArtwork.description}
+                onChange={(e) =>
+                  setNewArtwork({ ...newArtwork, description: e.target.value })
+                }
+              />
+            </label>
+          </div>
+
+          <button type="button" className="btn-add" onClick={handleAddArtwork}>
+            Add a new artwork
+          </button>
         </form>
       </section>
 
 
-      <Footer/>
     </>
   );
 };
 
-export default ListArtworks;
+export default AddToCollection;
