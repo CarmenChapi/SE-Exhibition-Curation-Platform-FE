@@ -88,7 +88,7 @@
 /* La tarjeta individual */
 .collection-card,
 .collection-card2 {
-  background: #ffffff;
+   background-color: #bad7f1;
   overflow: hidden; /* Corta las esquinas de la imagen si sobresale */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -165,7 +165,7 @@
   margin: 10px 0;
   color: #1a1a1a;
    padding: 0; 
-  background-color: white;
+  background: #bad7f1;
   text-transform: capitalize; /* Pone la primera letra en mayúscula */
 }
 
@@ -173,7 +173,7 @@
 .btn-add-art {
   width: auto;
   padding: 10px;
-  background: white; /* Negro para mantener el estilo minimalista */
+  background: #bad7f1; /* Negro para mantener el estilo minimalista */
   color: #1a1a1a;
   border: none;
   border-radius: 8px;

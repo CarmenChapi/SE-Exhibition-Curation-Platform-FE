@@ -48,7 +48,7 @@ const CollectionCard = ({
   };
 
   const handleOpenCollection = () => {
-    //console.log(collection.id_collection);
+    console.log("open" ,collection.id_collection);
     navigate(
       `/home/collections/${collection.title}/${collection.id_collection}`,
     );

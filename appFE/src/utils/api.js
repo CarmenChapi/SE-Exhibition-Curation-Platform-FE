@@ -76,3 +76,10 @@ export const deleteArtwork = (id) => {
     return "201";
   });
 }
+
+
+export const getArtworkByIdArtwork = (id) => {
+  return curationAPI.get(`/artwork/${id}`).then(({ data }) => {
+    return data.artwork[0];
+  });
+};

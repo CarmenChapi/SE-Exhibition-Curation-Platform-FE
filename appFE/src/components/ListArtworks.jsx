@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import { getArtworksByCollection, addArtwork } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 import { useParams } from "react-router-dom";
-import ArtworkCard from "./ArtworkCard";
 import Header from "./Header";
 import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
@@ -12,6 +11,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { TiPlusOutline } from "react-icons/ti";
 import { TbListDetails } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineImageNotSupported } from "react-icons/md";
 
 const ListArtworks = ({}) => {
   const { collectionId, nameCollection } = useParams();
@@ -59,12 +59,21 @@ const ListArtworks = ({}) => {
   const handleAddArtwork = () => {
     navigate(`/home/collections/${nameCollection}/${collectionId}/add`);
   };
-    const handleOpenArtworkDetail = (id) => {
-    navigate(`/home/collections/${nameCollection}/${collectionId}/artworks/${id} `);
-
+  const handleOpenArtworkDetail = (id) => {
+    navigate(
+      `/home/collections/${nameCollection}/${collectionId}/artworks/${id}`,
+    );
   };
 
-  const handleDeleteArtwork = (id) => {};
+  // const handleDeleteArtwork = (id) => {
+  //       deleteArtwork(artwork.id_artwork)
+  //         .then(() => {
+  //           setArtworks(
+  //             artworks.filter((art) => art.id_artwork !== artwork.id_artwork)
+  //           );
+  //         })
+  //         .catch((err) => console.error("Error deleting artwork:", err));
+  //     };
 
   if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
@@ -82,7 +91,7 @@ const ListArtworks = ({}) => {
       </h2>
 
       {/** Add Artwork */}
-
+      <div collection-card2>
       <button className="btn-add-art" onClick={handleAddArtwork}>
         <TiPlusOutline /> Artwork
       </button>
@@ -93,33 +102,45 @@ const ListArtworks = ({}) => {
       ) : (
         <div>
           <ul>
-
             <div className="collections-grid">
-            {artworks.map((artwork) => (
-              <li className="collection-card">
-                 <p className="collection-title">{artwork.title}</p>
-                    <img
-                      src={artwork.image_url}
-                      alt="Collection preview"
-                      className="card-image"
-                    />
-   <div className="button-group">
-    
-                <button className="btn-add-art" onClick={handleOpenArtworkDetail(artwork.id_artwork)}>
-            <TbListDetails /> </button> 
-          
-          <button className="btn-add-art" onClick={handleDeleteArtwork(artwork.id_artwork)}>
-            <AiOutlineDelete />
-          </button>
-        </div>
-              </li>
-            ))}
+              {artworks.map((artwork) => (
+                <li className="collection-card">
+                  <p className="collection-title">{artwork.title}</p>
+                 { artwork.image_url ? (
+                  <img
+                    src={artwork.image_url}
+                    alt="Collection preview"
+                    className="card-image"
+                  />) : (
+                    <div className="no-image">
+                      <MdOutlineImageNotSupported size={48} className="card-image"/>
+                    </div>
+                  )}
+                  <div className="button-group">
+                    <button
+                      className="btn-add-art"
+                      onClick={() =>
+                        handleOpenArtworkDetail(artwork.id_artwork)
+                      }
+                    >
+                      <TbListDetails />{" "}
+                    </button>
+              
+                      <button className="btn-add-art" onClick={handleDeleteArtwork(artwork.id_artwork)}> 
+                      <AiOutlineDelete />
+                    </button>
                   </div>
+                </li>
+              ))}
+            </div>
           </ul>
           <Footer />
         </div>
-          )}
+        
+      )}
+          </div>
     </>
+
   );
 };
 

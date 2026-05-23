@@ -1,17 +1,12 @@
-import { useEffect, useState, useContext } from "react";
-import { getArtworksByCollection, addArtwork } from "../utils/api";
-import { UserContext } from "../context/UserContext";
+import { useState } from "react";
+import { addArtwork } from "../utils/api";
 import { useParams } from "react-router-dom";
-import ArtworkCard from "./ArtworkCard";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const AddToCollection = ({}) => {
+const AddToCollection = () => {
   const { collectionId, nameCollection } = useParams();
-  const {} = useParams();
   const [error, setError] = useState(null);
   const [newArtwork, setNewArtwork] = useState({
     title: "",
@@ -21,8 +16,7 @@ const AddToCollection = ({}) => {
     image_url: "",
   });
 
-  const { userCx } = useContext(UserContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const handleAddArtwork = (e) => {
@@ -32,7 +26,7 @@ const AddToCollection = ({}) => {
     // const artworkToAdd = { ...newArtwork, id_collection: collectionId };
 
     addArtwork(collectionId, newArtwork)
-      .then((addedArtwork) => {
+      .then(() => {
         setNewArtwork({
           title: "",
           location: "",
