@@ -6,15 +6,18 @@ import ErrorPage from "./ErrorPage";
 import UserProfile from "./UserProfile";
 import MenuCollections from "./MenuCollections";
 import { MdOutlineImageNotSupported } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ArtworkDetail = () => {
-  const { artworkId } = useParams();
+  const { collectionId, nameCollection,artworkId } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [artwork, setArtwork] = useState([]);
   const [error, setError] = useState(null);
   const [updatedArtwork, setUpdatedArtwork] = useState({});
   const [editing, setEditing] = useState(false);
+    const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArtworkById = () => {
@@ -76,6 +79,10 @@ const ArtworkDetail = () => {
       .catch((err) => console.error("Error updating artwork:", err));
   };
 
+  const handleBack = () => {
+    console.log("Back");
+      navigate(`/home/collections/${nameCollection}/${collectionId}`);
+  }
 
 
   if (isLoading) return <h3 className="loading">Loading Detail...</h3>;
@@ -83,12 +90,21 @@ const ArtworkDetail = () => {
 
   return (
     <>
-      <Header />
+     
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />
       </nav>
 
+
+             <div>
+        <Link
+          to={`/home/collections`}
+          className="link-menu"
+        >
+          <h2>{nameCollection}</h2>
+        </Link>
+      </div>
   
       <section className="description-section">
         {editing ? (
@@ -165,6 +181,7 @@ const ArtworkDetail = () => {
           </form>
         ) : (
           <>
+
             <h2>
               <strong>{artwork.title}</strong>
             </h2>
@@ -197,9 +214,14 @@ const ArtworkDetail = () => {
               <strong>Description:</strong>{" "}
               {artwork.description ? artwork.description : "Unknown"}
             </p>
+            <div>
             <button className="btn-back description-artwork" onClick={handleEdit}>
               Edit
             </button>
+               <button className="btn-back description-artwork" onClick={handleBack}>
+              ⬅ Back
+            </button>
+            </div>
           </>
         )}
       </section>

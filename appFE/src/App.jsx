@@ -24,11 +24,13 @@ import SmithsonianCard from "./components/SmithsonianCard";
 import ListCollections from "./components/ListCollections";
 import AddToCollection from "./components/AddToCollection";
 import ArtworkDetail from "./components/ArtworkDetail";
+import Header from "./components/Header";
 
 
 function App() {
   return (
     <>
+     <Header />
       <Router>
         <Routes>
           <Route path="/" element={<GoogleLogin />} />

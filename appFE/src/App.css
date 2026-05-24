@@ -1,34 +1,14 @@
 .collection-add-main {
-  max-width: auto;
+  width: 100%;
+  max-width: 70vw;
   margin: 2rem auto;
   padding: 2.5rem;
-  background-color: #ffffff;
+  background-color: #bde0fe;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  font-family: system-ui, -apple-system, sans-serif;
-}
-.collection-add-main h3 {
-  margin-top: 0;
-  margin-bottom: 2rem;
-  color: #1a1a1a;
-  font-size: 1.5rem;
+    font-size: 2rem;
   font-weight: 600;
-  text-align: center;
-  letter-spacing: -0.5px;
 }
-.artwork-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-@media (min-width: 900px) {
-  .collection-add-main {
-    max-width: 1100px;
-    width: min(95%, 1100px);
-    padding: 4rem;
-  }
-
   .artwork-form {
     width: 100%;
     max-width: 100%;
@@ -38,42 +18,9 @@
   }
 
   .artwork-form .form-row {
-    margin-bottom: 0;
+    margin-bottom: 2rem;
   }
 
-  .artwork-form textarea {
-    grid-column: 1 / -1;
-    min-height: 180px;
-  }
-
-  .btn-add {
-    width: fit-content;
-    grid-column: 1 / -1;
-    justify-self: end;
-    margin-top: 1.5rem;
-    padding: 1.2rem 1.6rem;
-  }
-
-  .collection-add-main h3 {
-    font-size: 3rem;
-  }
-
-  .artwork-form label {
-    font-size: 1.6rem;
-    line-height: 1.6;
-  }
-
-  .artwork-form input[type="text"],
-  .artwork-form textarea,
-  .btn-add {
-    font-size: 1.4rem;
-  }
-
-  .artwork-form input[type="text"],
-  .artwork-form textarea {
-    padding: 1.1rem 1.3rem;
-  }
-}
 
 /* Contenedor principal en cuadrícula responsiva */
 .collections-grid {
@@ -88,7 +35,7 @@
 /* La tarjeta individual */
 .collection-card,
 .collection-card2 {
-   background-color: #bad7f1;
+   background-color: #bde0fe;
   overflow: hidden; /* Corta las esquinas de la imagen si sobresale */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -107,10 +54,11 @@
   gap: 0;
   margin-top: 100px;
   margin-bottom: 60px;
+     background-color: #bad7f1;
 }
 
 .collection-card:hover {
-  transform: translateY(-5px); /* Flota un poco al pasar el ratón */
+ /* // transform: translateY(-5px); Flota un poco al pasar el ratón */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -165,15 +113,15 @@
   margin: 10px 0;
   color: #1a1a1a;
    padding: 0; 
-  background: #bad7f1;
+  background: #bde0fe;
   text-transform: capitalize; /* Pone la primera letra en mayúscula */
 }
 
 /* Botón principal de añadir */
-.btn-add-art {
+.btn-add-art, .btn-add {
   width: auto;
   padding: 10px;
-  background: #bad7f1; /* Negro para mantener el estilo minimalista */
+  background: #bde0fe; /* Negro para mantener el estilo minimalista */
   color: #1a1a1a;
   border: none;
   border-radius: 8px;
@@ -181,12 +129,18 @@
   cursor: pointer;
   transition: background 0.2s;
 }
-
-.btn-add-art:hover {
-  background: #a2d2ff;
-    transform: translateY(-2px);
-
+.btn-add{
+   background: #bad7f1; 
 }
+btn-add-art:hover,.btn-add:hover {
+    transform: scale(1.09);  /* Agranda la imagen un 5% para que se note el "click" */
+  opacity: 0.5;  
+  /* transform: translateY(-10px); */
+  background-color: #bde0fe;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+}
+
+
 
 .button-group {
   display: flex;
@@ -195,7 +149,9 @@
   margin: 5px;
   max-width: 100%;
 }
-
+.button-group.hover {
+  transform: translateY(-0.2px);
+}
 .label {
   text-align: center;
 }
@@ -411,7 +367,7 @@ input[type="checkbox"] {
 .share-container {
   text-align: center;
   margin: 5rem;
-  background-color:#bad7f1;
+  background-color:#bde0fe;
   border-radius: 5px;
      padding: 6px 10px;
      max-width: 100%;
@@ -432,15 +388,22 @@ input[type="checkbox"] {
 .description-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; 
-  padding-right: 20px;   
+  align-items: flex-end;
+  width: min(100% - 2rem, 900px);
+  margin: 0 auto;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .description-section > * {
   margin-left: 0;       
   margin-right: 0;
-  width: auto;           
   text-align: right;    
+}
+
+.description-section .detail-photo {
+  width: 100%;
+  max-width: 900px;
 }
 
 .collection-grid {
@@ -510,25 +473,15 @@ input[type="checkbox"] {
   margin-bottom: 1rem;
 }
 
-
-/* .artwork-form textarea {
-  height: max-content;
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin-left: 1rem;
-} */
-
 /* Filas del formulario (Label + Input) */
 .form-row label {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
   color: #4a4a4a;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 /* Inputs y Textarea comunes */
@@ -539,7 +492,7 @@ input[type="checkbox"] {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #f9f9f9;
-  font-size: 0.95rem;
+  font-size: 2rem;
   color: #333333;
   transition: all 0.2s ease-in-out;
   box-sizing: border-box; /* Evita que el padding deforme el ancho */
@@ -562,58 +515,15 @@ input[type="checkbox"] {
 
 /* Altura fija y comportamiento del Textarea */
 .artwork-form textarea {
-  height: 120px;
+  height: 140px;
   resize: vertical; /* Permite estirar solo hacia abajo */
   font-family: inherit; /* Hereda la fuente del input */
 }
 
-/* Botón de añadir */
-.btn-add {
-  margin-top: 0.5rem;
-  padding: 1rem;
-  background-color: #1a1a1a; /* Estilo minimalista obscuro */
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
 
-/* Estados del botón */
-.btn-add:hover {
-  background-color: #333333;
-}
 
-.btn-add:active {
-  transform: scale(0.98); /* Pequeño efecto de pulsación */
-}
 
-@media (min-width: 900px) {
-  .collection-add-main h3 {
-    font-size: 2.4rem;
-    line-height: 1.2;
-  }
 
-  .artwork-form label {
-    font-size: 1.25rem;
-  }
-
-  .artwork-form input[type="text"],
-  .artwork-form textarea,
-  .btn-add {
-    font-size: 1.15rem;
-  }
-
-  .artwork-form textarea {
-    line-height: 1.5;
-  }
-
-  .btn-add {
-    padding: 1.1rem 1.2rem;
-  }
-}
 
 .error-wrapper {
   min-height: calc(100vh - 4rem);
@@ -786,4 +696,36 @@ input[type="checkbox"] {
   margin: 2px;
   max-width: 90%;
 }
+ .collection-add-main {
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  max-width: 100%;
+}
+.artwork-form {
+    margin-bottom: 0;
+    padding: 0.1;
+    margin:0.1;
+      display: flex;
+  flex-direction: column;
+  gap: 16px;
+  }
+
+.form-row label {
+  gap: 0.1rem;
+  font-size: 1rem;
+
+}
+  .artwork-form label {
+    font-size: 1rem;
+  }
+
+.artwork-form input[type="text"],
+.artwork-form textarea {
+  padding: 0.3rem 0.2rem;
+  font-size: 1.25rem;
+
+}
+
 }
