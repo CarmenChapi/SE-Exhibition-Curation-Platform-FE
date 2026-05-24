@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArtworkByIdArtwork, updateArtwork } from "../utils/api";
 import { useParams } from "react-router-dom";
-import Header from "./Header";
 import ErrorPage from "./ErrorPage";
 import UserProfile from "./UserProfile";
 import MenuCollections from "./MenuCollections";

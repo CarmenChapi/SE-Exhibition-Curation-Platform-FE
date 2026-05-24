@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import MenuCollections from "./MenuCollections";
 import BackControl from "./BackControl";
 import axios from "axios";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
@@ -78,7 +77,6 @@ const SmithData = () => {
 
   return (
     <>
-    <Header/>
     <nav className="topMenu">
         <MenuCollections />
         <BackControl />

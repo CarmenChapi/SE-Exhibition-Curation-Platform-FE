@@ -4,7 +4,6 @@ import { UserContext } from "../context/UserContext";
 import CollectionCard from "./CollectionCard";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 import UserProfile from "./UserProfile";
 import ErrorPage from "./ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
@@ -66,7 +65,6 @@ const ListCollections = () => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />

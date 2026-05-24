@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const apiList = [
@@ -47,7 +46,6 @@ const ListApiArtGalleries = () => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <MenuCollections />
         {/* <BackControl/> */}

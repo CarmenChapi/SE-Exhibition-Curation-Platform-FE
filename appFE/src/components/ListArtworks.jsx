@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArtworksByCollection, deleteArtwork } from "../utils/api";
 import { useParams } from "react-router-dom";
-import Header from "./Header";
 import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 import UserProfile from "./UserProfile";
@@ -78,7 +77,6 @@ const ListArtworks = () => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
@@ -73,7 +72,6 @@ const RijksMData = () => {
 
   return (
     <>
-    <Header/>
     <nav className="topMenu">
        <MenuCollections/>
        <BackControl/>

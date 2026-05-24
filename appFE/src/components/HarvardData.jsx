@@ -5,7 +5,6 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
 import Footer from "./Footer";
-import Header from "./Header";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 6;
@@ -64,7 +63,6 @@ const HarvardData = () => {
 
   return (
     <>
-    <Header/>
     <nav className="topMenu">
         <MenuCollections />
       </nav>

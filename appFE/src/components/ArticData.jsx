@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const fetchArticData = async ({ queryKey }) => {
@@ -62,7 +61,6 @@ const ArticData = ({ searchValue = "" }) => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <MenuCollections />
         <BackControl />

@@ -6,7 +6,6 @@ import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "./ErrorPage";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -39,7 +38,6 @@ const HarvardCard = () => {
 
   return (
     <>
-       <Header/>
     <nav className="topMenu">
         <MenuCollections />
       </nav>
