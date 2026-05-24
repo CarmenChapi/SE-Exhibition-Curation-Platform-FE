@@ -1,12 +1,17 @@
-import { useState } from "react";
-import { addArtwork } from "../utils/api";
+import { useEffect, useState, useContext } from "react";
+import { getArtworksByCollection, addArtwork } from "../utils/api";
+import { UserContext } from "../context/UserContext";
 import { useParams } from "react-router-dom";
+import BackControl from "./BackControl";
+import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
+import { TiPlusOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const AddToCollection = () => {
+const AddToCollection = ({}) => {
   const { collectionId, nameCollection } = useParams();
+  const {} = useParams();
   const [error, setError] = useState(null);
   const [newArtwork, setNewArtwork] = useState({
     title: "",
@@ -16,8 +21,8 @@ const AddToCollection = () => {
     image_url: "",
   });
 
+  const { userCx } = useContext(UserContext);
   const navigate = useNavigate();
-
 
   const handleAddArtwork = (e) => {
     e.preventDefault();
@@ -26,7 +31,7 @@ const AddToCollection = () => {
     // const artworkToAdd = { ...newArtwork, id_collection: collectionId };
 
     addArtwork(collectionId, newArtwork)
-      .then(() => {
+      .then((addedArtwork) => {
         setNewArtwork({
           title: "",
           location: "",
@@ -34,28 +39,31 @@ const AddToCollection = () => {
           description: "",
           image_url: "",
         });
-            navigate(
-      `/home/collections/${nameCollection}/${collectionId}`,
-    );
+        navigate(`/home/collections/${nameCollection}/${collectionId}`);
       })
       .catch((err) => setError(err));
+  };
+
+  const handleCancel = () => {
+    navigate(`/home/collections/${nameCollection}/${collectionId}`);
   };
 
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   return (
     <>
-      <section className="collection-add-main">
-      <Link to={`/home/collections/${nameCollection}/${collectionId}`} className="link-menu">
-      <h2>{nameCollection}</h2>
-  </Link>
-   
+      <div>
+        <Link
+          to={`/home/collections/${nameCollection}/${collectionId}`}
+          className="link-menu"
+        >
+          <h2>{nameCollection}</h2>
+        </Link>
+      </div>
 
       {/* 🔹 Add new artwork */}
 
-
-        
-        <h3>Add an artwork in your collection</h3>
-
+      <h3>Add an artwork in this collection</h3>
+      <section className="collection-add-main">
         <form className="artwork-form">
           <div className="form-row">
             <label>
@@ -121,14 +129,17 @@ const AddToCollection = () => {
               />
             </label>
           </div>
+          <div className="main-menu">
 
           <button type="button" className="btn-add" onClick={handleAddArtwork}>
-            Add a new artwork
+               <TiPlusOutline /> Artwork
           </button>
+            <button type="button" className="btn-add" onClick={handleCancel}>
+            Cancel
+          </button>
+          </div>
         </form>
       </section>
-
-
     </>
   );
 };
