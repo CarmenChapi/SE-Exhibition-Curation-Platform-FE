@@ -57,6 +57,12 @@ const ListArtworks = () => {
     );
   };
 
+    const handleBack = (id) => {
+    navigate(
+      `/home/collections`,
+    );
+  };
+
   const handleDeleteArtwork = (id) => {
     deleteArtwork(id)
       .then(() => {
@@ -79,7 +85,7 @@ const ListArtworks = () => {
       </nav>
    <div>
         <Link
-          to={`/home/collections/${nameCollection}/${collectionId}`}
+          to={`/home/collections`}
           className="link-menu"
         >
           <h2>{nameCollection}</h2>
@@ -141,10 +147,20 @@ const ListArtworks = () => {
                 ))}
               </div>
             </ul>
-            <Footer />
+    
           </div>
         )}
+        
       </div>
+      <div>
+                    <button
+                        className="btn-add-art"
+                        onClick={() => handleBack()}
+                      >
+                        Collections
+                      </button>
+            <Footer />
+            </div>
     </>
   );
 };

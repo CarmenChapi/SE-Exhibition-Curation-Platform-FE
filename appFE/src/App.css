@@ -388,15 +388,22 @@ input[type="checkbox"] {
 .description-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; 
-  padding-right: 20px;   
+  align-items: flex-end;
+  width: min(100% - 2rem, 900px);
+  margin: 0 auto;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .description-section > * {
   margin-left: 0;       
   margin-right: 0;
-  width: auto;           
   text-align: right;    
+}
+
+.description-section .detail-photo {
+  width: 100%;
+  max-width: 900px;
 }
 
 .collection-grid {

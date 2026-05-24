@@ -7,6 +7,7 @@ import UserProfile from "./UserProfile";
 import MenuCollections from "./MenuCollections";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ArtworkDetail = () => {
   const { collectionId, nameCollection,artworkId } = useParams();
@@ -89,12 +90,21 @@ const ArtworkDetail = () => {
 
   return (
     <>
-      <Header />
+     
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />
       </nav>
 
+
+             <div>
+        <Link
+          to={`/home/collections`}
+          className="link-menu"
+        >
+          <h2>{nameCollection}</h2>
+        </Link>
+      </div>
   
       <section className="description-section">
         {editing ? (
@@ -171,6 +181,7 @@ const ArtworkDetail = () => {
           </form>
         ) : (
           <>
+
             <h2>
               <strong>{artwork.title}</strong>
             </h2>
