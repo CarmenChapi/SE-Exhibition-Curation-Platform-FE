@@ -1,17 +1,14 @@
-import { useEffect, useState, useContext } from "react";
-import { getArtworksByCollection, addArtwork } from "../utils/api";
-import { UserContext } from "../context/UserContext";
+
+import { addArtwork } from "../utils/api";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const AddToCollection = ({}) => {
+const AddToCollection = () => {
   const { collectionId, nameCollection } = useParams();
-  const {} = useParams();
   const [error, setError] = useState(null);
   const [newArtwork, setNewArtwork] = useState({
     title: "",
@@ -20,8 +17,6 @@ const AddToCollection = ({}) => {
     description: "",
     image_url: "",
   });
-
-  const { userCx } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleAddArtwork = (e) => {
@@ -31,7 +26,7 @@ const AddToCollection = ({}) => {
     // const artworkToAdd = { ...newArtwork, id_collection: collectionId };
 
     addArtwork(collectionId, newArtwork)
-      .then((addedArtwork) => {
+      .then(() => {
         setNewArtwork({
           title: "",
           location: "",
@@ -131,10 +126,10 @@ const AddToCollection = ({}) => {
           </div>
           <div className="main-menu">
 
-          <button type="button" className="btn-add" onClick={handleAddArtwork}>
+          <button aria-label="Add artwork" type="button" className="btn-add" onClick={handleAddArtwork}>
                <TiPlusOutline /> Artwork
           </button>
-            <button type="button" className="btn-add" onClick={handleCancel}>
+            <button aria-label="Cancel adding artwork" type="button" className="btn-add" onClick={handleCancel}>
             Cancel
           </button>
           </div>

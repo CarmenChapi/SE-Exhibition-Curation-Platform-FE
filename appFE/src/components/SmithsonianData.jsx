@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import MenuCollections from "./MenuCollections";
 import BackControl from "./BackControl";
 import axios from "axios";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
@@ -78,7 +77,7 @@ const SmithData = () => {
 
   return (
     <>
-    <Header/>
+  
     <nav className="topMenu">
         <MenuCollections />
         <BackControl />
@@ -97,7 +96,7 @@ const SmithData = () => {
           className="collection-input"
         />
         </label>
-        <button onClick={handleSearch} className="btn-search">
+        <button aria-label="Search Smithsonian artworks" onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
@@ -164,6 +163,7 @@ const SmithData = () => {
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button
+          aria-label="Previous page"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
@@ -174,6 +174,7 @@ const SmithData = () => {
           Page {currentPage} of {totalPages}
         </span>
         <button
+          aria-label="Next page"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }

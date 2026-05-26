@@ -89,7 +89,7 @@ const VAMData = () => {
             className="collection-input"
           />
         </label>
-        <button onClick={handleSearch} className="btn-search">
+        <button aria-label="Search Victoria and Albert Museum artworks" onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
@@ -161,6 +161,7 @@ const VAMData = () => {
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button
+          aria-label="Previous page"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
@@ -171,6 +172,7 @@ const VAMData = () => {
           Page {currentPage} of {totalPages}
         </span>
         <button
+          aria-label="Next page"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }

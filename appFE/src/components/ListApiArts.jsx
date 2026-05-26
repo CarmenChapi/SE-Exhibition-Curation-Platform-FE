@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const apiList = [
@@ -15,11 +14,11 @@ const apiList = [
     path: "/harvard",
     src: "https://harvardartmuseums.org/assets/icons/fb-og-image-400x400.png",
   },
-  {
-    name: "Rijksmuseum",
-    path: "/rijksmuseum",
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCR0bei2O7b9bg9EYRHVmr2nryS_YC86_CYeKio0yk&s",
-  },
+  // {
+  //   name: "Rijksmuseum",
+  //   path: "/rijksmuseum",
+  //   src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCR0bei2O7b9bg9EYRHVmr2nryS_YC86_CYeKio0yk&s",
+  // },
   {
     name: "Smithsonian Art Institution",
     path: "/smithsonian",
@@ -47,7 +46,6 @@ const ListApiArtGalleries = () => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <MenuCollections />
         {/* <BackControl/> */}

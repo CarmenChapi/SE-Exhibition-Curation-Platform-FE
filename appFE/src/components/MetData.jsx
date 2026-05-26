@@ -105,7 +105,7 @@ const METData = () => {
               className="collection-input"
             />
           </label>
-          <button onClick={handleSearch} className="btn-search">
+          <button aria-label="Search MET artworks" onClick={handleSearch} className="btn-search">
             Search
           </button>
         </form>
@@ -165,6 +165,7 @@ const METData = () => {
         {/* Pagination Controls */}
         <div className="flex justify-between mt-4">
           <button
+            aria-label="Previous page"
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1}
             className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
@@ -173,6 +174,7 @@ const METData = () => {
           </button>
           <span className="px-4 py-2">Page {page}</span>
           <button
+            aria-label="Next page"
             onClick={() => setPage((prev) => prev + 1)}
             className="bg-gray-500 text-white px-4 py-2 rounded"
           >

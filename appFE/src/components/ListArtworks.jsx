@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArtworksByCollection, deleteArtwork } from "../utils/api";
 import { useParams } from "react-router-dom";
-import Header from "./Header";
 import Footer from "./Footer";
 import ErrorPage from "./ErrorPage";
 import UserProfile from "./UserProfile";
@@ -57,7 +56,7 @@ const ListArtworks = () => {
     );
   };
 
-    const handleBack = (id) => {
+    const handleBack = () => {
     navigate(
       `/home/collections`,
     );
@@ -78,7 +77,6 @@ const ListArtworks = () => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />
@@ -98,13 +96,13 @@ const ListArtworks = () => {
         {artworks.length === 0 ? (
           <div>
             <p>Collection is empty</p>
-            <button className="btn-add-art" onClick={handleAddArtwork}>
+            <button aria-label="Add artwork" className="btn-add-art" onClick={handleAddArtwork}>
               <TiPlusOutline /> Artwork
             </button>
           </div>
         ) : (
           <div>
-            <button className="btn-add-art" onClick={handleAddArtwork}>
+            <button aria-label="Add artwork" className="btn-add-art" onClick={handleAddArtwork}>
               <TiPlusOutline /> Artwork
             </button>
             <ul>
@@ -128,6 +126,7 @@ const ListArtworks = () => {
                     )}
                     <div className="button-group">
                       <button
+                        aria-label={`View details for ${artwork.title}`}
                         className="btn-add-art"
                         onClick={() =>
                           handleOpenArtworkDetail(artwork.id_artwork)
@@ -137,6 +136,7 @@ const ListArtworks = () => {
                       </button>
 
                       <button
+                        aria-label={`Delete ${artwork.title}`}
                         className="btn-add-art"
                         onClick={() => handleDeleteArtwork(artwork.id_artwork)}
                       >
@@ -154,6 +154,7 @@ const ListArtworks = () => {
       </div>
       <div>
                     <button
+                        aria-label="Back to collections"
                         className="btn-add-art"
                         onClick={() => handleBack()}
                       >

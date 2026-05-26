@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
-import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
+import { auth, signOut } from "../firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
 
 
@@ -40,6 +40,7 @@ return(
     <img src={userCx?.photoURL} alt="Profile" className="userPhoto" />
     <p>{  } Hi, {userCx?.displayName.split(" ")[0]}!</p>
     <button
+      aria-label="Log out"
       onClick={handleLogout}
       className="btn-back"
     >

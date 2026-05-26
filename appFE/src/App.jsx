@@ -24,6 +24,7 @@ import SmithsonianCard from "./components/SmithsonianCard";
 import ListCollections from "./components/ListCollections";
 import AddToCollection from "./components/AddToCollection";
 import ArtworkDetail from "./components/ArtworkDetail";
+import AddToCollectionFromApi  from "./components/AddToCollectionFromApi";
 import Header from "./components/Header";
 
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="/home/artgallery/chicago" element={<ArticData/>} />
           <Route path="/home/artgallery/europeana" element={<EuropeanaData/>} />
           <Route path="/home/artgallery/harvard" element={<HarvardData/>} />
+          <Route path="/home/artgallery/addToCollectionFromApi" element={<AddToCollectionFromApi/>} />
           <Route path="/home/artgallery/met" element={<METData/>} />
           <Route path="/home/artgallery/rijksmuseum" element={<RijksMData/>} />
           <Route path="/home/artgallery/smithsonian" element={<SmithData/>} />

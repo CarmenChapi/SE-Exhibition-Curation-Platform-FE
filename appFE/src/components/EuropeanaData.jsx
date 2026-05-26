@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
@@ -71,7 +70,6 @@ const EuropeanaData = () => {
 
   return (
     <>
-    <Header/>
     <nav className="topMenu">
         <MenuCollections />
         <BackControl />
@@ -90,7 +88,7 @@ const EuropeanaData = () => {
           className="collection-input"
         />
         </label>
-        <button onClick={handleSearch} className="btn-search">
+        <button aria-label="Search Europeana artworks" onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
@@ -161,6 +159,7 @@ const EuropeanaData = () => {
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button
+          aria-label="Previous page"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
@@ -171,6 +170,7 @@ const EuropeanaData = () => {
           Page {currentPage} of {totalPages}
         </span>
         <button
+          aria-label="Next page"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
