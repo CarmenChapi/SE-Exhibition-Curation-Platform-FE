@@ -9,8 +9,9 @@ import ErrorPage from "./ErrorPage";
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
 const fetchArtworkDetails = async (artworkId) => {
+  // CORRECCIÓN: Se cambió 'www' por 'data' en el subdominio
   const { data } = await axios.get(
-    `https://www.rijksmuseum.nl/api/en/collection/${artworkId}?key=${apikeyRM}`
+    `https://data.rijksmuseum.nl/api/en/collection/${artworkId}?key=${apikeyRM}`
   );
   return data;
 };
@@ -23,77 +24,69 @@ const RijksMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-
-
   if (isLoading) return <p>Loading RijksM...</p>;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
-  if ( isSuccess && !data?.artObject) {
+  if (isSuccess && !data?.artObject) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
   }
 
-
   const artwork = data.artObject;
-  //console.log(artwork, error);
+
+  // Modificamos el link externo de la web para usar el objectNumber limpio
+  const webUrl = `https://www.rijksmuseum.nl/en/collection/${artwork.objectNumber}`;
 
   return (
     <>
       <h1>Rijksmuseum</h1>
-    <nav>
-      <BackControl/>
+      <nav>
+        <BackControl/>
       </nav>
       <section>
-      <h2>{artwork.title ? artwork.title : "Untitled"}</h2>
-      <p>
-        {artwork.principalMaker ? artwork.principalMaker : "Unknown"}
-      </p>
-      {artwork.webImage.url ? (
-        <img
-          src={artwork.webImage.url}
-          alt={artwork.title}
-                  className="detail-photo"
-        />
-      ) : (
-        <p>No Image Available</p>
-      )}
-      <p>
-        <strong>Description:</strong>{" "}
-        {artwork.description ? artwork.description : "Unknown"}
-      </p>
-      <p>
-        <strong>Medium:</strong>{" "}
-        {artwork.physicalMedium ? artwork.physicalMedium : "Unknown"}
-      </p>
-      <p>
-        <strong>Techniques:</strong>{" "}
-        {artwork.techniques.length > 0 ? artwork.techniques.toString() : "Unknown"}
-      </p>
-      <p>
-        <strong>Date:</strong>{" "}
-        {artwork.dating.presentingDate
-          ? artwork.dating.presentingDate
-          : "Unknown"}
-      </p>
-
-      <p>
-        <strong>URL:</strong>{" "}
-      </p>
-      <p>
-          <strong>URL:</strong>{" "}
-          <a
-        href= {artwork.id ? `http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}` : ""}
-        title="See this artwork in www.rijksmuseum.nl"
-        target="_blank"
-            rel="noopener noreferrer"
-            className="detail-link"
-          >      Visit this artwork on RijksMuseum</a>
+        <h2>{artwork.title || "Untitled"}</h2>
+        <p>{artwork.principalMaker || "Unknown"}</p>
+        
+        {artwork.webImage?.url ? (
+          <img
+            src={artwork.webImage.url}
+            alt={artwork.title || "Artwork"}
+            className="detail-photo"
+          />
+        ) : (
+          <p>No Image Available</p>
+        )}
+        
+        <p>
+          <strong>Description:</strong>{" "}
+          {artwork.description || "No description available."}
+        </p>
+        <p>
+          <strong>Medium:</strong>{" "}
+          {artwork.physicalMedium || "Unknown"}
+        </p>
+        <p>
+          <strong>Techniques:</strong>{" "}
+          {artwork.techniques?.length > 0 ? artwork.techniques.join(", ") : "Unknown"}
+        </p>
+        <p>
+          <strong>Date:</strong>{" "}
+          {artwork.dating?.presentingDate || "Unknown"}
         </p>
 
+        <p>
+          <strong>URL:</strong>{" "}
+          <a
+            href={webUrl}
+            title="See this artwork in www.rijksmuseum.nl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >
+            Visit this artwork on RijksMuseum
+          </a>
+        </p>
       </section>
-    
-
-      <ShareArtwork title={artwork.title} 
-      url={`http://www.rijksmuseum.nl/en/collection/${artwork.id.slice(3)}`} />
-
+      
+      <ShareArtwork title={artwork.title} url={webUrl} />
       <Footer/>
     </>
   );

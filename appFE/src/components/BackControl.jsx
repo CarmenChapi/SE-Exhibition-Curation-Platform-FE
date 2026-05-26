@@ -11,7 +11,7 @@ const BackControl = () => {
         }
       };
 return(
-<button  onClick={handleBack} className="btn-back">
+<button aria-label="Go back" onClick={handleBack} className="btn-back">
 ⬅ Back
 </button>
 )

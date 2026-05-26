@@ -5,7 +5,7 @@ import axios from "axios";
 import BackControl from "./BackControl";
 import MenuCollections from "./MenuCollections";
 import Footer from "./Footer";
-import Header from "./Header";
+
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 6;
@@ -64,7 +64,6 @@ const HarvardData = () => {
 
   return (
     <>
-    <Header/>
     <nav className="topMenu">
         <MenuCollections />
       </nav>
@@ -102,7 +101,7 @@ const HarvardData = () => {
           />
           Only show artworks with images
         </label>
-           <button onClick={handleSearch} 
+           <button aria-label="Search Harvard artworks" onClick={handleSearch} 
          className="btn-search">
           Search
         </button>
@@ -139,6 +138,7 @@ const HarvardData = () => {
       {/* Pagination Controls */}
       <div className="flex justify-between mt-4">
         <button
+          aria-label="Previous page"
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
@@ -147,6 +147,7 @@ const HarvardData = () => {
         </button>
         <span className="px-4 py-2">Page {page}</span>
         <button
+          aria-label="Next page"
           onClick={() => setPage((prev) => prev + 1)}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >

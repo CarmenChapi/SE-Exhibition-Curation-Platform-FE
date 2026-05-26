@@ -82,7 +82,7 @@ const ArticData = ({ searchValue = "" }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </label>
-        <button onClick={handleSearch} className="btn-search">
+        <button aria-label="Search Art Institute of Chicago artworks" onClick={handleSearch} className="btn-search">
           Search
         </button>
       </div>
@@ -145,6 +145,7 @@ const ArticData = ({ searchValue = "" }) => {
 
       <div className="flex justify-between mt-4">
         <button
+          aria-label="Previous page"
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
@@ -153,6 +154,7 @@ const ArticData = ({ searchValue = "" }) => {
         </button>
         <span className="px-4 py-2">Page {page}</span>
         <button
+          aria-label="Next page"
           onClick={() => setPage((prev) => prev + 1)}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >

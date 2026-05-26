@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import BackControl from "./BackControl";
 import Footer from "./Footer";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "./ErrorPage";
 import MenuCollections from "./MenuCollections";
-import Header from "./Header";
+import AddToCollectionFromApi from "./AddToCollectionFromApi";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -22,25 +22,31 @@ const fetchArtworkDetails = async (artworkId) => {
 const HarvardCard = () => {
   const { artId } = useParams();
 
-  const { data, error, isLoading, isError, isSuccess} = useQuery({
+  const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-
-  if (isLoading)  return <p>Loading Harvard...</p>;
-  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isLoading) return <p>Loading Harvard...</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   if (isSuccess && !data) {
-    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;
   }
 
   const artwork = data;
-  //console.log(data);
+  const artistName = artwork.people?.[0]?.name || "Unknown";
+  const newArtwork = {
+    title: artwork.title || "Unknown",
+    location: artwork.culture || "Unknown",
+    artist: artistName,
+    image_url: artwork.primaryimageurl || "",
+    description: artwork.verificationleveldescription || "No description",
+  };
+  console.log(newArtwork);
 
   return (
     <>
-       <Header/>
-    <nav className="topMenu">
+      <nav className="topMenu">
         <MenuCollections />
       </nav>
       <h2>Harvard Art Museum</h2>
@@ -59,10 +65,12 @@ const HarvardCard = () => {
         ) : (
           <p>No Image Available</p>
         )}
-        <p className="description-artwork"><strong>
-          Title:</strong>{" "}{artwork.title ? artwork.title : "Unknown"}</p>
-        <p className="description-artwork"><strong>
-          People:</strong>{" "}{artwork.people ? artwork.people[0].name : "Unknown"}</p>
+        <p className="description-artwork">
+          <strong>Title:</strong> {artwork.title ? artwork.title : "Unknown"}
+        </p>
+        <p className="description-artwork">
+          <strong>People:</strong> {artistName}
+        </p>
         <p className="description-artwork">
           <strong>Department:</strong>{" "}
           {artwork.department ? artwork.department : "Unknown"}
@@ -74,9 +82,10 @@ const HarvardCard = () => {
         <p className="description-artwork">
           <strong>Date:</strong> {artwork.dated ? artwork.dated : "Unknown"}
         </p>
-          <p className="description-artwork">
-        <strong>Culture:</strong>{" "}
-        {artwork.culture ? artwork.culture : "Unknown"}</p>
+        <p className="description-artwork">
+          <strong>Culture:</strong>{" "}
+          {artwork.culture ? artwork.culture : "Unknown"}
+        </p>
         <p className="description-artwork">
           <strong>Description:</strong>{" "}
           {artwork.verificationleveldescription
@@ -86,20 +95,34 @@ const HarvardCard = () => {
         <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
-          href={artwork.url ? artwork.url : "Unknown"}
-          title="See this artwork in www.HarvardMuseum.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="detail-link"
-        >
-         Visit this artwork on Harvard Museum for more information</a>
+            href={artwork.url ? artwork.url : "Unknown"}
+            title="See this artwork in www.HarvardMuseum.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >
+            Visit this artwork on Harvard Museum for more information
+          </a>
         </p>
       </section>
-     
+     {/* <AddToCollectionFromApi newArtwork={newArtwork} /> */}
+
+     <div>
+
+<Link 
+      to="/home/artgallery/addToCollectionFromApi" 
+      state={{ artwork: newArtwork }} 
+      className="btn-add-curator"
+    >
+      ✨ Add to My Collections ✨
+    </Link>
+  
+       </div>
 
       <ShareArtwork title={artwork.title} url={artwork.url} />
 
       <Footer />
+ 
     </>
   );
 };

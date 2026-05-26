@@ -132,12 +132,86 @@
 .btn-add{
    background: #bad7f1; 
 }
-btn-add-art:hover,.btn-add:hover {
+.btn-add-art:hover,
+.btn-add:hover {
     transform: scale(1.09);  /* Agranda la imagen un 5% para que se note el "click" */
   opacity: 0.5;  
   /* transform: translateY(-10px); */
   background-color: #bde0fe;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+}
+
+.btn-add-curator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  margin: 4rem auto;
+  padding: 0.9rem 1.25rem;
+  color: #123047;
+  background: linear-gradient(135deg, #f8fbff 0%, #bde0fe 100%);
+  border: 1px solid rgba(18, 48, 71, 0.16);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(18, 48, 71, 0.14);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.btn-add-curator:hover {
+  color: #001f33;
+  background: linear-gradient(135deg, #ffffff 0%, #a2d2ff 100%);
+  box-shadow: 0 14px 30px rgba(18, 48, 71, 0.2);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-add-curator:active {
+  box-shadow: 0 6px 14px rgba(18, 48, 71, 0.18);
+  transform: scale(0.96);
+}
+
+.btn-add-curator:focus-visible {
+  outline: 3px solid #5b9df9;
+  outline-offset: 4px;
+}
+
+.btn-select-collection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: calc(100% - 1rem);
+  min-width: 0;
+  margin: 0.5rem;
+  text-align: left;
+}
+
+.btn-select-collection:hover {
+  transform: translateY(-2px);
+}
+
+.btn-select-collection:active {
+  transform: scale(0.97);
+}
+
+.btn-select-collection strong {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.btn-select-collection svg {
+  flex-shrink: 0;
 }
 
 
@@ -725,6 +799,10 @@ input[type="checkbox"] {
 .artwork-form textarea {
   padding: 0.3rem 0.2rem;
   font-size: 1.25rem;
+
+}
+.btn-add-curator {
+  font-size: 1.1rem;
 
 }
 

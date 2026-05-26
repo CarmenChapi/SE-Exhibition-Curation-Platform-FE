@@ -81,25 +81,25 @@ const CollectionCard = ({
               onChange={(e) => setUpdatedTitle(e.target.value)}
             />
       
-          <button className="btn-back" onClick={handleUpdate}>
+          <button aria-label="Save collection changes" className="btn-back" onClick={handleUpdate}>
             Save
           </button>
-          <button className="btn-back" onClick={() => setEditing(false)}>
+          <button aria-label="Cancel editing collection" className="btn-back" onClick={() => setEditing(false)}>
             Cancel
           </button>
         </form>
       ) : (
         <div className="button-group">
-          <button className="btn-add-art" onClick={() => setEditing(true)}>
+          <button aria-label="Edit collection" className="btn-add-art" onClick={() => setEditing(true)}>
             <RiEditLine />
           </button>
-          <button className="btn-add-art" onClick={handleAddCollection}>
+          <button aria-label="Add artwork to collection" className="btn-add-art" onClick={handleAddCollection}>
             <TiPlusOutline />
           </button>
             {collection.art_count >= 1 ?
-                <button className="btn-add-art" onClick={handleOpenCollection}>
+                <button aria-label="Open collection" className="btn-add-art" onClick={handleOpenCollection}>
             <VscFolderOpened /></button> : null}
-          <button className="btn-add-art" onClick={handleDelete}>
+          <button aria-label="Delete collection" className="btn-add-art" onClick={handleDelete}>
             <AiOutlineDelete />
           </button>
         </div>

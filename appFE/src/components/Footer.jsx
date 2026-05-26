@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <div className="Footer">
-      <button onClick={handleClic} className="btn-back">
+      <button aria-label="Scroll to top" onClick={handleClic} className="btn-back">
         Top &#8593;
       </button>
     </div>

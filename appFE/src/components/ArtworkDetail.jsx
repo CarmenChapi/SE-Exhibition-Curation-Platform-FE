@@ -167,10 +167,11 @@ const ArtworkDetail = () => {
               </label>
             </div>
             <div className="button-group">
-              <button className="btn-back" type="submit">
+              <button aria-label="Save artwork changes" className="btn-back" type="submit">
                 Save
               </button>
               <button
+                aria-label="Cancel editing artwork"
                 className="btn-back"
                 type="button"
                 onClick={handleCancelEdit}
@@ -215,10 +216,10 @@ const ArtworkDetail = () => {
               {artwork.description ? artwork.description : "Unknown"}
             </p>
             <div>
-            <button className="btn-back description-artwork" onClick={handleEdit}>
+            <button aria-label="Edit artwork" className="btn-back description-artwork" onClick={handleEdit}>
               Edit
             </button>
-               <button className="btn-back description-artwork" onClick={handleBack}>
+               <button aria-label="Back to artwork list" className="btn-back description-artwork" onClick={handleBack}>
               ⬅ Back
             </button>
             </div>
