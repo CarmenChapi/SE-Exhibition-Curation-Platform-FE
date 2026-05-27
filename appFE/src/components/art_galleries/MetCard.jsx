@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
+import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "./Footer";
-import ErrorPage from "./ErrorPage";
+import TopButton from "../TopButton";
+import ErrorPage from "../ErrorPage";
 
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -87,7 +87,7 @@ const MetCard = () => {
       
       <ShareArtwork title={artwork.title} url={artwork.objectURL} />
 
-      <Footer/>
+      <TopButton />
     </>
   );
 };

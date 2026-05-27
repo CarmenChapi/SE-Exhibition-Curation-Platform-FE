@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import MenuCollections from "./MenuCollections";
-import Footer from "./Footer";
+import MenuCollections from "../MenuCollections";
+import TopButton from "../TopButton";
 
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
@@ -21,9 +20,11 @@ const fetchHarvardData = async ({ queryKey }) => {
 };
 
 const HarvardData = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
+  const pageFromUrl = Number(searchParams.get("page"));
+  const page = Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [searchTerm, setSearchTerm] = useState(query);
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
@@ -34,9 +35,34 @@ const HarvardData = () => {
     keepPreviousData: true,
   });
 
+  useEffect(() => {
+    setSearchTerm(query);
+  }, [query]);
+
+  const updateUrlParams = ({ nextPage = page, nextQuery = query }) => {
+    const params = new URLSearchParams();
+
+    if (nextQuery.trim()) {
+      params.set("q", nextQuery.trim());
+    }
+
+    if (nextPage > 1) {
+      params.set("page", String(nextPage));
+    }
+
+    setSearchParams(params);
+  };
+
   const handleSearch = () => {
-    setPage(1); // Reset to first page when searching
-    setQuery(searchTerm);
+    updateUrlParams({ nextPage: 1, nextQuery: searchTerm });
+  };
+
+  const handlePreviousPage = () => {
+    updateUrlParams({ nextPage: Math.max(page - 1, 1) });
+  };
+
+  const handleNextPage = () => {
+    updateUrlParams({ nextPage: page + 1 });
   };
 
   const handleSort = (a, b) => {
@@ -139,7 +165,7 @@ const HarvardData = () => {
       <div className="flex justify-between mt-4">
         <button
           aria-label="Previous page"
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          onClick={handlePreviousPage}
           disabled={page === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
@@ -148,13 +174,13 @@ const HarvardData = () => {
         <span className="px-4 py-2">Page {page}</span>
         <button
           aria-label="Next page"
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={handleNextPage}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >
           Next
         </button>
       </div>
-      <Footer/>
+      <TopButton />
     </>
   );
 };

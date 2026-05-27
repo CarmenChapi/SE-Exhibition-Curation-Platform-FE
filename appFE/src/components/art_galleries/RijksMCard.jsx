@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
+import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "./Footer";
-import ErrorPage from "./ErrorPage";
+import TopButton from "../TopButton";
+import ErrorPage from "../ErrorPage";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
@@ -39,7 +39,7 @@ const RijksMCard = () => {
     <>
       <h1>Rijksmuseum</h1>
       <nav>
-        <BackControl/>
+        
       </nav>
       <section>
         <h2>{artwork.title || "Untitled"}</h2>
@@ -87,7 +87,7 @@ const RijksMCard = () => {
       </section>
       
       <ShareArtwork title={artwork.title} url={webUrl} />
-      <Footer/>
+      <TopButton />
     </>
   );
 };

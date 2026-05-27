@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import MenuCollections from "./MenuCollections";
-import Header from "./Header";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import MenuCollections from "../MenuCollections";
+import Header from "../Header";
+import TopButton from "../TopButton";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
@@ -14,7 +14,7 @@ const fetchRijksMData = async ({ queryKey }) => {
   const [_key, { query }] = queryKey;
   const searchQuery = query ? `&q=${query}` : "";
 
-  // CORRECCIÓN: Se cambió 'www' por 'data' en el subdominio
+
   const { data } = await axios.get(
     `https://data.rijksmuseum.nl/api/en/collection?key=${apikeyRM}${searchQuery}&limit=30`
   );
@@ -75,7 +75,6 @@ const RijksMData = () => {
     <>
       <nav className="topMenu">
         <MenuCollections/>
-        <BackControl/>
       </nav>
       <h2>Rijksmuseum</h2>
       
@@ -162,7 +161,7 @@ const RijksMData = () => {
           Next
         </button>
       </div>
-      <Footer/>
+      <TopButton />
     </>
   );
 };

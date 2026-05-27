@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateCollection, deleteCollection } from "../utils/api";
+import { updateCollection, deleteCollection } from "../../utils/api";
 
 import { useNavigate } from "react-router-dom";
 import { RiEditLine } from "react-icons/ri";

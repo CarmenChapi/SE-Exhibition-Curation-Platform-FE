@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BackControl from "./BackControl";
-import MenuCollections from "./MenuCollections";
-import Header from "./Header";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import MenuCollections from "../MenuCollections";
+import Header from "../Header";
+import TopButton from "../TopButton";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
@@ -182,7 +182,7 @@ const METData = () => {
           </button>
         </div>
       </div>
-      <Footer />
+      <TopButton />
     </>
   );
 };

@@ -2,10 +2,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
+import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "./Footer";
-import ErrorPage from "./ErrorPage";
+import TopButton from "../TopButton";
+import ErrorPage from "../ErrorPage";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -36,7 +36,6 @@ const VAMCard = () => {
     <>
     <h1 className="Header">Victoria & Albert Museum</h1>
     <nav>
-      <BackControl/>
       </nav>
 
       <section>
@@ -85,7 +84,7 @@ const VAMCard = () => {
       <ShareArtwork title={artwork.record.titles[0].title} 
       url={artwork.meta._links.collection_page.href} />
 
-      <Footer/>
+      <TopButton />
     </>
   );
 };
