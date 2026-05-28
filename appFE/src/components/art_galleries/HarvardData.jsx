@@ -162,7 +162,7 @@ const HarvardData = () => {
       </ul>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
+      <div className="pagination-controls">
         <button
           aria-label="Previous page"
           onClick={handlePreviousPage}
@@ -171,7 +171,7 @@ const HarvardData = () => {
         >
           Previous
         </button>
-        <span className="px-4 py-2">Page {page}</span>
+        <span className="pagination-status">Page {page}</span>
         <button
           aria-label="Next page"
           onClick={handleNextPage}

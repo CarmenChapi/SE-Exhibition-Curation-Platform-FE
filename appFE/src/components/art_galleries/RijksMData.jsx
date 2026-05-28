@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import MenuCollections from "../MenuCollections";
-import Header from "../Header";
 import TopButton from "../TopButton";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
@@ -23,9 +21,12 @@ const fetchRijksMData = async ({ queryKey }) => {
 };
 
 const RijksMData = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [query, setQuery] = useState(""); 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
+  const pageFromUrl = Number(searchParams.get("page"));
+  const currentPage =
+    Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [searchTerm, setSearchTerm] = useState(query);
   const [sortBy, setSortBy] = useState(""); 
   const [filterByImage, setFilterByImage] = useState(false); 
   const navigate = useNavigate();
@@ -36,9 +37,34 @@ const RijksMData = () => {
     keepPreviousData: true,
   });
 
+  useEffect(() => {
+    setSearchTerm(query);
+  }, [query]);
+
+  const updateUrlParams = ({ nextPage = currentPage, nextQuery = query }) => {
+    const params = new URLSearchParams();
+
+    if (nextQuery.trim()) {
+      params.set("q", nextQuery.trim());
+    }
+
+    if (nextPage > 1) {
+      params.set("page", String(nextPage));
+    }
+
+    setSearchParams(params);
+  };
+
   const handleSearch = () => {
-    setQuery(searchTerm);
-    setCurrentPage(1); // Resetea a la primera página con una nueva búsqueda
+    updateUrlParams({ nextPage: 1, nextQuery: searchTerm });
+  };
+
+  const handlePreviousPage = () => {
+    updateUrlParams({ nextPage: Math.max(currentPage - 1, 1) });
+  };
+
+  const handleNextPage = () => {
+    updateUrlParams({ nextPage: Math.min(currentPage + 1, totalPages) });
   };
 
   const allItems = data?.artObjects || [];
@@ -78,9 +104,8 @@ const RijksMData = () => {
       </nav>
       <h2>Rijksmuseum</h2>
       
-      {/* Search Input */}
-      <div>
-        <label>Search artworks
+      <div className="searchMenu">
+        <label className="label">Search artworks
           <input
             type="text"
             placeholder="Search Rijksmuseum Art..."
@@ -89,13 +114,6 @@ const RijksMData = () => {
             className="collection-input"
           />
         </label>
-        <button onClick={handleSearch} className="btn-back">
-          Search
-        </button>
-      </div>
-
-      {/* Sorting & Filtering Options */}
-      <div className="filter-sort-container">
         <label>Sort by
           <select onChange={(e) => setSortBy(e.target.value)} className="sort-dropdown">
             <option value="">Sort By</option>
@@ -105,12 +123,16 @@ const RijksMData = () => {
         </label>
         <label>
           <input
+            className="box-input"
             type="checkbox"
             checked={filterByImage}
             onChange={() => setFilterByImage(!filterByImage)}
           />
           Only show artworks with images
         </label>
+        <button aria-label="Search Rijksmuseum artworks" onClick={handleSearch} className="btn-search">
+          Search
+        </button>
       </div>
 
       {/* Artworks List */}
@@ -142,19 +164,21 @@ const RijksMData = () => {
       </ul>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
+      <div className="pagination-controls">
         <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          aria-label="Previous page"
+          onClick={handlePreviousPage}
           disabled={currentPage === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Previous
         </button>
-        <span className="px-4 py-2">
+        <span className="pagination-status">
           Page {currentPage} of {totalPages || 1}
         </span>
         <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          aria-label="Next page"
+          onClick={handleNextPage}
           disabled={currentPage === totalPages || totalPages === 0}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >
