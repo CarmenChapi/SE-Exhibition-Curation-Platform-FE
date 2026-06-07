@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArtworksByCollection, deleteArtwork } from "../../utils/api";
 import { useParams } from "react-router-dom";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 import UserProfile from "../UserProfile";
 import MenuCollections from "../MenuCollections";
@@ -160,7 +160,7 @@ const ListArtworks = () => {
                       >
                         Collections
                       </button>
-            <Footer />
+            <TopButton />
             </div>
     </>
   );

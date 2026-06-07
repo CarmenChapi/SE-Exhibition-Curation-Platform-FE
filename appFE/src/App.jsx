@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GoogleLogin from "./components/GoogleLogin";
-import ListArworks from "./components/collections/ListArtworks"
+import ListArworks from "./components/collections/ListArtworks";
 import ErrorPage from "./components/ErrorPage";
 import "./App.css";
 import ArticData from "./components/artGalleries/ArticData";
@@ -16,14 +16,14 @@ import Home from "./components/Home";
 import ListApiArtGalleries from "./components/artGalleries/ListApiArts";
 import EuropeanaCard from "./components/artGalleries/EuropeanaCard";
 import HarvardCard from "./components/artGalleries/HarvardCard";
-import MetCard from "./components/artGalleries/MetCard"
+import MetCard from "./components/artGalleries/MetCard";
 import RijksMCard from "./components/artGalleries/RijksMCard";
 import VAMCard from "./components/artGalleries/VamCard";
 import SmithsonianCard from "./components/artGalleries/SmithsonianCard";
 import ListCollections from "./components/collections/ListCollections";
 import AddToCollection from "./components/collections/AddToCollection";
 import ArtworkDetail from "./components/collections/ArtworkDetail";
-import AddToCollectionFromApi  from "./components/artGalleries/AddToCollectionFromApi";
+import AddToCollectionFromApi from "./components/artGalleries/AddToCollectionFromApi";
 import Header from "./components/Header";
 
 
@@ -39,7 +39,7 @@ function App() {
           <Route path="/home/collections/:nameCollection/:collectionId" element={<ListArworks />} />
           <Route path="/home/collections/:nameCollection/:collectionId/add" element={<AddToCollection />} />
           <Route path="/home/collections/:nameCollection/:collectionId/artworks/:artworkId" element={<ArtworkDetail />} />
-          <Route path="/home/artgallery/" element={<ListApiArtGalleries/>} />
+          <Route path="/home/artgalleries/" element={<ListApiArtGalleries/>} />
           <Route path="/home/artgallery/chicago" element={<ArticData/>} />
           <Route path="/home/artgallery/europeana" element={<EuropeanaData/>} />
           <Route path="/home/artgallery/harvard" element={<HarvardData/>} />

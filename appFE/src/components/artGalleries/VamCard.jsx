@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 
 const fetchArtworkDetails = async (artworkId) => {
@@ -15,7 +15,7 @@ const fetchArtworkDetails = async (artworkId) => {
 };
 
 const VAMCard = () => {
-  const { artId } = useParams(); 
+  const { artId } = useParams();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
@@ -30,24 +30,23 @@ const VAMCard = () => {
 
   const artwork = data;
   const id_image = artwork?.meta?.images?._images_meta?.[0]?.assetRef;
-  //console.log(id_image);
+  console.log(artwork.record.titles);
 
   return (
     <>
     <h1 className="Header">Victoria & Albert Museum</h1>
     <nav>
-      <BackControl/>
       </nav>
 
       <section>
       <h2 >
-        {artwork.record.titles[0].title}
+        {artwork.record.titles.length > 0 ? artwork.record.titles[0].title : "Unknown"}
       </h2>
       <p >{artwork.record.artistMakerPerson[0] ?  artwork.record.artistMakerPerson[0].name.text : "Unknown" }</p>
       {id_image ? (
         <img
           src={`https://framemark.vam.ac.uk/collections/${id_image}/full/843,/0/default.jpg`}
-          alt={artwork.record.titles[0].title}
+          alt={artwork.record.titles.length > 0 ? artwork.record.titles[0].title : "Unknown"}
            className="detail-photo"
         />
       ) : (
@@ -79,13 +78,13 @@ const VAMCard = () => {
             className="detail-link"
           >      Visit this artwork on V&A Museum</a>
           </p>
-  
+
 
       </section>
-      <ShareArtwork title={artwork.record.titles[0].title} 
+      <ShareArtwork title={artwork.record.titles.length > 0 ? artwork.record.titles[0].title : "Unknown"}
       url={artwork.meta._links.collection_page.href} />
 
-      <Footer/>
+      <TopButton />
     </>
   );
 };

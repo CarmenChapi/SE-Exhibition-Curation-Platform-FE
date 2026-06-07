@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 
 
@@ -87,7 +87,7 @@ const MetCard = () => {
       
       <ShareArtwork title={artwork.title} url={artwork.objectURL} />
 
-      <Footer/>
+      <TopButton />
     </>
   );
 };

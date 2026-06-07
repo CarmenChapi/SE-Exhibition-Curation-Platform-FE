@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
-import BackControl from "../BackControl";
 import axios from "axios";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 const ITEMS_PER_PAGE = 5;
@@ -24,9 +23,12 @@ const fetchSmithData = async ({ queryKey }) => {
 };
 
 const SmithData = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [query, setQuery] = useState("painting"); // Default query term
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "painting";
+  const pageFromUrl = Number(searchParams.get("page"));
+  const currentPage =
+    Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [searchTerm, setSearchTerm] = useState(query === "painting" ? "" : query);
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
@@ -37,6 +39,24 @@ const SmithData = () => {
     keepPreviousData: true,
   });
 
+  useEffect(() => {
+    setSearchTerm(query === "painting" ? "" : query);
+  }, [query]);
+
+  const updateUrlParams = ({ nextPage = currentPage, nextQuery = query }) => {
+    const params = new URLSearchParams();
+
+    if (nextQuery.trim() && nextQuery.trim() !== "painting") {
+      params.set("q", nextQuery.trim());
+    }
+
+    if (nextPage > 1) {
+      params.set("page", String(nextPage));
+    }
+
+    setSearchParams(params);
+  };
+
   const allItems = data?.response.rows || [];
   const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
   const paginatedItems = allItems.slice(
@@ -45,16 +65,25 @@ const SmithData = () => {
   );
 
   const handleSearch = () => {
-    setQuery(searchTerm);
+    updateUrlParams({ nextPage: 1, nextQuery: searchTerm || "painting" });
   };
+
+  const handlePreviousPage = () => {
+    updateUrlParams({ nextPage: Math.max(currentPage - 1, 1) });
+  };
+
+  const handleNextPage = () => {
+    updateUrlParams({ nextPage: Math.min(currentPage + 1, totalPages) });
+  };
+
+  const getArtistName = (art) =>
+    art.content?.freetext?.name?.[0]?.content || "Unknown";
 
   const handleSort = (a, b) => {
     if (sortBy === "title") {
-      return a.title.localeCompare(b.title);
+      return (a.title || "").localeCompare(b.title || "");
     } else if (sortBy === "artist") {
-      return a.content.freetext.name[0].content.localeCompare(
-        b.content.freetext.name[0].content
-      );
+      return getArtistName(a).localeCompare(getArtistName(b));
     }
     return 0;
   };
@@ -80,14 +109,12 @@ const SmithData = () => {
   
     <nav className="topMenu">
         <MenuCollections />
-        <BackControl />
       </nav>
 
       <h2>Smithsonian Institution</h2>
 
-      {/* Search Input */}
-      <div className="collection-input">
-        <label> Search artworks
+      <div className="searchMenu">
+        <label className="label">Search artworks
         <input
           type="text"
           placeholder="Search Smithsonian Art..."
@@ -96,13 +123,6 @@ const SmithData = () => {
           className="collection-input"
         />
         </label>
-        <button aria-label="Search Smithsonian artworks" onClick={handleSearch} className="btn-search">
-          Search
-        </button>
-      </div>
-
-      {/* Sorting & Filtering Options */}
-      <div className="filter-sort-container">
         <label>Sort by
         <select
           onChange={(e) => setSortBy(e.target.value)}
@@ -115,12 +135,16 @@ const SmithData = () => {
         </label>
         <label>
           <input
+            className="box-input"
             type="checkbox"
             checked={filterByImage}
             onChange={() => setFilterByImage(!filterByImage)}
           />
           Only show artworks with images
         </label>
+        <button aria-label="Search Smithsonian artworks" onClick={handleSearch} className="btn-search">
+          Search
+        </button>
       </div>
 
       <ul className="gallery-list">
@@ -132,11 +156,7 @@ const SmithData = () => {
               onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
               title={`Click to see more info+`}>
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
-              {art.content.freetext.name ? (
-                <p>{art.content.freetext.name[0].content}</p>
-              ) : (
-                <p>Untitled</p>
-              )}
+              <p>{getArtistName(art)}</p>
               {art.content.descriptiveNonRepeating.online_media?.media[0]
                 ?.content ? (
                 <img
@@ -161,30 +181,28 @@ const SmithData = () => {
       </ul>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
+      <div className="pagination-controls">
         <button
           aria-label="Previous page"
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          onClick={handlePreviousPage}
           disabled={currentPage === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Previous
         </button>
-        <span className="px-4 py-2">
+        <span className="pagination-status">
           Page {currentPage} of {totalPages}
         </span>
         <button
           aria-label="Next page"
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
+          onClick={handleNextPage}
           disabled={currentPage === totalPages}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >
           Next
         </button>
       </div>
-      <Footer/>
+      <TopButton />
     </>
   );
 };

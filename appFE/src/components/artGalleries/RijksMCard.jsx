@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
@@ -39,12 +39,12 @@ const RijksMCard = () => {
     <>
       <h1>Rijksmuseum</h1>
       <nav>
-        <BackControl/>
+
       </nav>
       <section>
         <h2>{artwork.title || "Untitled"}</h2>
         <p>{artwork.principalMaker || "Unknown"}</p>
-        
+
         {artwork.webImage?.url ? (
           <img
             src={artwork.webImage.url}
@@ -54,7 +54,7 @@ const RijksMCard = () => {
         ) : (
           <p>No Image Available</p>
         )}
-        
+
         <p>
           <strong>Description:</strong>{" "}
           {artwork.description || "No description available."}
@@ -85,9 +85,9 @@ const RijksMCard = () => {
           </a>
         </p>
       </section>
-      
+
       <ShareArtwork title={artwork.title} url={webUrl} />
-      <Footer/>
+      <TopButton />
     </>
   );
 };

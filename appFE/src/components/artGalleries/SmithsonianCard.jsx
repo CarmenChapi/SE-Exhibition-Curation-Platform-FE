@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
@@ -37,7 +37,6 @@ const SmithsonianCard = () => {
     <>
     <h1 className="Header">Smithsonian Institution</h1>
     <nav>
-  <BackControl/>
   </nav>
   <section>
       <h2>{artwork.title ? artwork.title : "Untitle"}</h2>
@@ -92,7 +91,7 @@ const SmithsonianCard = () => {
       <ShareArtwork title={artwork.title} 
       url={artwork.content.descriptiveNonRepeating.record_link} />
 
-      <Footer/>
+      <TopButton />
     </>
   );
 };

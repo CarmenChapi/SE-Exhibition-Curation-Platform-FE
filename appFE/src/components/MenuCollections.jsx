@@ -10,7 +10,7 @@ const MenuCollections = () => {
     <img src={HomeImg} alt="Home" className="menu-img"/>
   </Link>
   
-  <Link to="/home/artgallery" className="link-menu">
+  <Link to="/home/artgalleries" className="link-menu">
     <img src={
       ArtGalleriesImg
     } className="menu-img" alt="Explore Art Galleries" />

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "../BackControl";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "../ErrorPage";
 
@@ -102,7 +102,7 @@ const ArticCard = () => {
 
 
 
-      <Footer />
+      <TopButton />
     </>
   );
 };

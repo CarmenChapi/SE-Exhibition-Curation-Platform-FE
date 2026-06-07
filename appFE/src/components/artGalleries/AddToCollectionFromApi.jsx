@@ -10,7 +10,8 @@ import MenuCollections from "../MenuCollections";
 import UserProfile from "../UserProfile";
 import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
+import BackControl from "../BackControl";
 
 const AddToCollectionFromApi = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -156,7 +157,10 @@ const AddToCollectionFromApi = () => {
             ))}
         </ul>
       )}
-      <Footer />
+      <div>
+      <BackControl/>
+      <TopButton />
+      </div>
     </>
   );
 };

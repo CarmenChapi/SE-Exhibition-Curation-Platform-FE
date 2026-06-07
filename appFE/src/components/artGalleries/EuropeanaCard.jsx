@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BackControl from "../BackControl";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "../ErrorPage";
 
@@ -21,7 +21,6 @@ const fetchArtworkDetails = async (artworkId) => {
 const EuropeanaCard = () => {
   const { artId } = useParams();
   // console.log(artId.replaceAll("-","/"))
-
   const { data, error, isLoading, isError, isSuccess} = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
@@ -120,7 +119,7 @@ const EuropeanaCard = () => {
         url={`https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`}
       />
 
-      <Footer />
+      <TopButton />
     </>
   );
 };

@@ -6,7 +6,7 @@ import MenuCollections from "../MenuCollections";
 import UserProfile from "../UserProfile";
 import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
-import Footer from "../Footer";
+import TopButton from "../TopButton";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -110,7 +110,7 @@ const ListCollections = () => {
           </div>
         </ul>
       )}
-      <Footer/>
+      <TopButton />
     </>
   );
 };
