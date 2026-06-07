@@ -1,8 +1,8 @@
 
-import { addArtwork } from "../utils/api";
+import { addArtwork } from "../../utils/api";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

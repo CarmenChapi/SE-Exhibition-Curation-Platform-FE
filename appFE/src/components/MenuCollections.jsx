@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import HomeImg from "/src/assets/Home.png"
 import ArtGalleriesImg from "/src/assets/ArtGalleries.png"
 import CollectionImg from "/src/assets/MyCollections.png"
 
 const MenuCollections = () => {
-  const navigate = useNavigate();
   return (
    <div className="mainMenu">
   <Link to="/home" className="link-menu">

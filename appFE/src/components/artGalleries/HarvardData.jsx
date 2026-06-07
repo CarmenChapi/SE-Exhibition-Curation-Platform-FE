@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import MenuCollections from "./MenuCollections";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import MenuCollections from "../MenuCollections";
+import Footer from "../Footer";
 
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;

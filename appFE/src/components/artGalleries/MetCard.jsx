@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
+import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
-import Footer from "./Footer";
-import ErrorPage from "./ErrorPage";
+import Footer from "../Footer";
+import ErrorPage from "../ErrorPage";
 
 
 const fetchArtworkDetails = async (artworkId) => {

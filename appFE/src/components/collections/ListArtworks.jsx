@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getArtworksByCollection, deleteArtwork } from "../utils/api";
+import { getArtworksByCollection, deleteArtwork } from "../../utils/api";
 import { useParams } from "react-router-dom";
-import Footer from "./Footer";
-import ErrorPage from "./ErrorPage";
-import UserProfile from "./UserProfile";
-import MenuCollections from "./MenuCollections";
+import Footer from "../Footer";
+import ErrorPage from "../ErrorPage";
+import UserProfile from "../UserProfile";
+import MenuCollections from "../MenuCollections";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TiPlusOutline } from "react-icons/ti";
 import { TbListDetails } from "react-icons/tb";

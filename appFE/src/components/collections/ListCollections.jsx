@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from "react";
-import { getCollectionByUserMail, addCollection } from "../utils/api";
-import { UserContext } from "../context/UserContext";
+import { getCollectionByUserMail, addCollection } from "../../utils/api";
+import { UserContext } from "../../context/UserContext";
 import CollectionCard from "./CollectionCard";
-import MenuCollections from "./MenuCollections";
-import UserProfile from "./UserProfile";
-import ErrorPage from "./ErrorPage";
+import MenuCollections from "../MenuCollections";
+import UserProfile from "../UserProfile";
+import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
-import Footer from "./Footer";
+import Footer from "../Footer";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);

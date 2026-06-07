@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MenuCollections from "./MenuCollections";
-import Footer from "./Footer";
+import MenuCollections from "../MenuCollections";
+import Footer from "../Footer";
 
 const apiList = [
   {

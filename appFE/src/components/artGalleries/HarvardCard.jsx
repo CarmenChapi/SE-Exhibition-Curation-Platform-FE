@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import Footer from "../Footer";
 import ShareArtwork from "./ShareArt";
-import ErrorPage from "./ErrorPage";
-import MenuCollections from "./MenuCollections";
+import ErrorPage from "../ErrorPage";
+import MenuCollections from "../MenuCollections";
 import AddToCollectionFromApi from "./AddToCollectionFromApi";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 

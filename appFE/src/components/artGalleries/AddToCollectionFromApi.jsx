@@ -4,13 +4,13 @@ import {
   getCollectionByUserMail,
   addCollection,
   addArtwork,
-} from "../utils/api";
-import { UserContext } from "../context/UserContext";
-import MenuCollections from "./MenuCollections";
-import UserProfile from "./UserProfile";
-import ErrorPage from "./ErrorPage";
+} from "../../utils/api";
+import { UserContext } from "../../context/UserContext";
+import MenuCollections from "../MenuCollections";
+import UserProfile from "../UserProfile";
+import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
-import Footer from "./Footer";
+import Footer from "../Footer";
 
 const AddToCollectionFromApi = () => {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import Footer from "../Footer";
 import ShareArtwork from "./ShareArt";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "../ErrorPage";
 
 
 

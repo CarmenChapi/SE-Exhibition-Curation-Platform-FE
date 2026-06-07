@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import Footer from "../Footer";
 import ShareArtwork from "./ShareArt";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "../ErrorPage";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
@@ -21,7 +21,6 @@ const fetchArtworkDetails = async (artworkId) => {
 const EuropeanaCard = () => {
   const { artId } = useParams();
   // console.log(artId.replaceAll("-","/"))
-  const navigate = useNavigate();
 
   const { data, error, isLoading, isError, isSuccess} = useQuery({
     queryKey: ["artworkDetails", artId],
