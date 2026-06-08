@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import BackControl from "./BackControl";
-import MenuCollections from "./MenuCollections";
-import Header from "./Header";
-import Footer from "./Footer";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import MenuCollections from "../MenuCollections";
+import TopButton from "../TopButton";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [query, setQuery] = useState("painting"); 
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "painting";
+  const pageFromUrl = Number(searchParams.get("page"));
+  const page = Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [searchTerm, setSearchTerm] = useState(query === "painting" ? "" : query);
   const ITEMS_PER_PAGE = 6;
-  const [sortBy, setSortBy] = useState(""); 
-  const [filterByImage, setFilterByImage] = useState(false); 
+  const [sortBy, setSortBy] = useState("");
+  const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,9 +55,34 @@ const METData = () => {
     fetchArtworks();
   }, [query, page]);
 
+  useEffect(() => {
+    setSearchTerm(query === "painting" ? "" : query);
+  }, [query]);
+
+  const updateUrlParams = ({ nextPage = page, nextQuery = query }) => {
+    const params = new URLSearchParams();
+
+    if (nextQuery.trim() && nextQuery.trim() !== "painting") {
+      params.set("q", nextQuery.trim());
+    }
+
+    if (nextPage > 1) {
+      params.set("page", String(nextPage));
+    }
+
+    setSearchParams(params);
+  };
+
   const handleSearch = () => {
-    setPage(1); 
-    setQuery(searchTerm);
+    updateUrlParams({ nextPage: 1, nextQuery: searchTerm || "painting" });
+  };
+
+  const handlePreviousPage = () => {
+    updateUrlParams({ nextPage: Math.max(page - 1, 1) });
+  };
+
+  const handleNextPage = () => {
+    updateUrlParams({ nextPage: page + 1 });
   };
 
   const handleSort = (a, b) => {
@@ -86,16 +111,13 @@ const METData = () => {
 
   return (
     <>
-      <Header />
       <nav className="topMenu">
         <MenuCollections />
-        <BackControl />
       </nav>
       <div>
         <h2>The Metropolitan Museum of Art</h2>
-        {/* Search Input */}
-        <form>
-          <label>
+        <div className="searchMenu">
+          <label className="label">
             Search artworks
             <input
               type="text"
@@ -105,15 +127,7 @@ const METData = () => {
               className="collection-input"
             />
           </label>
-          <button aria-label="Search MET artworks" onClick={handleSearch} className="btn-search">
-            Search
-          </button>
-        </form>
-
-         {/* Sorting & Filtering Options */}
-      <form className="filter-sort-container">
         <label>
-          {" "}
           Sort by
           <select
             onChange={(e) => setSortBy(e.target.value)}
@@ -127,13 +141,17 @@ const METData = () => {
 
         <label>
           <input
+            className="box-input"
             type="checkbox"
             checked={filterByImage}
             onChange={() => setFilterByImage(!filterByImage)}
           />
           Only show artworks with images
         </label>
-      </form>
+          <button type="button" aria-label="Search MET artworks" onClick={handleSearch} className="btn-search">
+            Search
+          </button>
+      </div>
 
         {/* Artworks List */}
         <ul className="gallery-list">
@@ -161,28 +179,29 @@ const METData = () => {
             <p>No results found</p>
           )}
         </ul>
-
         {/* Pagination Controls */}
-        <div className="flex justify-between mt-4">
+        <div className="pagination-controls">
           <button
             aria-label="Previous page"
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            onClick={handlePreviousPage}
             disabled={page === 1}
             className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
           >
             Previous
           </button>
-          <span className="px-4 py-2">Page {page}</span>
+          <span className="pagination-status">Page {page}</span>
           <button
             aria-label="Next page"
-            onClick={() => setPage((prev) => prev + 1)}
+            onClick={handleNextPage}
             className="bg-gray-500 text-white px-4 py-2 rounded"
           >
             Next
           </button>
         </div>
       </div>
-      <Footer />
+
+      <TopButton />
+
     </>
   );
 };

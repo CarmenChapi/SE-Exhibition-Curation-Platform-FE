@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MenuCollections from "./MenuCollections";
-import Footer from "./Footer";
+import MenuCollections from "../MenuCollections";
+import TopButton from "../TopButton";
 
 const apiList = [
   {
@@ -48,7 +48,6 @@ const ListApiArtGalleries = () => {
     <>
       <nav className="topMenu">
         <MenuCollections />
-        {/* <BackControl/> */}
       </nav>
       <section className="gallery-list">
         <h3>Select an art collection to browse and explore</h3>
@@ -70,7 +69,7 @@ const ListApiArtGalleries = () => {
           ))}
         </ul>
       </section>
-      <Footer />
+      <TopButton />
     </>
   );
 };

@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import BackControl from "./BackControl";
-import MenuCollections from "./MenuCollections";
-import Footer from "./Footer";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import MenuCollections from "../MenuCollections";
+import TopButton from "../TopButton";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
@@ -21,9 +20,12 @@ const fetchEuroData = async ({ queryKey }) => {
 };
 
 const EuropeanaData = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [query, setQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
+  const pageFromUrl = Number(searchParams.get("page"));
+  const currentPage =
+    Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [searchTerm, setSearchTerm] = useState(query);
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
@@ -34,9 +36,34 @@ const EuropeanaData = () => {
     keepPreviousData: true,
   });
 
+  useEffect(() => {
+    setSearchTerm(query);
+  }, [query]);
+
+  const updateUrlParams = ({ nextPage = currentPage, nextQuery = query }) => {
+    const params = new URLSearchParams();
+
+    if (nextQuery.trim()) {
+      params.set("q", nextQuery.trim());
+    }
+
+    if (nextPage > 1) {
+      params.set("page", String(nextPage));
+    }
+
+    setSearchParams(params);
+  };
+
   const handleSearch = () => {
-    setCurrentPage(1); // Reset to page 1 on new search
-    setQuery(searchTerm);
+    updateUrlParams({ nextPage: 1, nextQuery: searchTerm });
+  };
+
+  const handlePreviousPage = () => {
+    updateUrlParams({ nextPage: Math.max(currentPage - 1, 1) });
+  };
+
+  const handleNextPage = () => {
+    updateUrlParams({ nextPage: Math.min(currentPage + 1, totalPages) });
   };
 
   const allItems = data?.items || [];
@@ -72,14 +99,12 @@ const EuropeanaData = () => {
     <>
     <nav className="topMenu">
         <MenuCollections />
-        <BackControl />
       </nav>
 
       <h2>Europeana</h2>
 
-      {/* Search Input */}
-      <div>
-        <label>Search artworks
+      <div className="searchMenu">
+        <label className="label">Search artworks
         <input
           type="text"
           placeholder="Search Europeana Art..."
@@ -88,14 +113,6 @@ const EuropeanaData = () => {
           className="collection-input"
         />
         </label>
-        <button aria-label="Search Europeana artworks" onClick={handleSearch} className="btn-search">
-          Search
-        </button>
-      </div>
-
-      {/* Sorting & Filtering Options */}
-   
-      <div className="filter-sort-container">
       <label>Sort by
         <select
           onChange={(e) => setSortBy(e.target.value)}
@@ -109,12 +126,16 @@ const EuropeanaData = () => {
 
         <label>
           <input
+            className="box-input"
             type="checkbox"
             checked={filterByImage}
             onChange={() => setFilterByImage(!filterByImage)}
           />
           Only show artworks with images
         </label>
+        <button aria-label="Search Europeana artworks" onClick={handleSearch} className="btn-search">
+          Search
+        </button>
       </div>
 
       {/**Europeana ListArworks */}
@@ -157,30 +178,28 @@ const EuropeanaData = () => {
       </ul>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
+      <div className="pagination-controls">
         <button
           aria-label="Previous page"
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          onClick={handlePreviousPage}
           disabled={currentPage === 1}
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Previous
         </button>
-        <span className="px-4 py-2">
+        <span className="pagination-status">
           Page {currentPage} of {totalPages}
         </span>
         <button
           aria-label="Next page"
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
+          onClick={handleNextPage}
           disabled={currentPage === totalPages}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >
           Next
         </button>
       </div>
-      <Footer/>
+      <TopButton />
     </>
   );
 };

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import BackControl from "./BackControl";
-import Footer from "./Footer";
+import BackControl from "../BackControl";
+import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
-import ErrorPage from "./ErrorPage";
-import MenuCollections from "./MenuCollections";
+import ErrorPage from "../ErrorPage";
+import MenuCollections from "../MenuCollections";
 import AddToCollectionFromApi from "./AddToCollectionFromApi";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 
@@ -42,17 +42,20 @@ const HarvardCard = () => {
     image_url: artwork.primaryimageurl || "",
     description: artwork.verificationleveldescription || "No description",
   };
-  console.log(newArtwork);
-
   return (
     <>
       <nav className="topMenu">
         <MenuCollections />
+
+
       </nav>
-      <h2>Harvard Art Museum</h2>
-      <nav>
-        <BackControl />
-      </nav>
+      <div>
+           <Link to="/home/artgallery/harvard" className="link-menu">
+             <h2>⬅ Harvard Art Museum</h2>
+
+      </Link>
+      </div>
+
 
       <section className="description-section">
         <h2>{artwork.title}</h2>
@@ -109,20 +112,20 @@ const HarvardCard = () => {
 
      <div>
 
-<Link 
-      to="/home/artgallery/addToCollectionFromApi" 
-      state={{ artwork: newArtwork }} 
+<Link
+      to="/home/artgallery/addToCollectionFromApi"
+      state={{ artwork: newArtwork }}
       className="btn-add-curator"
     >
       ✨ Add to My Collections ✨
     </Link>
-  
+
        </div>
 
       <ShareArtwork title={artwork.title} url={artwork.url} />
 
-      <Footer />
- 
+      <TopButton />
+
     </>
   );
 };
