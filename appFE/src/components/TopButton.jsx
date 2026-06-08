@@ -1,3 +1,6 @@
+import { AiFillCaretUp } from "react-icons/ai";
+
+
 const TopButton = () => {
   function handleClic() {
     window.scrollTo(0, 0);
@@ -6,7 +9,7 @@ const TopButton = () => {
   return (
     <div className="TopButton">
       <button aria-label="Scroll to top" onClick={handleClic} className="btn-back">
-        Top &#8593;
+        <AiFillCaretUp />
       </button>
     </div>
   );
