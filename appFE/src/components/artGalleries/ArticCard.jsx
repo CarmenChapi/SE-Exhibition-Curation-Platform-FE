@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "../ErrorPage";
-
-
+import MenuCollections from "../MenuCollections";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -27,81 +25,99 @@ const ArticCard = () => {
   
   if (isLoading) return <p>Loading Chicago...</p>;
   if (isError) return <ErrorPage errorMsg={error.message}/>;
-  if (isSuccess && !data) {
+  if (isSuccess && !data?.data) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
   }
 
-  const artwork = data;
+  const artwork = data.data;
+  const imageUrl = artwork.image_id
+    ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`
+    : "";
+  const artworkUrl = `https://www.artic.edu/artworks/${artId}`;
+  const newArtwork = {
+    title: artwork.title || "Unknown",
+    location: artwork.department_title || "Art Institute of Chicago",
+    artist: artwork.artist_display || "Unknown",
+    image_url: imageUrl,
+    description: artwork.description || "No description",
+  };
 
   return (
     <>
-      <h1 className="Header">Art Institute of Chicago</h1>
-      <nav>
-        <BackControl />
+      <nav className="topMenu">
+        <MenuCollections />
       </nav>
+      <div>
+        <Link to="/home/artgallery/chicago" className="link-menu">
+          <h2>⬅ Art Institute of Chicago</h2>
+        </Link>
+      </div>
 
-      <section className="collection-card">
-        <h2>{artwork.data.title}</h2>
-        <p>{artwork.data.artist_display}</p>
+      <section className="description-section">
+        <h2>{artwork.title}</h2>
 
-        {artwork.data.image_id ? (
+        {imageUrl ? (
           <img
-            src={`https://www.artic.edu/iiif/2/${artwork.data.image_id}/full/843,/0/default.jpg`}
-            alt={artwork.data.title}
+            src={imageUrl}
+            alt={artwork.title}
             className="detail-photo"
           />
         ) : (
           <p>No Image Available</p>
         )}
 
-        <p>
-          <strong>Date:</strong> {artwork.data.date_display || "Unknown"}
+        <p className="description-artwork">
+          <strong>Artist:</strong> {artwork.artist_display || "Unknown"}
         </p>
-        <p>
-          <strong>Description:</strong> {artwork.data.description || "Unknown"}
+        <p className="description-artwork">
+          <strong>Date:</strong> {artwork.date_display || "Unknown"}
         </p>
-        <p>
-          <strong>Medium:</strong> {artwork.data.medium_display || "Unknown"}
+        <p className="description-artwork">
+          <strong>Description:</strong> {artwork.description || "Unknown"}
         </p>
-        <p>
-          <strong>Type:</strong> {artwork.data.artwork_type_title || "Unknown"}
+        <p className="description-artwork">
+          <strong>Medium:</strong> {artwork.medium_display || "Unknown"}
         </p>
-        <p>
-          <strong>Dimensions:</strong> {artwork.data.dimensions || "Unknown"}
+        <p className="description-artwork">
+          <strong>Type:</strong> {artwork.artwork_type_title || "Unknown"}
         </p>
-        <p>
-          <strong>Credit line:</strong> {artwork.data.credit_line || "Unknown"}
+        <p className="description-artwork">
+          <strong>Dimensions:</strong> {artwork.dimensions || "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
+          <strong>Credit line:</strong> {artwork.credit_line || "Unknown"}
+        </p>
+        <p className="description-artwork">
           <strong>Department:</strong>{" "}
-          {artwork.data.department_title || "Unknown"}
+          {artwork.department_title || "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
-          href={`https://www.artic.edu/artworks/${artId}`}
-          title="See this artwork in the Chicago Art Institute Website"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="detail-link"
-        >      Visit this artwork on Chicago Art Institue</a>
-      </p>
-
-
-  
-        
+            href={artworkUrl}
+            title="See this artwork in the Chicago Art Institute Website"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail-link"
+          >
+            Visit this artwork on Chicago Art Institute
+          </a>
+        </p>
       </section>
 
-
-
-
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
       <ShareArtwork
-        title={artwork.data.title}
-        url={`https://www.artic.edu/artworks/${artId}`}
+        title={artwork.title}
+        url={artworkUrl}
       />
-
-
-
       <TopButton />
     </>
   );

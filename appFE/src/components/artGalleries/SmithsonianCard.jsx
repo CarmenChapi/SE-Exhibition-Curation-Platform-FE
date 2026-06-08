@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
+import MenuCollections from "../MenuCollections";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 
@@ -31,55 +31,75 @@ const SmithsonianCard = () => {
   }
 
   const artwork = data.response;
-  //console.log(data.response, artwork.content.descriptiveNonRepeating.online_media.media[0].content);
+  const artist = artwork.content?.freetext?.name?.[0]?.content || "Unknown";
+  const imageUrl =
+    artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content ||
+    "";
+  const description =
+    artwork.content?.freetext?.notes?.[1]?.content || "No description";
+  const artworkUrl =
+    artwork.content?.descriptiveNonRepeating?.record_link || "";
+  const newArtwork = {
+    title: artwork.title || "Unknown",
+    location: "Smithsonian Institution",
+    artist,
+    image_url: imageUrl,
+    description,
+  };
 
   return (
     <>
-    <h1 className="Header">Smithsonian Institution</h1>
-    <nav>
-  </nav>
-  <section>
+    <nav className="topMenu">
+      <MenuCollections />
+    </nav>
+    <div>
+      <Link to="/home/artgallery/smithsonian" className="link-menu">
+        <h2>⬅ Smithsonian Institution</h2>
+      </Link>
+    </div>
+  <section className="description-section">
       <h2>{artwork.title ? artwork.title : "Untitle"}</h2>
-      <p>
-        {artwork.content.freetext.name ? artwork.content.freetext.name[0].content : "Unknown"}
-      </p>
-      { 
-  artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content && (
+      {imageUrl && (
     <img
-      src={artwork.content.descriptiveNonRepeating.online_media.media[0].content}
+      src={imageUrl}
       alt={artwork.title || "Artwork Image"}
       className="detail-photo"
     />
   )
 }
 
-{ !artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content && (
+{!imageUrl && (
     <p>No Image Available</p>
 )}
 
-      <p>
+      <p className="description-artwork">
+        <strong>Artist:</strong> {artist}
+      </p>
+      <p className="description-artwork">
         <strong>Description:</strong>
-        {artwork.content.freetext?.notes?.[1]?.content ? artwork.content.freetext.notes[1].content : "Unknown"}
+        {description}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Type:</strong>
-        {artwork.content.indexedStructured.object_type ? artwork.content.indexedStructured.object_type[0] : "Unknown"}
+        {artwork.content?.indexedStructured?.object_type?.[0] || "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Topic:</strong>
-        {artwork.content.freetext.setName ? artwork.content.freetext.setName[1].content  : "Unknown"}
+        {artwork.content?.freetext?.setName?.[1]?.content ??
+          artwork.content?.freetext?.setName?.[0]?.content ??
+          "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Date:</strong>
-        {artwork.content.indexedStructured.date
-          ? artwork.content.indexedStructured.date
-          : "Unknown"}
+        {artwork.content?.indexedStructured?.date?.join?.(", ") ??
+          artwork.content?.indexedStructured?.date ??
+          "Unknown"}
       </p>
 
-      <p>
+      <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
-      href={artwork.content.descriptiveNonRepeating.record_link || "" }
+      href={artworkUrl}
       title="See the item in the oficial website"
         target="_blank"
             rel="noopener noreferrer"
@@ -87,9 +107,16 @@ const SmithsonianCard = () => {
           >      Visit this artwork on Smithsonian</a>
         </p>
       </section>
-     
-      <ShareArtwork title={artwork.title} 
-      url={artwork.content.descriptiveNonRepeating.record_link} />
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
+      <ShareArtwork title={artwork.title} url={artworkUrl} />
 
       <TopButton />
     </>

@@ -392,10 +392,8 @@ input[type="checkbox"] {
 
 .detail-photo {
   display: block;
-  margin: 4rem auto;
-  max-width: 100%;
+  max-width: 80vw;
   width: 100%;
-  height: clamp(360px, 70vh, 760px);
   object-fit: contain;
   background-color: #ffffff;
   border-radius: 4px;
@@ -495,10 +493,11 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: min(100% - 2rem, 1000px);
-  margin: 0 auto;
-  padding: 0 1rem;
+  max-width: 82vw;
+  margin: 4rem auto;
+  padding:3rem 1rem;
   box-sizing: border-box;
+    object-fit: contain;
 }
 
 .description-section > * {
@@ -507,17 +506,6 @@ input[type="checkbox"] {
   text-align: right;    
 }
 
-.description-section .detail-photo {
-  width: 100%;
-  max-width: 1000px;
-}
-
-.description-section .harvard-detail-photo {
-  display: block;
-  width: 100%;
-  max-width: 1000px;
-  object-fit: contain;
-}
 
 .collection-grid {
   transform: scale(1.05);
@@ -757,17 +745,12 @@ input[type="checkbox"] {
   margin : 0.3rem;
   padding: 0.3rem;
 }
-.detail-photo {
-  margin: 1rem auto;
-  height: min(62vh, 460px);
-}
+
 .description-section {
   width: 100%;
   padding: 0 0.75rem;
 }
-.description-section .detail-photo {
-  max-width: 100%;
-}
+
 .sr-only{
   font-size: 1.2ch;
 }

@@ -1,11 +1,11 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
+import MenuCollections from "../MenuCollections";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -29,49 +29,66 @@ const VAMCard = () => {
   }
 
   const artwork = data;
-  const id_image = artwork?.meta?.images?._images_meta?.[0]?.assetRef;
-  console.log(artwork.record.titles);
+  const imageId = artwork?.meta?.images?._images_meta?.[0]?.assetRef;
+  const title = artwork.record?.titles?.[0]?.title || "Unknown";
+  const artist = artwork.record?.artistMakerPerson?.[0]?.name?.text || "Unknown";
+  const imageUrl = imageId
+    ? `https://framemark.vam.ac.uk/collections/${imageId}/full/843,/0/default.jpg`
+    : "";
+  const artworkUrl = artwork.meta?._links?.collection_page?.href || "";
+  const newArtwork = {
+    title,
+    location: "Victoria & Albert Museum",
+    artist,
+    image_url: imageUrl,
+    description: artwork.record?.summaryDescription || "No description",
+  };
 
   return (
     <>
-    <h1 className="Header">Victoria & Albert Museum</h1>
-    <nav>
-      </nav>
-
-      <section>
-      <h2 >
-        {artwork.record.titles.length > 0 ? artwork.record.titles[0].title : "Unknown"}
-      </h2>
-      <p >{artwork.record.artistMakerPerson[0] ?  artwork.record.artistMakerPerson[0].name.text : "Unknown" }</p>
-      {id_image ? (
+    <nav className="topMenu">
+      <MenuCollections />
+    </nav>
+    <div>
+      <Link to="/home/artgallery/vam" className="link-menu">
+        <h2>⬅ Victoria & Albert Museum</h2>
+      </Link>
+    </div>
+      <section className="description-section">
+      <h2>{title}</h2>
+      {imageUrl ? (
         <img
-          src={`https://framemark.vam.ac.uk/collections/${id_image}/full/843,/0/default.jpg`}
-          alt={artwork.record.titles.length > 0 ? artwork.record.titles[0].title : "Unknown"}
+          src={imageUrl}
+          alt={title}
            className="detail-photo"
         />
       ) : (
         <p>No Image Available</p>
       )}
-         <p>
+      <p className="description-artwork">
+        <strong>Artist:</strong> {artist}
+      </p>
+      <p className="description-artwork">
         <strong>Description:</strong>{" "}
-        {artwork.record.summaryDescription ?  artwork.record.summaryDescription : "Unknown"}
+        {artwork.record?.summaryDescription || "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Historical Context:</strong>{" "}
-        {artwork.record.historicalContext ?  artwork.record.historicalContext : "Unknown"}
+        {artwork.record?.historicalContext || "Unknown"}
       </p>
-      <p>
-        <strong>Techniques:</strong> {artwork.record.materialsAndTechniques ? artwork.record.materialsAndTechniques :  "Unknown"}
+      <p className="description-artwork">
+        <strong>Techniques:</strong>{" "}
+        {artwork.record?.materialsAndTechniques || "Unknown"}
       </p>
-      <p>
-        <strong>Date:</strong> {artwork.record.productionDates[0].date.text? artwork.record.productionDates[0].date.text  :  "Unknown"}
+      <p className="description-artwork">
+        <strong>Date:</strong> {artwork.record?.productionDates?.[0]?.date?.text || "Unknown"}
       </p>
-      <p>
-        <strong>Credit Line:</strong> {artwork.record.creditLine? artwork.record.creditLine  :  "Unknown"}
+      <p className="description-artwork">
+        <strong>Credit Line:</strong> {artwork.record?.creditLine || "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>URL:</strong>{" "}
-      <a href={artwork.meta._links.collection_page.href ? artwork.meta._links.collection_page.href : ""}
+      <a href={artworkUrl}
       title="See this artwork in the V&A website"
          target="_blank"
             rel="noopener noreferrer"
@@ -79,10 +96,17 @@ const VAMCard = () => {
           >      Visit this artwork on V&A Museum</a>
           </p>
 
-
       </section>
-      <ShareArtwork title={artwork.record.titles.length > 0 ? artwork.record.titles[0].title : "Unknown"}
-      url={artwork.meta._links.collection_page.href} />
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
+      <ShareArtwork title={title} url={artworkUrl} />
 
       <TopButton />
     </>

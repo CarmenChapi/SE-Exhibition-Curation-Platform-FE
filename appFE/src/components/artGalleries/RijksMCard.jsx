@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
+import MenuCollections from "../MenuCollections";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
@@ -34,16 +34,26 @@ const RijksMCard = () => {
 
   // Modificamos el link externo de la web para usar el objectNumber limpio
   const webUrl = `https://www.rijksmuseum.nl/en/collection/${artwork.objectNumber}`;
+  const newArtwork = {
+    title: artwork.title || "Unknown",
+    location: "Rijksmuseum",
+    artist: artwork.principalMaker || "Unknown",
+    image_url: artwork.webImage?.url || "",
+    description: artwork.description || "No description",
+  };
 
   return (
     <>
-      <h1>Rijksmuseum</h1>
-      <nav>
-
+      <nav className="topMenu">
+        <MenuCollections />
       </nav>
-      <section>
+      <div>
+        <Link to="/home/artgallery/rijksmuseum" className="link-menu">
+          <h2>⬅ Rijksmuseum</h2>
+        </Link>
+      </div>
+      <section className="description-section">
         <h2>{artwork.title || "Untitled"}</h2>
-        <p>{artwork.principalMaker || "Unknown"}</p>
 
         {artwork.webImage?.url ? (
           <img
@@ -55,24 +65,27 @@ const RijksMCard = () => {
           <p>No Image Available</p>
         )}
 
-        <p>
+        <p className="description-artwork">
+          <strong>Artist:</strong> {artwork.principalMaker || "Unknown"}
+        </p>
+        <p className="description-artwork">
           <strong>Description:</strong>{" "}
           {artwork.description || "No description available."}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Medium:</strong>{" "}
           {artwork.physicalMedium || "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Techniques:</strong>{" "}
           {artwork.techniques?.length > 0 ? artwork.techniques.join(", ") : "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Date:</strong>{" "}
           {artwork.dating?.presentingDate || "Unknown"}
         </p>
 
-        <p>
+        <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
             href={webUrl}
@@ -86,6 +99,15 @@ const RijksMCard = () => {
         </p>
       </section>
 
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
       <ShareArtwork title={artwork.title} url={webUrl} />
       <TopButton />
     </>

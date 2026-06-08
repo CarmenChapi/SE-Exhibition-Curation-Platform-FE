@@ -106,7 +106,7 @@ const ArtworkDetail = () => {
         </Link>
       </div>
   
-      <section className="description-section">
+      <section className="description-section featured-detail-section">
         {editing ? (
           <form className="artwork-form" onSubmit={handleUpdate}>
             <h2>Edit artwork</h2>
@@ -190,7 +190,7 @@ const ArtworkDetail = () => {
               <img
                 src={artwork.image_url}
                 alt={artwork.title}
-                className="detail-photo"
+                className="detail-photo featured-detail-photo"
               />
             ) : (
               <p className="description-artwork">

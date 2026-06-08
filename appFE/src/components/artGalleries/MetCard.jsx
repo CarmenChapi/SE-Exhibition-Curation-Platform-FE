@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
-
+import MenuCollections from "../MenuCollections";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -30,19 +29,27 @@ const MetCard = () => {
   }
 
   const artwork = data;
-  //console.log(data);
+  const artist = artwork.artistDisplayName || "Unknown";
+  const newArtwork = {
+    title: artwork.title || "Unknown",
+    location: artwork.department || "The Metropolitan Museum of Art",
+    artist,
+    image_url: artwork.primaryImage || "",
+    description: artwork.creditLine || "No description",
+  };
 
   return (
     <>
-      <h1>The Metropolitan Museum of Art</h1>
-      <nav>
-        <BackControl />
+      <nav className="topMenu">
+        <MenuCollections />
       </nav>
-
-    <section>
+      <div>
+        <Link to="/home/artgallery/met" className="link-menu">
+          <h2>⬅ The Metropolitan Museum of Art</h2>
+        </Link>
+      </div>
+    <section className="description-section">
       <h2>{artwork.title}</h2>
-
-      <p>{artwork.artistDisplayName ? artwork.artistDisplayName : "Unknown"}</p>
       {artwork.primaryImage ? (
         <img
           src={artwork.primaryImage}
@@ -52,27 +59,30 @@ const MetCard = () => {
       ) : (
         <p>No Image Available</p>
       )}
-      <p>
+      <p className="description-artwork">
+        <strong>Artist:</strong> {artist}
+      </p>
+      <p className="description-artwork">
         <strong>Department:</strong>
         {artwork.department ? artwork.department : "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Culture:</strong>
         {artwork.culture ? artwork.culture : "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Medium:</strong> {artwork.medium ? artwork.medium : "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Date:</strong>
         {artwork.objectDate ? artwork.objectDate : "Unknown"}
       </p>
-      <p>
+      <p className="description-artwork">
         <strong>Credit Line:</strong>
         {artwork.creditLine ? artwork.creditLine : "Unknown"}
       </p>
 
-      <p>
+      <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
         href={artwork.objectURL ? artwork.objectURL : "Unknown"}
@@ -84,7 +94,15 @@ const MetCard = () => {
         </p>
     
       </section>
-      
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
       <ShareArtwork title={artwork.title} url={artwork.objectURL} />
 
       <TopButton />

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import BackControl from "../BackControl";
 import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "../ErrorPage";
+import MenuCollections from "../MenuCollections";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
@@ -35,90 +35,97 @@ const EuropeanaCard = () => {
   }
 
   const artwork = data.object;
-  //console.log(artwork.proxies[1],   artwork.proxies[1].dcDescription );
+  const title =
+    artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
+    artwork?.proxies?.[1]?.dcTitle?.en?.[0] ??
+    "Unknown";
+  const artist =
+    artwork?.proxies?.[0]?.dcCreator?.en?.[0] ??
+    artwork?.proxies?.[1]?.dcCreator?.en?.[0] ??
+    "Unknown";
+  const description =
+    artwork?.proxies?.[0]?.dcDescription?.en?.[0] ??
+    artwork?.proxies?.[1]?.dcDescription?.en?.[0] ??
+    "No description";
+  const imageUrl = artwork?.aggregations?.[0]?.edmIsShownBy || "";
+  const artworkUrl = `https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`;
+  const newArtwork = {
+    title,
+    location: "Europeana",
+    artist,
+    image_url: imageUrl,
+    description,
+  };
 
   return (
     <>
-      <h1 className="Header">Europeana</h1>
-      <nav>
-        <BackControl />
+      <nav className="topMenu">
+        <MenuCollections />
       </nav>
-      <section>
-        <h2>
-           {artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
-            artwork?.proxies?.[1]?.dcTitle?.en?.[0] ??
-            "Unknown"}
-        </h2>
-        <p>
-             {artwork.proxies[0].dcCreator
-            ? artwork.proxies[0].dcCreator.en[0]
-            : "Unknown"}
-        </p>
-        {artwork.aggregations[0].edmIsShownBy ? (
+      <div>
+        <Link to="/home/artgallery/europeana" className="link-menu">
+          <h2>⬅ Europeana</h2>
+        </Link>
+      </div>
+      <section className="description-section">
+        <h2>{title}</h2>
+        {imageUrl ? (
           <img
-            src={artwork.aggregations[0].edmIsShownBy}
-            alt={
-              artwork.proxies[0].dcTitle ? artwork.proxies[0].dcTitle.en : ""
-            }
+            src={imageUrl}
+            alt={title}
             className="detail-photo"
           />
         ) : (
           <p>No Image Available</p>
         )}
-        <p>
+        <p className="description-artwork">
+          <strong>Artist:</strong> {artist}
+        </p>
+        <p className="description-artwork">
           <strong>Type:</strong>{" "}
            {artwork?.proxies?.[0]?.edmType?.en?.[0] ??
             artwork?.proxies?.[1]?.edmType?.en?.[0] ??
             "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Medium:</strong>{" "}
-           {artwork?.proxies?.[0]?.dctermsMedium?.en?.[0].toString() ??
-            artwork?.proxies?.[1]?.dctermsMedium?.en?.[0].toString() ??
+           {artwork?.proxies?.[0]?.dctermsMedium?.en?.[0]?.toString() ??
+            artwork?.proxies?.[1]?.dctermsMedium?.en?.[0]?.toString() ??
             "Unknown"}
         </p>
-        <p>
+        <p className="description-artwork">
           <strong>Date:</strong>{" "}
-     
            {artwork?.proxies?.[0]?.dcDate?.def?.[0]??
             artwork?.proxies?.[1]?.dcDate?.def?.[0] ??
             "Unknown"}
         </p>
-        <p>
-          <strong>Description:</strong>
-           {artwork?.proxies?.[0]?.dcDescription?.en?.[0]??
-            artwork?.proxies?.[1]?.dcDescription?.en?.[0] ??
-            "Not available"}
-          {/* {artwork.concepts[0].note ? artwork.concepts[0].note.en[0] : ""}*/}
-          {/* {artwork.aggregations[0]?.webResources[0]?.textAttributionSnippet
-            ? artwork.aggregations[0].webResources[0].textAttributionSnippet
-            : ""} */}
+        <p className="description-artwork">
+          <strong>Description:</strong> {description}
         </p>
-
-        <p>
+        <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
-            href={`https://www.europeana.eu/en/item${artId.replaceAll(
-              "-",
-              "/"
-            )}`}
+            href={artworkUrl}
             title="See this artwork in www.europeana.eu"
             target="_blank"
             rel="noopener noreferrer"
             className="detail-link"
-          >      Visit this artwork on Europeana</a>
+          >
+            Visit this artwork on Europeana
+          </a>
         </p>
       </section>
 
-      <ShareArtwork
-        title={
-          artwork?.proxies?.[0]?.dcTitle?.en?.[0] ??
-          artwork?.proxies?.[1]?.dcTitle?.en?.[0] ??
-          "Untitle"
-        }
-        url={`https://www.europeana.eu/en/item${artId.replaceAll("-", "/")}`}
-      />
-
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
+      <ShareArtwork title={title} url={artworkUrl} />
       <TopButton />
     </>
   );

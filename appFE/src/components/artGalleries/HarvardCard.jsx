@@ -63,7 +63,7 @@ const HarvardCard = () => {
           <img
             src={artwork.primaryimageurl}
             alt={artwork.title}
-            className="detail-photo harvard-detail-photo"
+            className="detail-photo"
           />
         ) : (
           <p>No Image Available</p>
