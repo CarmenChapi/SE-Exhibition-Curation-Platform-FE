@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
 
 const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 const authDomain =  import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
@@ -24,4 +25,5 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export { auth, provider, signInWithPopup, signOut };
+export { auth, provider, signInWithPopup, signOut, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, signInWithRedirect };

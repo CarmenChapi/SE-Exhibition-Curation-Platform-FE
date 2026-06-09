@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { auth, signOut } from "../firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const UserProfile = () => {
     const { userCx, setUserCx } = useContext(UserContext);
     const navigate = useNavigate();
+    const [photoFailed, setPhotoFailed] = useState(false);
 
      useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -24,6 +25,10 @@ const UserProfile = () => {
     
         return () => unsubscribe();
       }, [setUserCx]);
+
+      useEffect(() => {
+        setPhotoFailed(false);
+      }, [userCx?.photoURL]);
     
       const handleLogout = async () => {
         try {
@@ -34,11 +39,29 @@ const UserProfile = () => {
           console.error("Error signing out:", error.message);
         }
       };
+
+    const displayName =
+      userCx?.displayName?.trim() || userCx?.email?.split("@")[0] || "User";
+    const firstName = displayName.split(" ")[0];
+    const userInitial = firstName.charAt(0).toUpperCase();
+    const showPhoto = Boolean(userCx?.photoURL) && !photoFailed;
   
 return(
     <div className="userProfile">
-    <img src={userCx?.photoURL} alt="Profile" className="userPhoto" />
-    <p>{  } Hi, {userCx?.displayName.split(" ")[0]}!</p>
+    {showPhoto ? (
+      <img
+        src={userCx.photoURL}
+        alt={`${displayName} profile`}
+        className="userPhoto"
+        referrerPolicy="no-referrer"
+        onError={() => setPhotoFailed(true)}
+      />
+    ) : (
+      <span className="userPhoto userInitial" aria-hidden="true">
+        {userInitial}
+      </span>
+    )}
+    <p>{firstName}</p>
     <button
       aria-label="Log out"
       onClick={handleLogout}
