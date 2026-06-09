@@ -25,6 +25,7 @@ import AddToCollection from "./components/collections/AddToCollection";
 import ArtworkDetail from "./components/collections/ArtworkDetail";
 import AddToCollectionFromApi from "./components/artGalleries/AddToCollectionFromApi";
 import Header from "./components/Header";
+import UserLogin from "./components/UserLogin";
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
      <Header />
       <Router>
         <Routes>
-          <Route path="/" element={<GoogleLogin />} />
+          <Route path="/" element={<UserLogin />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/collections" element={<ListCollections />} />
           <Route path="/home/collections/:nameCollection/:collectionId" element={<ListArworks />} />
