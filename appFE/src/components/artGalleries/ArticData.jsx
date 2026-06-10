@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
+import Loading from "../Loading";
 
 const fetchArticData = async ({ queryKey }) => {
   const [_key, { page, query }] = queryKey;
@@ -82,7 +83,8 @@ const ArticData = ({ searchValue = "" }) => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading Chicago...</p>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Chicago Art Institute..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (

@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { updateCollection, deleteCollection } from "../../utils/api";
+import { useEffect, useState } from "react";
+import {
+  updateCollection,
+  deleteCollection,
+  getArtworksByCollection,
+} from "../../utils/api";
 
 import { useNavigate } from "react-router-dom";
 import { RiEditLine } from "react-icons/ri";
@@ -11,40 +15,78 @@ import CollectionPreview from "/src/assets/collectionPreview.png";
 const CollectionCard = ({
   collection,
   setListCollections,
-  listCollections,
 }) => {
   // console.log(collection);
   const [editing, setEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(collection.title);
+  const [pendingAction, setPendingAction] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   const navigate = useNavigate();
 
-  const handleUpdate = () => {
-    if (!updatedTitle.trim()) return alert("Title cannot be empty!");
+  useEffect(() => {
+    let isActive = true;
 
-    updateCollection(collection.id_collection, { title: updatedTitle })
-      .then((updatedCollection) => {
-        setListCollections(
-          listCollections.map((col) =>
-            col.id_collection === updatedCollection.id
-              ? updatedCollection
-              : col,
-          ),
-        );
-        setEditing(false);
+    if (collection.art_count < 1) {
+      setPreviewImage(null);
+      return () => {
+        isActive = false;
+      };
+    }
+
+    getArtworksByCollection(collection.id_collection)
+      .then((artworks) => {
+        if (isActive) {
+          const artworkWithImage = artworks.find((artwork) => artwork.image_url);
+          setPreviewImage(artworkWithImage?.image_url || null);
+        }
       })
-      .catch((err) => console.error("Error updating collection:", err));
+      .catch(() => {
+        if (isActive) setPreviewImage(null);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [collection.art_count, collection.id_collection]);
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    if (!updatedTitle.trim()) return alert("Title cannot be empty!");
+    if (pendingAction) return;
+
+    setPendingAction("saving");
+    try {
+      const updatedCollection = await updateCollection(collection.id_collection, {
+        title: updatedTitle,
+      });
+      setListCollections((currentCollections) =>
+        currentCollections.map((col) =>
+          col.id_collection === updatedCollection.id ? updatedCollection : col,
+        ),
+      );
+      setEditing(false);
+    } catch (err) {
+      console.error("Error updating collection:", err);
+    } finally {
+      setPendingAction(null);
+    }
   };
 
-  const handleDelete = () => {
-    deleteCollection(collection.id_collection)
-      .then(() => {
-        setListCollections(
-          listCollections.filter(
-            (col) => col.id_collection !== collection.id_collection,
-          ),
-        );
-      })
-      .catch((err) => console.error("Error deleting collection:", err));
+  const handleDelete = async () => {
+    if (pendingAction) return;
+
+    setPendingAction("deleting");
+    try {
+      await deleteCollection(collection.id_collection);
+      setListCollections((currentCollections) =>
+        currentCollections.filter(
+          (col) => col.id_collection !== collection.id_collection,
+        ),
+      );
+    } catch (err) {
+      console.error("Error deleting collection:", err);
+      setPendingAction(null);
+    }
   };
 
   const handleOpenCollection = () => {
@@ -66,12 +108,17 @@ const CollectionCard = ({
       <p className="collection-title">{collection.title}</p>
 
       <img
-        src={CollectionPreview}
-        alt="Collection preview"
+        src={previewImage || CollectionPreview}
+        alt={
+          previewImage
+            ? `${collection.title} collection preview`
+            : "Empty collection preview"
+        }
         className="card-image"
+        onError={() => setPreviewImage(null)}
       />
       {editing ? (
-        <form>
+        <form onSubmit={handleUpdate}>
           <label>
             Edit title    </label>
             <input
@@ -81,10 +128,10 @@ const CollectionCard = ({
               onChange={(e) => setUpdatedTitle(e.target.value)}
             />
       
-          <button aria-label="Save collection changes" className="btn-back" onClick={handleUpdate}>
-            Save
+          <button aria-label="Save collection changes" className="btn-back" type="submit" disabled={Boolean(pendingAction)}>
+            {pendingAction === "saving" ? "Saving..." : "Save"}
           </button>
-          <button aria-label="Cancel editing collection" className="btn-back" onClick={() => setEditing(false)}>
+          <button aria-label="Cancel editing collection" className="btn-back" type="button" disabled={Boolean(pendingAction)} onClick={() => setEditing(false)}>
             Cancel
           </button>
         </form>
@@ -99,8 +146,8 @@ const CollectionCard = ({
             {collection.art_count >= 1 ?
                 <button aria-label="Open collection" className="btn-add-art" onClick={handleOpenCollection}>
             <VscFolderOpened /></button> : null}
-          <button aria-label="Delete collection" className="btn-add-art" onClick={handleDelete}>
-            <AiOutlineDelete />
+          <button aria-label="Delete collection" className="btn-add-art" disabled={Boolean(pendingAction)} onClick={handleDelete}>
+            <AiOutlineDelete /> {pendingAction === "deleting" ? "Deleting..." : ""}
           </button>
         </div>
       )}

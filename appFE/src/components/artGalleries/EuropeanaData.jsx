@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
+import Loading from "../Loading";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
@@ -92,7 +93,8 @@ const EuropeanaData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading Europeana...</p>;
+     if (isLoading)
+    return <Loading pageLoading="Loading Europeana..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (

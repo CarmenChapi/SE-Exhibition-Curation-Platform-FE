@@ -12,11 +12,13 @@ import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
 import TopButton from "../TopButton";
 import BackControl from "../BackControl";
+import Loading from "../Loading";
 
 const AddToCollectionFromApi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [listCollections, setListCollections] = useState([]);
   const [error, setError] = useState(null);
+  const [pendingAction, setPendingAction] = useState(null);
   const location = useLocation();
   const [newCollectionTitle, setNewCollectionTitle] = useState("");
   const { userCx } = useContext(UserContext);
@@ -49,8 +51,9 @@ const AddToCollectionFromApi = () => {
     fetchData();
   }, [userCx?.email, artwork]);
 
-  const handleAddToNewCollection = () => {
+  const handleAddToNewCollection = async () => {
     if (!newCollectionTitle.trim()) return alert("Title cannot be empty!");
+    if (pendingAction) return;
 
     const newCollection = {
       title: newCollectionTitle,
@@ -58,26 +61,26 @@ const AddToCollectionFromApi = () => {
       art_count: 0,
     };
 
-    addCollection(newCollection)
-      .then((addedCollection) => {
-        console.log("Added collection:", addedCollection);
-        addedCollection.art_count = 0;
-        setListCollections([addedCollection, ...listCollections]);
-        setNewCollectionTitle("");
-        addArtwork(addedCollection.id_collection, artwork)
-          .then((addedArtwork) => {
-            console.log("Added artwork to collection:", addedArtwork); //
-            navigate(
-              `/home/collections/${addedCollection.title}/${addedCollection.id_collection}`,
-            );
-          })
-          .catch((err) => setError(err));
-        //navigate(`/home/collections`);
-      })
-      .catch((err) => setError(err));
+    setPendingAction("new");
+    try {
+      const addedCollection = await addCollection(newCollection);
+      addedCollection.art_count = 0;
+      setListCollections((currentCollections) => [
+        addedCollection,
+        ...currentCollections,
+      ]);
+      setNewCollectionTitle("");
+      await addArtwork(addedCollection.id_collection, artwork);
+      navigate(
+        `/home/collections/${addedCollection.title}/${addedCollection.id_collection}`,
+      );
+    } catch (err) {
+      setError(err);
+      setPendingAction(null);
+    }
   };
 
-  const handleAddToCollection = (event, collection) => {
+  const handleAddToCollection = async (event, collection) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -87,19 +90,22 @@ const AddToCollectionFromApi = () => {
       setError({ message: "No artwork selected to add." });
       return;
     }
+    if (pendingAction) return;
 
-    addArtwork(collection.id_collection, artwork)
-      .then((addedArtwork) => {
-        console.log("Added artwork to collection:", addedArtwork); //
-        navigate(
-          `/home/collections/${collection.title}/${collection.id_collection}`,
-        );
-      })
-      .catch((err) => setError(err));
+    setPendingAction(collection.id_collection);
+    try {
+      await addArtwork(collection.id_collection, artwork);
+      navigate(
+        `/home/collections/${collection.title}/${collection.id_collection}`,
+      );
+    } catch (err) {
+      setError(err);
+      setPendingAction(null);
+    }
   };
 
   if (isLoading)
-    return <h3 className="loading">Loading User Collections...</h3>;
+    return <Loading pageLoading="Loading collections..." />;
   if (error && error.status !== 404)
     return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
@@ -109,7 +115,7 @@ const AddToCollectionFromApi = () => {
         <UserProfile />
         <MenuCollections />
       </nav>
-      <h2>Add {artwork.title}</h2>
+      <h2>Add {artwork?.title || "artwork"}</h2>
       <p>
         <strong>
           Pick one of your collections to add the artwork or create a new one!
@@ -132,8 +138,12 @@ const AddToCollectionFromApi = () => {
           aria-label="Add artwork to a new collection"
           className="btn-add-art"
           onClick={handleAddToNewCollection}
+          disabled={Boolean(pendingAction)}
         >
-          <strong>  <TiPlusOutline /> New Collection</strong>
+          <strong>
+            <TiPlusOutline />{" "}
+            {pendingAction === "new" ? "Creating and adding..." : "New Collection"}
+          </strong>
         </button>
       </div>
 
@@ -148,9 +158,14 @@ const AddToCollectionFromApi = () => {
                   aria-label={`Add artwork to ${collection.title}`}
                   type="button"
                   className="btn-add-art btn-select-collection"
+                  disabled={Boolean(pendingAction)}
                   onClick={(event) => handleAddToCollection(event, collection)}
                 >
-                  <strong>{collection.title}</strong>
+                  <strong>
+                    {pendingAction === collection.id_collection
+                      ? "Adding..."
+                      : collection.title}
+                  </strong>
                   <TiPlusOutline />
                 </button>
               </li>

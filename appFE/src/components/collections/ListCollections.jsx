@@ -7,12 +7,14 @@ import UserProfile from "../UserProfile";
 import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
 import TopButton from "../TopButton";
+import Loading from "../Loading";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [listCollections, setListCollections] = useState([]);
   const [error, setError] = useState(null);
   const [newCollectionTitle, setNewCollectionTitle] = useState("");
+  const [isAddingCollection, setIsAddingCollection] = useState(false);
   const { userCx } = useContext(UserContext);
   //  const userCx ={
   //   email : "mariachaparro58@gmail.com",
@@ -39,8 +41,9 @@ const ListCollections = () => {
     fetchData();
   }, [userCx?.email]);
 
-  const handleAddCollection = () => {
+  const handleAddCollection = async () => {
     if (!newCollectionTitle.trim()) return alert("Title cannot be empty!");
+    if (isAddingCollection) return;
 
     const newCollection = {
       title: newCollectionTitle,
@@ -48,17 +51,24 @@ const ListCollections = () => {
       art_count: 0,
     };
 
-    addCollection(newCollection)
-      .then((addedCollection) => {
-        addedCollection.art_count = 0;
-        setListCollections([addedCollection, ...listCollections]);
-        setNewCollectionTitle("");
-      })
-      .catch((err) => setError(err));
+    setIsAddingCollection(true);
+    try {
+      const addedCollection = await addCollection(newCollection);
+      addedCollection.art_count = 0;
+      setListCollections((currentCollections) => [
+        addedCollection,
+        ...currentCollections,
+      ]);
+      setNewCollectionTitle("");
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsAddingCollection(false);
+    }
   };
 
-  if (isLoading)
-    return <h3 className="loading">Loading User Collections...</h3>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Collections..." />;
   if (error && error.status !== 404)
     return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
@@ -88,8 +98,13 @@ const ListCollections = () => {
             placeholder="Title"
           />
         </label>
-        <button aria-label="Create collection" className="btn-add-art" onClick={handleAddCollection}>
-          <TiPlusOutline />
+        <button
+          aria-label="Create collection"
+          className="btn-add-art"
+          onClick={handleAddCollection}
+          disabled={isAddingCollection}
+        >
+          <TiPlusOutline /> {isAddingCollection ? "Creating..." : "Create"}
         </button>
       </div>
 
@@ -104,7 +119,6 @@ const ListCollections = () => {
                 key={collection.id_collection}
                 collection={collection}
                 setListCollections={setListCollections}
-                listCollections={listCollections}
               />
             ))}
           </div>

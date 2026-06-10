@@ -5,6 +5,7 @@ import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
+import Loading from "../Loading";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
@@ -28,7 +29,8 @@ const EuropeanaCard = () => {
 
 
 
-  if (isLoading) return <p>Loading Europeana...</p>;
+    if (isLoading)
+    return <Loading pageLoading="Loading Europeana..." />;
   if (isError) return<ErrorPage errorMsg={`Error: ${error.message}`}/>;
   if (isSuccess && !data?.object) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;

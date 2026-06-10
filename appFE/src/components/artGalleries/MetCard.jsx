@@ -5,6 +5,7 @@ import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
+import Loading from "../Loading";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -22,7 +23,8 @@ const MetCard = () => {
   });
 
  
-  if (isLoading) return <p>Loading MET...</p>;
+    if (isLoading)
+    return <Loading pageLoading="Loading The Metropolitan Museum of Art..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
   if (isSuccess && !data) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;

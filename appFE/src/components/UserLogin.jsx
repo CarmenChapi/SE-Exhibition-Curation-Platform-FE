@@ -15,13 +15,17 @@ const UserLogin = () => {
   const [password, setPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false); // Alternar entre Login y Registro
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // (Tu useEffect con onAuthStateChanged se queda exactamente igual)
 
   // --- FUNCIÓN: LOGIN O REGISTRO CON EMAIL ---
   const handleEmailAuth = async (e) => {
     e.preventDefault(); // Evita que la página se recargue
+    if (isSubmitting) return;
+
     setErrorMessage("");
+    setIsSubmitting(true);
 
     try {
       if (isRegistering) {
@@ -50,6 +54,8 @@ const UserLogin = () => {
         default:
           setErrorMessage("Ocurrió un error. Inténtalo de nuevo.");
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -91,8 +97,14 @@ const UserLogin = () => {
               required 
             />
             
-            <button type="submit" className="email-auth-btn">
-              {isRegistering ? "Register" : "Sign in with email"}
+            <button type="submit" className="email-auth-btn" disabled={isSubmitting}>
+              {isSubmitting
+                ? isRegistering
+                  ? "Creating account..."
+                  : "Signing in..."
+                : isRegistering
+                  ? "Register"
+                  : "Sign in with email"}
             </button>
           </form>
 
@@ -100,6 +112,7 @@ const UserLogin = () => {
           <button
             type="button"
             className="toggle-auth"
+            disabled={isSubmitting}
             onClick={() => setIsRegistering(!isRegistering)}
           >
             {isRegistering ? "Already have an account? Sign in" : "Don't have an account? Sign up here"}
