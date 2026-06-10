@@ -5,6 +5,7 @@ import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
+import Loading from "../Loading";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 
@@ -23,8 +24,8 @@ const SmithsonianCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-
-  if (isLoading) return <p>Loading Smithsonian...</p>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Smithsonian Institution..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
   if (isSuccess && !data?.response) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;

@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
+import Loading from "../Loading";
+import ErrorPage from "../ErrorPage";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "painting";
   const pageFromUrl = Number(searchParams.get("page"));
@@ -18,17 +21,20 @@ const METData = () => {
 
   useEffect(() => {
     const fetchArtworks = async () => {
-      setLoading(true);
+      setIsLoading(true);
+      setError(null);
       const searchQuery = query ? `q=${query}` : "q=painting";
       try {
         const idsResponse = await fetch(
           `https://collectionapi.metmuseum.org/public/collection/v1/search?${searchQuery}&hasImages=true`
         );
+        if (!idsResponse.ok) {
+          throw new Error("The Metropolitan Museum API could not be reached.");
+        }
         const idsData = await idsResponse.json();
 
         if (!idsData.objectIDs) {
           setArtworks([]);
-          setLoading(false);
           return;
         }
 
@@ -39,6 +45,9 @@ const METData = () => {
           const response = await fetch(
             `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`
           );
+          if (!response.ok) {
+            throw new Error(`Artwork ${id} could not be loaded.`);
+          }
           return response.json();
         });
 
@@ -48,8 +57,10 @@ const METData = () => {
         setArtworks(artworksWithImages);
       } catch (error) {
         console.error("Error fetching artworks:", error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
-      setLoading(false);
     };
 
     fetchArtworks();
@@ -103,10 +114,10 @@ const METData = () => {
 
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
-
-
-
-  if (loading) return <p>Loading MET...</p>;
+  if (isLoading)
+    return <Loading pageLoading="Loading The Metropolitan Museum of Art..." />;
+  if (error)
+    return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
 
   return (

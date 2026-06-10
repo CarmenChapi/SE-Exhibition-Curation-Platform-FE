@@ -8,6 +8,7 @@ import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
 import AddToCollectionFromApi from "./AddToCollectionFromApi";
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
+import Loading from "../Loading";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -27,7 +28,8 @@ const HarvardCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading Harvard...</p>;
+    if (isLoading)
+    return <Loading pageLoading="Loading Harvard Art Museum..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   if (isSuccess && !data) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;

@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
+import Loading from "../Loading";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
@@ -93,8 +94,8 @@ const RijksMData = () => {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
-
-  if (isLoading) return <p>Loading RijksM...</p>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Rijksmuseum..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (

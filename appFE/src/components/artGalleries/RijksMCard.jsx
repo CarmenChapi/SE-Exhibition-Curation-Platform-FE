@@ -5,6 +5,7 @@ import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
+import Loading from "../Loading";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
@@ -24,7 +25,8 @@ const RijksMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading RijksM...</p>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Rijksmuseum..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
   if (isSuccess && !data?.artObject) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;

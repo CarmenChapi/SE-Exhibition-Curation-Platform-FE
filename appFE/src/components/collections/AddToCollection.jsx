@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const AddToCollection = () => {
   const { collectionId, nameCollection } = useParams();
   const [error, setError] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
   const [newArtwork, setNewArtwork] = useState({
     title: "",
     location: "",
@@ -19,24 +20,26 @@ const AddToCollection = () => {
   });
   const navigate = useNavigate();
 
-  const handleAddArtwork = (e) => {
+  const handleAddArtwork = async (e) => {
     e.preventDefault();
     if (!newArtwork.title.trim()) return alert("Title cannot be empty!");
+    if (isAdding) return;
 
-    // const artworkToAdd = { ...newArtwork, id_collection: collectionId };
-
-    addArtwork(collectionId, newArtwork)
-      .then(() => {
-        setNewArtwork({
-          title: "",
-          location: "",
-          artist: "",
-          description: "",
-          image_url: "",
-        });
-        navigate(`/home/collections/${nameCollection}/${collectionId}`);
-      })
-      .catch((err) => setError(err));
+    setIsAdding(true);
+    try {
+      await addArtwork(collectionId, newArtwork);
+      setNewArtwork({
+        title: "",
+        location: "",
+        artist: "",
+        description: "",
+        image_url: "",
+      });
+      navigate(`/home/collections/${nameCollection}/${collectionId}`);
+    } catch (err) {
+      setError(err);
+      setIsAdding(false);
+    }
   };
 
   const handleCancel = () => {
@@ -59,7 +62,7 @@ const AddToCollection = () => {
 
       <h3>Add an artwork in this collection</h3>
       <section className="collection-add-main">
-        <form className="artwork-form">
+        <form className="artwork-form" onSubmit={handleAddArtwork}>
           <div className="form-row">
             <label>
               Add a title
@@ -126,10 +129,10 @@ const AddToCollection = () => {
           </div>
           <div className="main-menu">
 
-          <button aria-label="Add artwork" type="button" className="btn-add" onClick={handleAddArtwork}>
-               <TiPlusOutline /> Artwork
+          <button aria-label="Add artwork" type="submit" className="btn-add" disabled={isAdding}>
+               <TiPlusOutline /> {isAdding ? "Adding..." : "Artwork"}
           </button>
-            <button aria-label="Cancel adding artwork" type="button" className="btn-add" onClick={handleCancel}>
+            <button aria-label="Cancel adding artwork" type="button" className="btn-add" disabled={isAdding} onClick={handleCancel}>
             Cancel
           </button>
           </div>

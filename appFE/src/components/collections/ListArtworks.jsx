@@ -11,6 +11,7 @@ import { TbListDetails } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
 
 const ListArtworks = () => {
   const { collectionId, nameCollection } = useParams();
@@ -18,6 +19,7 @@ const ListArtworks = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [artworks, setArtworks] = useState([]);
   const [error, setError] = useState(null);
+  const [deletingArtworkId, setDeletingArtworkId] = useState(null);
 
   const navigate = useNavigate();
 
@@ -62,17 +64,24 @@ const ListArtworks = () => {
     );
   };
 
-  const handleDeleteArtwork = (id) => {
-    deleteArtwork(id)
-      .then(() => {
-        setArtworks((currentArtworks) =>
-          currentArtworks.filter((art) => art.id_artwork !== id),
-        );
-      })
-      .catch((err) => console.error("Error deleting artwork:", err));
+  const handleDeleteArtwork = async (id) => {
+    if (deletingArtworkId) return;
+
+    setDeletingArtworkId(id);
+    try {
+      await deleteArtwork(id);
+      setArtworks((currentArtworks) =>
+        currentArtworks.filter((art) => art.id_artwork !== id),
+      );
+    } catch (err) {
+      console.error("Error deleting artwork:", err);
+    } finally {
+      setDeletingArtworkId(null);
+    }
   };
 
-  if (isLoading) return <h3 className="loading">Loading User Art...</h3>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Collection..." />;
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
@@ -108,7 +117,7 @@ const ListArtworks = () => {
             <ul>
               <div className="collections-grid">
                 {artworks.map((artwork) => (
-                  <li className="collection-card">
+                  <li className="collection-card" key={artwork.id_artwork}>
                     <p className="collection-title">{artwork.title}</p>
                     {artwork.image_url ? (
                       <img
@@ -138,9 +147,13 @@ const ListArtworks = () => {
                       <button
                         aria-label={`Delete ${artwork.title}`}
                         className="btn-add-art"
+                        disabled={deletingArtworkId === artwork.id_artwork}
                         onClick={() => handleDeleteArtwork(artwork.id_artwork)}
                       >
-                        <AiOutlineDelete />
+                        <AiOutlineDelete />{" "}
+                        {deletingArtworkId === artwork.id_artwork
+                          ? "Deleting..."
+                          : ""}
                       </button>
                     </div>
                   </li>

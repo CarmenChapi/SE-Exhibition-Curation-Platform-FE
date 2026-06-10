@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
 import axios from "axios";
 import TopButton from "../TopButton";
+import Loading from "../Loading";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 const ITEMS_PER_PAGE = 5;
@@ -101,7 +102,8 @@ const SmithData = () => {
   // Apply sorting
   filteredData = [...filteredData].sort(handleSort);
 
-  if (isLoading) return <p>Loading Smithsonian...</p>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Smithsonian Institution..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (

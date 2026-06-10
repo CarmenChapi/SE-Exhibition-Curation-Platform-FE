@@ -6,6 +6,7 @@ import ShareArtwork from "./ShareArt";
 import TopButton from "../TopButton";
 import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
+import Loading from "../Loading";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -22,7 +23,8 @@ const VAMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-  if (isLoading) return <p>Loading V&A...</p>;
+   if (isLoading)
+    return <Loading pageLoading="Loading Victoria & Albert Museum..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
   if (isSuccess && !data) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;

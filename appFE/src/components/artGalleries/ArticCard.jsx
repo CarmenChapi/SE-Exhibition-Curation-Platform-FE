@@ -5,6 +5,7 @@ import TopButton from "../TopButton";
 import ShareArtwork from "./ShareArt";
 import ErrorPage from "../ErrorPage";
 import MenuCollections from "../MenuCollections";
+import Loading from "../Loading";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
@@ -22,8 +23,8 @@ const ArticCard = () => {
   });
 
 
-  
-  if (isLoading) return <p>Loading Chicago...</p>;
+    if (isLoading)
+    return <Loading pageLoading="Loading Chicago Art Institute..." />;
   if (isError) return <ErrorPage errorMsg={error.message}/>;
   if (isSuccess && !data?.data) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;

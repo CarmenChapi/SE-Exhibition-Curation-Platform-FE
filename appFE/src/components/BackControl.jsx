@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import { IoCaretBack } from "react-icons/io5";
 
 const BackControl = () => {
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ const BackControl = () => {
       };
 return(
 <button aria-label="Go back" onClick={handleBack} className="btn-back">
-⬅ Cancel
+<IoCaretBack /> Cancel
 </button>
 )
 }

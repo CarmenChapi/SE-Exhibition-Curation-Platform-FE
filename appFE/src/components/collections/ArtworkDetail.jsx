@@ -8,6 +8,8 @@ import MenuCollections from "../MenuCollections";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
+import { IoCaretBack } from "react-icons/io5";
 
 const ArtworkDetail = () => {
   const { collectionId, nameCollection,artworkId } = useParams();
@@ -17,6 +19,7 @@ const ArtworkDetail = () => {
   const [error, setError] = useState(null);
   const [updatedArtwork, setUpdatedArtwork] = useState({});
   const [editing, setEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
     const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,20 +66,26 @@ const ArtworkDetail = () => {
     }));
   };
 
-  const handleUpdate = (event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
 
     if (!updatedArtwork.title?.trim()) {
       return alert("Title cannot be empty!");
     }
 
-    updateArtwork(artwork.id_artwork, updatedArtwork)
-      .then((updated) => {
-        setArtwork(updated);
-        setUpdatedArtwork(updated);
-        setEditing(false);
-      })
-      .catch((err) => console.error("Error updating artwork:", err));
+    if (isSaving) return;
+
+    setIsSaving(true);
+    try {
+      const updated = await updateArtwork(artwork.id_artwork, updatedArtwork);
+      setArtwork(updated);
+      setUpdatedArtwork(updated);
+      setEditing(false);
+    } catch (err) {
+      console.error("Error updating artwork:", err);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleBack = () => {
@@ -85,7 +94,8 @@ const ArtworkDetail = () => {
   }
 
 
-  if (isLoading) return <h3 className="loading">Loading Detail...</h3>;
+   if (isLoading)
+    return <Loading pageLoading="Loading artwork" />;
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
@@ -167,13 +177,14 @@ const ArtworkDetail = () => {
               </label>
             </div>
             <div className="button-group">
-              <button aria-label="Save artwork changes" className="btn-back" type="submit">
-                Save
+              <button aria-label="Save artwork changes" className="btn-back" type="submit" disabled={isSaving}>
+                {isSaving ? "Saving..." : "Save"}
               </button>
               <button
                 aria-label="Cancel editing artwork"
                 className="btn-back"
                 type="button"
+                disabled={isSaving}
                 onClick={handleCancelEdit}
               >
                 Cancel
@@ -220,7 +231,7 @@ const ArtworkDetail = () => {
               Edit
             </button>
                <button aria-label="Back to artwork list" className="btn-back description-artwork" onClick={handleBack}>
-              ⬅ Back
+              <IoCaretBack /> Back
             </button>
             </div>
           </>
