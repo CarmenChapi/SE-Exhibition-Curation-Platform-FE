@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   getCollectionByUserMail,
   addCollection,
   addArtwork,
 } from "../../utils/api";
-import { UserContext } from "../../context/UserContext";
+import { useAuth } from "../../hooks/useAuth";
 import MenuCollections from "../MenuCollections";
 import UserProfile from "../UserProfile";
 import ErrorPage from "../ErrorPage";
@@ -19,24 +19,21 @@ const AddToCollectionFromApi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [listCollections, setListCollections] = useState([]);
   const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState("");
   const [pendingAction, setPendingAction] = useState(null);
   const location = useLocation();
   const [newCollectionTitle, setNewCollectionTitle] = useState("");
-  const { userCx } = useContext(UserContext);
+  const { user } = useAuth();
   const { artwork } = location.state || {};
   const navigate = useNavigate();
 
-  //  const userCx ={
-  //   email : "mariachaparro58@gmail.com",
-  //  displayName: "Ada Lovelace"}
-
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Fetching collections for user:", userCx?.email, artwork);
-      if (userCx?.email) {
+      console.log("Fetching collections for user:", user?.email, artwork);
+      if (user?.email) {
         setIsLoading(true);
         try {
-          const collections = await getCollectionByUserMail(userCx.email);
+          const collections = await getCollectionByUserMail(user.email);
           setListCollections(collections);
         } catch (err) {
           setError(err);
@@ -50,15 +47,18 @@ const AddToCollectionFromApi = () => {
     };
 
     fetchData();
-  }, [userCx?.email, artwork]);
+  }, [user?.email, artwork]);
 
   const handleAddToNewCollection = async () => {
-    if (!newCollectionTitle.trim()) return alert("Title cannot be empty!");
+    if (!newCollectionTitle.trim()) {
+      setValidationError("Title cannot be empty!");
+      return;
+    }
     if (pendingAction) return;
 
     const newCollection = {
       title: newCollectionTitle,
-      user_mail: userCx.email,
+      user_mail: user.email,
       art_count: 0,
     };
 
@@ -107,6 +107,13 @@ const AddToCollectionFromApi = () => {
 
   if (isLoading)
     return <Loading pageLoading="Loading collections..." />;
+  if (validationError)
+    return (
+      <ErrorPage
+        errorMsg={validationError}
+        onDismiss={() => setValidationError("")}
+      />
+    );
   if (error && error.status !== 404)
     return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 

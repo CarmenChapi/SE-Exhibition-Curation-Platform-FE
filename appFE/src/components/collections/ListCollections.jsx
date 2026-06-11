@@ -1,6 +1,6 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { getCollectionByUserMail, addCollection } from "../../utils/api";
-import { UserContext } from "../../context/UserContext";
+import { useAuth } from "../../hooks/useAuth";
 import CollectionCard from "./CollectionCard";
 import MenuCollections from "../MenuCollections";
 import UserProfile from "../UserProfile";
@@ -14,19 +14,17 @@ const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [listCollections, setListCollections] = useState([]);
   const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState("");
   const [newCollectionTitle, setNewCollectionTitle] = useState("");
   const [isAddingCollection, setIsAddingCollection] = useState(false);
-  const { userCx } = useContext(UserContext);
-  //  const userCx ={
-  //   email : "mariachaparro58@gmail.com",
-  //  displayName: "Ada Lovelace"}
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (userCx?.email) {
+      if (user?.email) {
         setIsLoading(true);
         try {
-          const collections = await getCollectionByUserMail(userCx.email);
+          const collections = await getCollectionByUserMail(user.email);
           setListCollections(collections);
         } catch (err) {
           setError(err);
@@ -40,15 +38,18 @@ const ListCollections = () => {
     };
 
     fetchData();
-  }, [userCx?.email]);
+  }, [user?.email]);
 
   const handleAddCollection = async () => {
-    if (!newCollectionTitle.trim()) return alert("Title cannot be empty!");
+    if (!newCollectionTitle.trim()) {
+      setValidationError("Title cannot be empty!");
+      return;
+    }
     if (isAddingCollection) return;
 
     const newCollection = {
       title: newCollectionTitle,
-      user_mail: userCx.email,
+      user_mail: user.email,
       art_count: 0,
     };
 
@@ -68,8 +69,15 @@ const ListCollections = () => {
     }
   };
 
-   if (isLoading)
+  if (isLoading)
     return <Loading pageLoading="Loading Collections..." />;
+  if (validationError)
+    return (
+      <ErrorPage
+        errorMsg={validationError}
+        onDismiss={() => setValidationError("")}
+      />
+    );
   if (error && error.status !== 404)
     return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
@@ -120,6 +128,7 @@ const ListCollections = () => {
                 key={collection.id_collection}
                 collection={collection}
                 setListCollections={setListCollections}
+                onValidationError={setValidationError}
               />
             ))}
           

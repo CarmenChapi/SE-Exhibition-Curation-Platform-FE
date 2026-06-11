@@ -1,15 +1,12 @@
-import { useState } from "react";
-import { 
-  auth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword 
-} from "../firebase.js";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "./GoogleLogin.jsx";
+import { useAuth } from "../hooks/useAuth.js";
 
 const UserLogin = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const { user, loginWithEmail, registerWithEmail } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +14,11 @@ const UserLogin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // (Tu useEffect con onAuthStateChanged se queda exactamente igual)
+  useEffect(() => {
+    if (user) {
+      navigate(location.state?.from?.pathname || "/home", { replace: true });
+    }
+  }, [location.state, navigate, user]);
 
   // --- FUNCIÓN: LOGIN O REGISTRO CON EMAIL ---
   const handleEmailAuth = async (e) => {
@@ -29,15 +30,10 @@ const UserLogin = () => {
 
     try {
       if (isRegistering) {
-        // 1. FLUJO DE REGISTRO
-        await createUserWithEmailAndPassword(auth, email, password);
-        console.log("¡Usuario registrado con éxito!");
+        await registerWithEmail(email, password);
       } else {
-        // 2. FLUJO DE INICIO DE SESIÓN
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log("¡Sesión iniciada con éxito!");
+        await loginWithEmail(email, password);
       }
-      navigate("/home");
     } catch (error) {
       // Manejo de errores amigable para el usuario
       switch (error.code) {
