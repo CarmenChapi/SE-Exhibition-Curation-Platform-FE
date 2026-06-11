@@ -17,13 +17,18 @@ const GoogleLogin = () => {
     userCx?.displayName?.trim() || userCx?.email?.split("@")[0] || "User";
 
   useEffect(() => {
-    getRedirectResult(auth).catch((error) => {
-      console.log("Google redirect result error:", error);
-      console.error("Error completing Google redirect:", error);
-      setLoginError(
-        `Google sign-in failed (${error.code || "unknown error"}).`,
-      );
-    });
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          navigate("/home", { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.error("Error completing Google redirect:", error);
+        setLoginError(
+          `Google sign-in failed (${error.code || "unknown error"}).`,
+        );
+      });
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -48,18 +53,30 @@ const GoogleLogin = () => {
     setIsSigningIn(true);
 
     try {
-      const useRedirect =
-        window.matchMedia("(pointer: coarse)").matches ||
-        window.matchMedia("(max-width: 768px)").matches;
-
-      if (useRedirect) {
-        await signInWithRedirect(auth, provider);
-        return;
-      }
-
       await signInWithPopup(auth, provider);
     } catch (error) {
       console.error("Error signing in with Google:", error);
+
+      const shouldUseRedirect = [
+        "auth/popup-blocked",
+        "auth/cancelled-popup-request",
+        "auth/operation-not-supported-in-this-environment",
+        "auth/web-storage-unsupported",
+      ].includes(error.code);
+
+      if (shouldUseRedirect) {
+        try {
+          await signInWithRedirect(auth, provider);
+          return;
+        } catch (redirectError) {
+          console.error("Error starting Google redirect:", redirectError);
+          setLoginError(
+            `Google sign-in failed (${redirectError.code || "unknown error"}).`,
+          );
+          return;
+        }
+      }
+
       setLoginError(
         error.code === "auth/popup-closed-by-user"
           ? "The Google sign-in window was closed before finishing."
@@ -93,6 +110,7 @@ const GoogleLogin = () => {
             </>
           ) : (
             <button
+              type="button"
               aria-label="Sign in with Google"
               className="signin-btn"
               onClick={handleLogin}

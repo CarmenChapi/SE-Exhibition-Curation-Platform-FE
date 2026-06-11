@@ -4,6 +4,7 @@ import GoogleLogin from "./components/GoogleLogin";
 import ListArworks from "./components/collections/ListArtworks";
 import ErrorPage from "./components/ErrorPage";
 import "./App.css";
+import "./components/artGalleries/ArtGalleries.css";
 import ArticData from "./components/artGalleries/ArticData";
 import VAMData from "./components/artGalleries/VamData";
 import HarvardData from "./components/artGalleries/HarvardData";
@@ -26,6 +27,7 @@ import ArtworkDetail from "./components/collections/ArtworkDetail";
 import AddToCollectionFromApi from "./components/artGalleries/AddToCollectionFromApi";
 import Header from "./components/Header";
 import UserLogin from "./components/UserLogin";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -61,6 +63,7 @@ function App() {
         <Route path="*" element={<ErrorPage errorMsg={"404 Not Found Invalid URL"}/>} />
         </Routes>
       </Router>
+      <Footer/>
     </>
   );
 }

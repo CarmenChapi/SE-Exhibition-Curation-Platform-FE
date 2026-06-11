@@ -6,6 +6,7 @@ import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "./Collections.css";
 
 const AddToCollection = () => {
   const { collectionId, nameCollection } = useParams();

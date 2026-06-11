@@ -1,11 +1,20 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
+  signOut,
+} from "firebase/auth";
 
 const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 const authDomain =  import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
 const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-const storageBucket = import.meta.env.VITE_FIREBASE_SENDER_ID;
+const storageBucket = import.meta.env.VITE_FIREBASE_STORAGE_B;
 const messagingSenderId =  import.meta.env.VITE_FIREBASE_SENDER_ID;
 const appId = import.meta.env.VITE_FIREBASE_APP_ID;
 const measurementId = import.meta.env.VITE_FIREBASE_MEASURE_ID;
@@ -23,6 +32,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.error("Firebase auth persistence could not be enabled:", error);
+});
 const provider = new GoogleAuthProvider();
 
 export { auth, provider, signInWithPopup, signOut, createUserWithEmailAndPassword,

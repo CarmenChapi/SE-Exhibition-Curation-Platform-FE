@@ -8,6 +8,7 @@ import ErrorPage from "../ErrorPage";
 import { TiPlusOutline } from "react-icons/ti";
 import TopButton from "../TopButton";
 import Loading from "../Loading";
+import "./Collections.css";
 
 const ListCollections = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -112,8 +113,8 @@ const ListCollections = () => {
       {listCollections.length === 0 ? (
         <p>No collections created yet.</p>
       ) : (
-        <ul>
-          <div className="collections-grid">
+        <ul className="collections-grid">
+        
             {listCollections.map((collection) => (
               <CollectionCard
                 key={collection.id_collection}
@@ -121,7 +122,7 @@ const ListCollections = () => {
                 setListCollections={setListCollections}
               />
             ))}
-          </div>
+          
         </ul>
       )}
       <TopButton />

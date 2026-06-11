@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
+import "./Collections.css";
 
 const ListArtworks = () => {
   const { collectionId, nameCollection } = useParams();

@@ -11,6 +11,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { TiPlusOutline } from "react-icons/ti";
 import { VscFolderOpened } from "react-icons/vsc";
 import CollectionPreview from "/src/assets/collectionPreview.png";
+import "./Collections.css";
 
 const CollectionCard = ({
   collection,
