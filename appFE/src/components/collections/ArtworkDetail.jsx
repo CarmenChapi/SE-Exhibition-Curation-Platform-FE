@@ -9,6 +9,7 @@ import { MdOutlineImageNotSupported } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
+import "./Collections.css";
 import { IoCaretBack } from "react-icons/io5";
 
 const ArtworkDetail = () => {

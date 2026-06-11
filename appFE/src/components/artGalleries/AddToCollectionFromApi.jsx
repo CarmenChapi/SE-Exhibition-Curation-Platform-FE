@@ -13,6 +13,7 @@ import { TiPlusOutline } from "react-icons/ti";
 import TopButton from "../TopButton";
 import BackControl from "../BackControl";
 import Loading from "../Loading";
+import "../collections/Collections.css";
 
 const AddToCollectionFromApi = () => {
   const [isLoading, setIsLoading] = useState(true);
