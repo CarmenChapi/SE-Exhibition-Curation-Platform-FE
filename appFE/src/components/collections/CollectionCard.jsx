@@ -16,6 +16,7 @@ import "./Collections.css";
 const CollectionCard = ({
   collection,
   setListCollections,
+  onValidationError,
 }) => {
   // console.log(collection);
   const [editing, setEditing] = useState(false);
@@ -52,7 +53,10 @@ const CollectionCard = ({
 
   const handleUpdate = async (event) => {
     event.preventDefault();
-    if (!updatedTitle.trim()) return alert("Title cannot be empty!");
+    if (!updatedTitle.trim()) {
+      onValidationError("Title cannot be empty!");
+      return;
+    }
     if (pendingAction) return;
 
     setPendingAction("saving");

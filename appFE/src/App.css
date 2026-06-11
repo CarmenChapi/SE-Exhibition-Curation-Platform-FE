@@ -580,39 +580,124 @@ button:disabled {
 }
 
 .error-wrapper {
-  min-height: calc(100vh - 4rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #b3d7ff;
-  padding: 2rem;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: calc(100dvh - 4rem);
+  padding: clamp(1rem, 5vw, 3rem);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 42%),
+    linear-gradient(135deg, #bde0fe, #a2d2ff);
+  box-sizing: border-box;
 }
 
 .error-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
   width: 100%;
+  max-width: 620px;
+  padding: clamp(1.5rem, 5vw, 3.5rem);
   text-align: center;
-  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-top: 6px solid #c44b4b;
+  border-radius: 24px;
+  box-shadow: 0 20px 55px rgba(31, 53, 77, 0.18);
+}
+
+.error-card-warning {
+  border-top-color: #e09b35;
+}
+
+.error-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 14vw, 90px);
+  height: clamp(64px, 14vw, 90px);
+  color: #a93232;
+  font-size: clamp(3rem, 10vw, 5rem);
+  background: #fff0f0;
+  border-radius: 50%;
+}
+
+.error-card-warning .error-icon {
+  color: #a96609;
+  background: #fff6e8;
+}
+
+.error-eyebrow {
+  margin: 0;
+  padding: 0;
+  color: #587086;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .error-title {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #d32f2f;
+  margin: 0;
+  padding: 0;
+  color: #17324d;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  line-height: 1.1;
 }
 
 .error-message {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  color: #333;
+  width: 100%;
+  margin: 0.5rem 0 0;
+  padding: 0.9rem 1rem;
+  color: #6e2525;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.4;
+  background: #fff2f2;
+  border-radius: 12px;
+  box-sizing: border-box;
 }
 
-.error-wrapper .btn-back {
-  margin-bottom: 1rem;
+.error-card-warning .error-message {
+  color: #774b0b;
+  background: #fff7ea;
+}
+
+.error-help {
+  max-width: 42ch;
+  margin: 0;
+  padding: 0;
+  color: #4b6174;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.error-action,
+.error-actions .btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.8rem 1.2rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  background: #175f9f;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(23, 95, 159, 0.22);
+}
+
+.error-action:hover,
+.error-actions .btn-back:hover {
+  background: #0d4f88;
+  transform: translateY(-2px);
 }
 
 .loading-wrapper {

@@ -1,14 +1,9 @@
 import { initializeApp } from "firebase/app";
 import {
   browserLocalPersistence,
-  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   setPersistence,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signInWithRedirect,
-  signOut,
 } from "firebase/auth";
 
 const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
@@ -37,5 +32,4 @@ setPersistence(auth, browserLocalPersistence).catch((error) => {
 });
 const provider = new GoogleAuthProvider();
 
-export { auth, provider, signInWithPopup, signOut, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signInWithRedirect };
+export { auth, provider };

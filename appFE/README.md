@@ -174,7 +174,7 @@ This project uses **Firebase Authentication** to manage user login. Users can si
 
 Firebase handles the authentication process securely and provides the user information needed to identify each logged-in user.
 
-The app also includes a custom backend built with **JavaScript, PostgreSQL, Node.js and Express**, deployed on **Supabase and Render**. 
+The app also includes a custom backend built with **JavaScript, PostgreSQL, Node.js, Vitest and Express**, deployed on **Supabase and Render**. 
 
 The backend provides API endpoints CRUD (Create, Read, Update, Delete) operations for collections and artwork saved by a specific user.
 

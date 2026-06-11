@@ -11,6 +11,7 @@ import "./Collections.css";
 const AddToCollection = () => {
   const { collectionId, nameCollection } = useParams();
   const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [newArtwork, setNewArtwork] = useState({
     title: "",
@@ -23,7 +24,10 @@ const AddToCollection = () => {
 
   const handleAddArtwork = async (e) => {
     e.preventDefault();
-    if (!newArtwork.title.trim()) return alert("Title cannot be empty!");
+    if (!newArtwork.title.trim()) {
+      setValidationError("Title cannot be empty!");
+      return;
+    }
     if (isAdding) return;
 
     setIsAdding(true);
@@ -47,6 +51,13 @@ const AddToCollection = () => {
     navigate(`/home/collections/${nameCollection}/${collectionId}`);
   };
 
+  if (validationError)
+    return (
+      <ErrorPage
+        errorMsg={validationError}
+        onDismiss={() => setValidationError("")}
+      />
+    );
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   return (
     <>

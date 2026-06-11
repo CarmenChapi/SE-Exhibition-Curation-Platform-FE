@@ -18,6 +18,7 @@ const ArtworkDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [artwork, setArtwork] = useState([]);
   const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState("");
   const [updatedArtwork, setUpdatedArtwork] = useState({});
   const [editing, setEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -71,7 +72,8 @@ const ArtworkDetail = () => {
     event.preventDefault();
 
     if (!updatedArtwork.title?.trim()) {
-      return alert("Title cannot be empty!");
+      setValidationError("Title cannot be empty!");
+      return;
     }
 
     if (isSaving) return;
@@ -95,8 +97,15 @@ const ArtworkDetail = () => {
   }
 
 
-   if (isLoading)
+  if (isLoading)
     return <Loading pageLoading="Loading artwork" />;
+  if (validationError)
+    return (
+      <ErrorPage
+        errorMsg={validationError}
+        onDismiss={() => setValidationError("")}
+      />
+    );
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
