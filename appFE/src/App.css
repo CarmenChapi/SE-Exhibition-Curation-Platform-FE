@@ -29,7 +29,7 @@ footer a:hover {
 
 .btn-add:hover {
   transform: scale(1.09);
-  opacity: 0.5;  
+  opacity: 0.5;
   background-color: #bde0fe;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
 }
@@ -60,38 +60,38 @@ footer a:hover {
   padding: 10px;
 }
 
-/* El contenedor principal de los enlaces */
+
 .mainMenu {
   display: flex;
-  justify-content: center; /* Centra los elementos horizontalmente */
-  align-items: center;     /* Los centra verticalmente */
-  gap: 80px;               /* Controla el espacio entre cada enlace */
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
   padding: 15px;
 }
 
-/* El enlace que envuelve a la imagen */
+
 .link-menu {
   display: inline-block;
-  text-decoration: none;   /* Elimina cualquier subrayado por defecto */
+  text-decoration: none;
   border: none;
-  background: transparent; /* Por si heredaba estilos de botón */
+  background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease; /* Efecto suave al pasar el ratón */
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Efecto visual cuando el usuario pasa el cursor por encima (Hover) */
+
 .link-menu:hover {
-  transform: scale(1.05);  /* Agranda la imagen un 5% para que se note el "click" */
-  opacity: 0.9;            /* Suaviza un poco el color */
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
-/* Control estricto del tamaño de las imágenes */
+
 .menu-img {
-  display: block;          /* Elimina un pequeño espacio blanco que las imágenes traen por defecto debajo */
+  display: block;
   height: 200px;
-   width: auto;           /* Mantiene la proporción original de la imagen sin deformarla */
-  border-radius: 8px;      /* Opcional: le da esquinas redondeadas si tus imágenes lo necesitan */
-  object-fit: cover;       /* Asegura que la imagen llene el espacio de forma limpia */
+   width: auto;
+  border-radius: 8px;
+  object-fit: cover;
 }
 .topMenu {
   display: flex;
@@ -299,9 +299,9 @@ footer a:hover {
 }
 
 .description-section > * {
-  margin-left: 0;       
+  margin-left: 0;
   margin-right: 0;
-  text-align: right;    
+  text-align: right;
 }
 
 
@@ -811,11 +811,11 @@ button:disabled {
 
 .menu-img {
 
-  height: 60px;   
+  height: 60px;
 }
 .mainMenu {
-  
-  gap: 15px;       
+
+  gap: 15px;
   padding: 5px;
 }
   .topMenu {

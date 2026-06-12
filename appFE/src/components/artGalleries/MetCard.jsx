@@ -22,7 +22,7 @@ const MetCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
- 
+
     if (isLoading)
     return <Loading pageLoading="Loading The Metropolitan Museum of Art..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
@@ -94,7 +94,7 @@ const MetCard = () => {
             className="detail-link"
           >      Visit this artwork on the MET Museum</a>
         </p>
-    
+
       </section>
       <div>
         <Link

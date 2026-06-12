@@ -11,12 +11,21 @@ const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 6;
 
 const fetchHarvardData = async ({ queryKey }) => {
-  const [_key, { query, page }] = queryKey;
-  const searchQuery = query ? `&q=${encodeURIComponent(query)}` : "";
-
-  const url = `https://api.harvardartmuseums.org/object?apikey=${apikeyHarvard}&hasimage=1&size=${ITEMS_PER_PAGE}&sort=random&fields=id,title,primaryimageurl,people,dated&page=${page}${searchQuery}`;
-  //console.log("Fetching URL:", url); // Debugging
-  const { data } = await axios.get(url);
+  const [, { query, page }] = queryKey;
+  const { data } = await axios.get(
+    "https://api.harvardartmuseums.org/object",
+    {
+      params: {
+        apikey: apikeyHarvard,
+        hasimage: 1,
+        size: ITEMS_PER_PAGE,
+        sort: "random",
+        fields: "id,title,primaryimageurl,people,dated",
+        page,
+        ...(query && { q: query }),
+      },
+    },
+  );
   return data;
 };
 
@@ -70,7 +79,6 @@ const HarvardData = () => {
     if (sortBy === "title") {
       return a.title.localeCompare(b.title);
     } else if (sortBy === "artist") {
-      // console.log(a.people[0].displayname, b.people[0].displayname)
       return a.people[0].displayname.localeCompare(b.people[0].displayname);
     }
     return 0;
@@ -78,12 +86,12 @@ const HarvardData = () => {
 
   let filteredData = data?.records || [];
 
-  // Apply filtering (only show artworks with images if selected)
+
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.primaryimageurl);
   }
 
-  // Apply sorting
+
   filteredData = [...filteredData].sort(handleSort);
 
    if (isLoading)
@@ -96,10 +104,17 @@ const HarvardData = () => {
         <MenuCollections />
       </nav>
       <h2>Harvard Art Museum </h2>
-  
-         
-      {/* Search Input */}
-      <div className="searchMenu">
+
+
+
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
       <label className="label">Search artworks
         <input
           type="text"
@@ -129,12 +144,12 @@ const HarvardData = () => {
           />
           Only show artworks with images
         </label>
-           <button aria-label="Search Harvard artworks" onClick={handleSearch} 
+           <button type="submit" aria-label="Search Harvard artworks"
          className="btn-search">
           Search
         </button>
-        </div>
-      {/* Artworks List */}
+        </form>
+
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
@@ -163,7 +178,7 @@ const HarvardData = () => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
       <div className="pagination-controls">
         <button
           aria-label="Previous page"

@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <section className="header">
         <img src={Logo} alt="Logo" className="logo" />
-  
+
     </section>
   );
 };

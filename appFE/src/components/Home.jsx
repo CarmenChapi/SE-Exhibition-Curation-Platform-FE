@@ -1,4 +1,3 @@
-import React from "react";
 import UserProfile from "./UserProfile";
 import { Link } from "react-router-dom";
 import ArtGalleriesImg from "/src/assets/ArtGalleries.png";

@@ -11,7 +11,7 @@ const UserProfile = () => {
       useEffect(() => {
         setPhotoFailed(false);
       }, [user?.photoURL]);
-    
+
       const handleLogout = async () => {
         try {
           await logout();
@@ -26,7 +26,7 @@ const UserProfile = () => {
     const firstName = displayName.split(" ")[0];
     const userInitial = firstName.charAt(0).toUpperCase();
     const showPhoto = Boolean(user?.photoURL) && !photoFailed;
-  
+
 return(
     <div className="userProfile">
     {showPhoto ? (

@@ -9,7 +9,7 @@ import Loading from "../Loading";
 const ITEMS_PER_PAGE = 6;
 
 const fetchVAMData = async ({ queryKey }) => {
-  const [_key, { query }] = queryKey;
+  const [, { query }] = queryKey;
 
 
   const searchQuery = query ? encodeURIComponent(query) : "painting";
@@ -103,7 +103,14 @@ const VAMData = () => {
 
       <h2>Victoria & Albert Museum</h2>
 
-      <div className="searchMenu">
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
         <label className="label">
           Search artworks
           <input
@@ -134,12 +141,12 @@ const VAMData = () => {
           />
           Only show artworks with images
         </label>
-        <button aria-label="Search Victoria and Albert Museum artworks" onClick={handleSearch} className="btn-search">
+        <button type="submit" aria-label="Search Victoria and Albert Museum artworks" className="btn-search">
           Search
         </button>
-      </div>
+      </form>
 
-      {/* Artworks List */}
+
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
@@ -180,7 +187,7 @@ const VAMData = () => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
       <div className="pagination-controls">
         <button
           aria-label="Previous page"

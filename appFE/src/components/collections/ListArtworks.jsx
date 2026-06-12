@@ -29,12 +29,12 @@ const ListArtworks = () => {
       setIsLoading(true);
       getArtworksByCollection(collectionId)
         .then((artworks) => {
-          console.log("artworks", artworks);
+
           setArtworks(artworks);
           setIsLoading(false);
         })
         .catch((err) => {
-          console.log("err", err);
+
           if (err.response?.status === 404) {
             setArtworks([]);
             setError(null);
@@ -100,9 +100,9 @@ const ListArtworks = () => {
         </Link>
       </div>
 
-      {/** Add Artwork */}
+
       <div className="collection-card2">
-        {/* 🔹 Artwork List */}
+
         {artworks.length === 0 ? (
           <div>
             <p>Collection is empty</p>
@@ -161,10 +161,10 @@ const ListArtworks = () => {
                 ))}
               </div>
             </ul>
-    
+
           </div>
         )}
-        
+
       </div>
       <div>
                     <button

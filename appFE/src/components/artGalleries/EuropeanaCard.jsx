@@ -10,18 +10,16 @@ import Loading from "../Loading";
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 
 const fetchArtworkDetails = async (artworkId) => {
-  const query = `https://api.europeana.eu/record/v2/${artworkId.replaceAll(
-    "-",
-    "/"
-  )}.json?wskey=${apiKeyEuro}`;
-  // console.log(query)
-  const { data } = await axios.get(query);
+  const recordId = artworkId.replace(/^\/+/, "");
+  const { data } = await axios.get(
+    `https://api.europeana.eu/record/v2/${recordId}.json`,
+    { params: { wskey: apiKeyEuro } },
+  );
   return data;
 };
 
 const EuropeanaCard = () => {
   const { artId } = useParams();
-  // console.log(artId.replaceAll("-","/"))
   const { data, error, isLoading, isError, isSuccess} = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),

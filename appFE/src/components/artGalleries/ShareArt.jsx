@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -17,7 +16,7 @@ const ShareArtwork = ({ title, url }) => {
   return (
     <div className="share-container">
       <h3>Art deserves to be shared 🎨</h3>
-      
+
       <div className="share-buttons">
         <FacebookShareButton url={shareUrl} quote={shareTitle} aria-label="Share on Facebook">
           <FacebookIcon size={50} round />

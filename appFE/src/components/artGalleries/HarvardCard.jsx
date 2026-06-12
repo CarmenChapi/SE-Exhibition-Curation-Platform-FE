@@ -110,7 +110,7 @@ const HarvardCard = () => {
           </a>
         </p>
       </section>
-     {/* <AddToCollectionFromApi newArtwork={newArtwork} /> */}
+
 
      <div>
 
