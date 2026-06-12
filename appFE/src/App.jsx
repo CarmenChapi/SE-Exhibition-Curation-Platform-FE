@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ListArworks from "./components/collections/ListArtworks";
 import ErrorPage from "./components/ErrorPage";
@@ -51,7 +50,7 @@ function App() {
             <Route path="/home/artgallery/met" element={<METData/>} />
             <Route path="/home/artgallery/rijksmuseum" element={<RijksMData/>} />
             <Route path="/home/artgallery/smithsonian" element={<SmithData/>} />
-            <Route path="/home/artgallery/vam" element={<VAMData/>} /> 
+            <Route path="/home/artgallery/vam" element={<VAMData/>} />
             <Route path="/home/artgallery/chicago/:artId" element={<ArticCard/>} />
             <Route path="/home/artgallery/europeana/:artId" element={<EuropeanaCard/>} />
             <Route path="/home/artgallery/harvard/:artId" element={<HarvardCard/>} />
@@ -60,7 +59,7 @@ function App() {
             <Route path="/home/artgallery/vam/:artId" element={<VAMCard/>} />
             <Route path="/home/artgallery/smithsonian/:artId" element={<SmithsonianCard/>} />
           </Route>
-          
+
 
         <Route path="*" element={<ErrorPage errorMsg={"404 Not Found Invalid URL"}/>} />
         </Routes>

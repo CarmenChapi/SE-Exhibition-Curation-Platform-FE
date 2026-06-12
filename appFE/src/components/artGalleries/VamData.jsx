@@ -9,7 +9,7 @@ import Loading from "../Loading";
 const ITEMS_PER_PAGE = 6;
 
 const fetchVAMData = async ({ queryKey }) => {
-  const [_key, { query }] = queryKey;
+  const [, { query }] = queryKey;
 
 
   const searchQuery = query ? encodeURIComponent(query) : "painting";
@@ -139,7 +139,7 @@ const VAMData = () => {
         </button>
       </div>
 
-      {/* Artworks List */}
+
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
@@ -180,7 +180,7 @@ const VAMData = () => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
       <div className="pagination-controls">
         <button
           aria-label="Previous page"

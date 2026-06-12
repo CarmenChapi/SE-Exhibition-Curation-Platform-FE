@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArtworkByIdArtwork, updateArtwork } from "../../utils/api";
 import { useParams } from "react-router-dom";
-import Header from "../Header";
 import ErrorPage from "../ErrorPage";
 import UserProfile from "../UserProfile";
 import MenuCollections from "../MenuCollections";
@@ -29,13 +28,13 @@ const ArtworkDetail = () => {
       setIsLoading(true);
       getArtworkByIdArtwork(artworkId)
         .then((artwork) => {
-          console.log("artwork:", artworkId, artwork);
+
           setArtwork(artwork);
           setUpdatedArtwork(artwork);
           setIsLoading(false);
         })
         .catch((err) => {
-          console.log("err", err);
+
           if (err.response?.status === 404) {
             setArtwork([]);
             setError(null);
@@ -92,7 +91,7 @@ const ArtworkDetail = () => {
   };
 
   const handleBack = () => {
-    console.log("Back");
+
       navigate(`/home/collections/${nameCollection}/${collectionId}`);
   }
 
@@ -110,7 +109,7 @@ const ArtworkDetail = () => {
 
   return (
     <>
-     
+
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />
@@ -125,7 +124,7 @@ const ArtworkDetail = () => {
           <h2>{nameCollection}</h2>
         </Link>
       </div>
-  
+
       <section className="description-section featured-detail-section">
         {editing ? (
           <form className="artwork-form" onSubmit={handleUpdate}>
@@ -247,8 +246,8 @@ const ArtworkDetail = () => {
           </>
         )}
       </section>
-     
-   
+
+
     </>
   );
 }

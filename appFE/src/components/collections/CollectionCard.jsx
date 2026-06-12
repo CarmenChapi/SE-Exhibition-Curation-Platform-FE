@@ -18,7 +18,7 @@ const CollectionCard = ({
   setListCollections,
   onValidationError,
 }) => {
-  // console.log(collection);
+
   const [editing, setEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(collection.title);
   const [pendingAction, setPendingAction] = useState(null);
@@ -95,14 +95,14 @@ const CollectionCard = ({
   };
 
   const handleOpenCollection = () => {
-    console.log("open" ,collection.id_collection);
+
     navigate(
       `/home/collections/${collection.title}/${collection.id_collection}`,
     );
   };
 
     const handleAddCollection = () => {
-    //console.log(collection.id_collection);
+
     navigate(
       `/home/collections/${collection.title}/${collection.id_collection}/add`,
     );
@@ -132,7 +132,7 @@ const CollectionCard = ({
               value={updatedTitle}
               onChange={(e) => setUpdatedTitle(e.target.value)}
             />
-      
+
           <button aria-label="Save collection changes" className="btn-back" type="submit" disabled={Boolean(pendingAction)}>
             {pendingAction === "saving" ? "Saving..." : "Save"}
           </button>
@@ -161,4 +161,3 @@ const CollectionCard = ({
 };
 
 export default CollectionCard;
-//         /** `Manage ${collection.art_count} artwork${collection.art_count > 1 ? "s" : ""}`}**/

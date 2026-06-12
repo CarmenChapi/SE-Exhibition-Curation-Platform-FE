@@ -23,7 +23,7 @@ const METData = () => {
     const fetchArtworks = async () => {
       setIsLoading(true);
       setError(null);
-      const searchQuery = query ? `q=${query}` : "q=painting";
+      const searchQuery = query ? `q=${encodeURIComponent(query)}` : "q=painting";
       try {
         const idsResponse = await fetch(
           `https://collectionapi.metmuseum.org/public/collection/v1/search?${searchQuery}&hasImages=true`
@@ -107,12 +107,12 @@ const METData = () => {
 
   let filteredData = artworks || [];
 
-  // Apply filtering (only show artworks with images if selected)
+
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.primaryImage);
   }
 
-  // Apply sorting
+
   filteredData = [...filteredData].sort(handleSort);
   if (isLoading)
     return <Loading pageLoading="Loading The Metropolitan Museum of Art..." />;
@@ -164,7 +164,7 @@ const METData = () => {
           </button>
       </div>
 
-        {/* Artworks List */}
+
         <ul className="gallery-list">
           {filteredData.length > 0 ? (
             filteredData.map((art) => (
@@ -190,7 +190,7 @@ const METData = () => {
             <p>No results found</p>
           )}
         </ul>
-        {/* Pagination Controls */}
+
         <div className="pagination-controls">
           <button
             aria-label="Previous page"

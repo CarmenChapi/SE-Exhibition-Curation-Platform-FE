@@ -10,7 +10,7 @@ import Loading from "../Loading";
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
 const fetchArtworkDetails = async (artworkId) => {
-  // CORRECCIÓN: Se cambió 'www' por 'data' en el subdominio
+
   const { data } = await axios.get(
     `https://data.rijksmuseum.nl/api/en/collection/${artworkId}?key=${apikeyRM}`
   );
@@ -34,7 +34,7 @@ const RijksMCard = () => {
 
   const artwork = data.artObject;
 
-  // Modificamos el link externo de la web para usar el objectNumber limpio
+
   const webUrl = `https://www.rijksmuseum.nl/en/collection/${artwork.objectNumber}`;
   const newArtwork = {
     title: artwork.title || "Unknown",

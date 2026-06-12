@@ -29,7 +29,7 @@ const AddToCollectionFromApi = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Fetching collections for user:", user?.email, artwork);
+
       if (user?.email) {
         setIsLoading(true);
         try {
@@ -41,7 +41,7 @@ const AddToCollectionFromApi = () => {
           setIsLoading(false);
         }
       } else {
-        // setError({message:"No user email provided"})
+
         setIsLoading(false);
       }
     };
@@ -85,7 +85,7 @@ const AddToCollectionFromApi = () => {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log("Adding artwork to collection:", collection);
+
 
     if (!artwork) {
       setError({ message: "No artwork selected to add." });
@@ -130,10 +130,10 @@ const AddToCollectionFromApi = () => {
         </strong>
       </p>
 
-      {/** Add Collection Form */}
+
       <div className="collection-card2">
         <label className="label">
-         
+
           <input
             type="text"
             className="collection-input"
@@ -155,7 +155,7 @@ const AddToCollectionFromApi = () => {
         </button>
       </div>
 
-      {/* Collection List */}
+
       {listCollections.length === 0 ? (
         <p>No collections created yet.</p>
       ) : (

@@ -70,7 +70,7 @@ const AddToCollection = () => {
         </Link>
       </div>
 
-      {/* 🔹 Add new artwork */}
+
 
       <h3>Add an artwork in this collection</h3>
       <section className="collection-add-main">

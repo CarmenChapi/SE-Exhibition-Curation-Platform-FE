@@ -32,7 +32,7 @@ const ListCollections = () => {
           setIsLoading(false);
         }
       } else {
-        // setError({message:"No user email provided"})
+
         setIsLoading(false);
       }
     };
@@ -95,7 +95,7 @@ const ListCollections = () => {
         </strong>
       </p>
 
-      {/** Add Collection Form */}
+
       <div className="collection-card2">
         <label className="label">
           Create a new collection
@@ -117,12 +117,12 @@ const ListCollections = () => {
         </button>
       </div>
 
-      {/* Collection List */}
+
       {listCollections.length === 0 ? (
         <p>No collections created yet.</p>
       ) : (
         <ul className="collections-grid">
-        
+
             {listCollections.map((collection) => (
               <CollectionCard
                 key={collection.id_collection}
@@ -131,7 +131,7 @@ const ListCollections = () => {
                 onValidationError={setValidationError}
               />
             ))}
-          
+
         </ul>
       )}
       <TopButton />

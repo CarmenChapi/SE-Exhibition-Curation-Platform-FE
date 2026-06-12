@@ -10,7 +10,7 @@ const UserLogin = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false); // Alternar entre Login y Registro
+  const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,9 +20,9 @@ const UserLogin = () => {
     }
   }, [location.state, navigate, user]);
 
-  // --- FUNCIÓN: LOGIN O REGISTRO CON EMAIL ---
+
   const handleEmailAuth = async (e) => {
-    e.preventDefault(); // Evita que la página se recargue
+    e.preventDefault();
     if (isSubmitting) return;
 
     setErrorMessage("");
@@ -35,7 +35,7 @@ const UserLogin = () => {
         await loginWithEmail(email, password);
       }
     } catch (error) {
-      // Manejo de errores amigable para el usuario
+
       switch (error.code) {
         case "auth/email-already-in-use":
           setErrorMessage("Este correo ya está registrado.");
@@ -64,8 +64,8 @@ const UserLogin = () => {
       </div>
       <div className="signin-wrapper">
         <div className="signin-card user-login-card">
-          
-          {/* --- FORMULARIO DE EMAIL Y CONTRASEÑA --- */}
+
+
           <form onSubmit={handleEmailAuth} className="email-form">
             <h2>{isRegistering ? "Create new account" : "Welcome back"}</h2>
             <p className="login-form-intro">
@@ -73,26 +73,26 @@ const UserLogin = () => {
                 ? "Start building your personal art collection."
                 : "Continue discovering extraordinary artworks."}
             </p>
-            
+
             {errorMessage && <p className="error-text">{errorMessage}</p>}
-            
-            <input 
-              type="email" 
-              placeholder="Your email" 
+
+            <input
+              type="email"
+              placeholder="Your email"
               aria-label="Email address"
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
-            <input 
-              type="password" 
-              placeholder="Your password" 
+            <input
+              type="password"
+              placeholder="Your password"
               aria-label="Password"
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
-            
+
             <button type="submit" className="email-auth-btn" disabled={isSubmitting}>
               {isSubmitting
                 ? isRegistering
@@ -104,7 +104,7 @@ const UserLogin = () => {
             </button>
           </form>
 
-          {/* Botón para alternar entre Login y Registro */}
+
           <button
             type="button"
             className="toggle-auth"

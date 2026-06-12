@@ -10,8 +10,8 @@ const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
 
 const fetchRijksMData = async ({ queryKey }) => {
-  const [_key, { query }] = queryKey;
-  const searchQuery = query ? `&q=${query}` : "";
+  const [, { query }] = queryKey;
+  const searchQuery = query ? `&q=${encodeURIComponent(query)}` : "";
 
 
   const { data } = await axios.get(
@@ -28,8 +28,8 @@ const RijksMData = () => {
   const currentPage =
     Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
   const [searchTerm, setSearchTerm] = useState(query);
-  const [sortBy, setSortBy] = useState(""); 
-  const [filterByImage, setFilterByImage] = useState(false); 
+  const [sortBy, setSortBy] = useState("");
+  const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
 
   const { data, error, isLoading, isError } = useQuery({
@@ -79,7 +79,7 @@ const RijksMData = () => {
     return 0;
   };
 
-  // OPTIMIZACIÓN: Primero filtramos y ordenamos sobre el TOTAL de los datos
+
   let filteredData = [...allItems];
 
   if (filterByImage) {
@@ -88,7 +88,7 @@ const RijksMData = () => {
 
   filteredData.sort(handleSort);
 
-  // OPTIMIZACIÓN: Paginamos al final para que afecte correctamente a los filtros
+
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
   const paginatedItems = filteredData.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -104,7 +104,7 @@ const RijksMData = () => {
         <MenuCollections/>
       </nav>
       <h2>Rijksmuseum</h2>
-      
+
       <div className="searchMenu">
         <label className="label">Search artworks
           <input
@@ -136,11 +136,11 @@ const RijksMData = () => {
         </button>
       </div>
 
-      {/* Artworks List */}
+
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((art) => (
-            <li 
+            <li
               key={art.id}
               className="gallery-card"
               onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.objectNumber}`)}
@@ -164,7 +164,7 @@ const RijksMData = () => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
       <div className="pagination-controls">
         <button
           aria-label="Previous page"

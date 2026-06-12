@@ -7,13 +7,16 @@ import TopButton from "../TopButton";
 import Loading from "../Loading";
 
 const fetchArticData = async ({ queryKey }) => {
-  const [_key, { page, query }] = queryKey;
+  const [, { page, query }] = queryKey;
 
-  const searchQuery = query ? `&q=${query}` : "&q=art";
-
-  const { data } = await axios.get(
-    `https://api.artic.edu/api/v1/artworks/search?${searchQuery}&limit=10&page=${page}&fields=id,title,image_id,artist_display`
-  );
+  const { data } = await axios.get("https://api.artic.edu/api/v1/artworks/search", {
+    params: {
+      q: query || "art",
+      limit: 10,
+      page,
+      fields: "id,title,image_id,artist_display",
+    },
+  });
 
   return data;
 };
@@ -75,12 +78,12 @@ const ArticData = ({ searchValue = "" }) => {
 
   let filteredData = data?.data || [];
 
-  // Apply filtering (only show artworks with images if selected)
+
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.image_id);
   }
 
-  // Apply sorting
+
   filteredData = [...filteredData].sort(handleSort);
 
    if (isLoading)
@@ -92,7 +95,7 @@ const ArticData = ({ searchValue = "" }) => {
       <nav className="topMenu">
         <MenuCollections />
       </nav>
-      
+
       <h2>Art Institute of Chicago</h2>
 
       <div className="searchMenu">
@@ -132,7 +135,7 @@ const ArticData = ({ searchValue = "" }) => {
         </button>
       </div>
 
-      {/* Artworks List */}
+
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
@@ -161,7 +164,7 @@ const ArticData = ({ searchValue = "" }) => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
 
       <div className="pagination-controls">
         <button

@@ -10,15 +10,15 @@ const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 const ITEMS_PER_PAGE = 5;
 
 const fetchSmithData = async ({ queryKey }) => {
-  const [_key, { query }] = queryKey;
+  const [, { query }] = queryKey;
 
-  // Default search term if no query is provided
+
   const searchQuery = query ? encodeURIComponent(query) : "art";
   const { data } = await axios.get(
     `https://api.si.edu/openaccess/api/v1.0/category/art_design/search?q=${searchQuery}&api_key=${apiKeySmith}&rows=30&fq=online_media_type:image`
   );
-  //console.log(data)
-  //console.log(apiKeySmith);
+
+
 
   return data;
 };
@@ -91,7 +91,7 @@ const SmithData = () => {
 
   let filteredData = paginatedItems || [];
 
-  // Apply filtering (only show artworks with images if selected)
+
   if (filterByImage) {
     filteredData = filteredData.filter(
       (art) =>
@@ -99,7 +99,7 @@ const SmithData = () => {
     );
   }
 
-  // Apply sorting
+
   filteredData = [...filteredData].sort(handleSort);
 
    if (isLoading)
@@ -108,7 +108,7 @@ const SmithData = () => {
 
   return (
     <>
-  
+
     <nav className="topMenu">
         <MenuCollections />
       </nav>
@@ -182,7 +182,7 @@ const SmithData = () => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
       <div className="pagination-controls">
         <button
           aria-label="Previous page"

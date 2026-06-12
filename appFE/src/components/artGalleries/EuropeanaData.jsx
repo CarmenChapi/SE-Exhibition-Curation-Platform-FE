@@ -10,11 +10,18 @@ const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
 
 const fetchEuroData = async ({ queryKey }) => {
-  const [_key, { query }] = queryKey;
-  const searchQuery = query ? `&query=${query}` : "&query=art";
-
+  const [, { query }] = queryKey;
   const { data } = await axios.get(
-    `https://api.europeana.eu/record/v2/search.json?wskey=${apiKeyEuro}${searchQuery}&media=true&qf=TYPE:IMAGE&rows=30`
+    "https://api.europeana.eu/record/v2/search.json",
+    {
+      params: {
+        wskey: apiKeyEuro,
+        query: query || "art",
+        media: true,
+        qf: "TYPE:IMAGE",
+        rows: 30,
+      },
+    },
   );
 
   return data;
@@ -85,12 +92,12 @@ const EuropeanaData = () => {
 
   let filteredData = paginatedItems || [];
 
-  // Apply filtering (only show artworks with images if selected)
+
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.edmIsShownBy);
   }
 
-  // Apply sorting
+
   filteredData = [...filteredData].sort(handleSort);
 
      if (isLoading)
@@ -140,7 +147,7 @@ const EuropeanaData = () => {
         </button>
       </div>
 
-      {/**Europeana ListArworks */}
+
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
@@ -149,7 +156,7 @@ const EuropeanaData = () => {
               key={art.id}
               onClick={() =>
                 navigate(
-                  `/home/artgallery/europeana/${art.id.replaceAll("/", "-")}`
+                  `/home/artgallery/europeana/${encodeURIComponent(art.id)}`
                 )
               }
               title={`Click to see more info+`}
@@ -162,10 +169,7 @@ const EuropeanaData = () => {
                   alt={art.title ? art.title[0] : "photo-artwork"}
                   onClick={() =>
                     navigate(
-                      `/home/artgallery/europeana/${art.id.replaceAll(
-                        "/",
-                        "-"
-                      )}`
+                      `/home/artgallery/europeana/${encodeURIComponent(art.id)}`
                     )
                   }
                 />
@@ -179,7 +183,7 @@ const EuropeanaData = () => {
         )}
       </ul>
 
-      {/* Pagination Controls */}
+
       <div className="pagination-controls">
         <button
           aria-label="Previous page"
