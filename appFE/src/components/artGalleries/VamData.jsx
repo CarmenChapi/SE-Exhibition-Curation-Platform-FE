@@ -103,7 +103,14 @@ const VAMData = () => {
 
       <h2>Victoria & Albert Museum</h2>
 
-      <div className="searchMenu">
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
         <label className="label">
           Search artworks
           <input
@@ -134,10 +141,10 @@ const VAMData = () => {
           />
           Only show artworks with images
         </label>
-        <button aria-label="Search Victoria and Albert Museum artworks" onClick={handleSearch} className="btn-search">
+        <button type="submit" aria-label="Search Victoria and Albert Museum artworks" className="btn-search">
           Search
         </button>
-      </div>
+      </form>
 
 
       <ul className="gallery-list">

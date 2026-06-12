@@ -127,7 +127,14 @@ const METData = () => {
       </nav>
       <div>
         <h2>The Metropolitan Museum of Art</h2>
-        <div className="searchMenu">
+        <form
+          className="searchMenu"
+          role="search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSearch();
+          }}
+        >
           <label className="label">
             Search artworks
             <input
@@ -159,10 +166,10 @@ const METData = () => {
           />
           Only show artworks with images
         </label>
-          <button type="button" aria-label="Search MET artworks" onClick={handleSearch} className="btn-search">
+          <button type="submit" aria-label="Search MET artworks" className="btn-search">
             Search
           </button>
-      </div>
+      </form>
 
 
         <ul className="gallery-list">

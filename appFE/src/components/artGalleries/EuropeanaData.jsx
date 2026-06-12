@@ -112,7 +112,14 @@ const EuropeanaData = () => {
 
       <h2>Europeana</h2>
 
-      <div className="searchMenu">
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
         <label className="label">Search artworks
         <input
           type="text"
@@ -142,10 +149,10 @@ const EuropeanaData = () => {
           />
           Only show artworks with images
         </label>
-        <button aria-label="Search Europeana artworks" onClick={handleSearch} className="btn-search">
+        <button type="submit" aria-label="Search Europeana artworks" className="btn-search">
           Search
         </button>
-      </div>
+      </form>
 
 
       <ul className="gallery-list">

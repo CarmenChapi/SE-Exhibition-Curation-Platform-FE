@@ -107,7 +107,14 @@ const HarvardData = () => {
 
 
 
-      <div className="searchMenu">
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
       <label className="label">Search artworks
         <input
           type="text"
@@ -137,11 +144,11 @@ const HarvardData = () => {
           />
           Only show artworks with images
         </label>
-           <button aria-label="Search Harvard artworks" onClick={handleSearch}
+           <button type="submit" aria-label="Search Harvard artworks"
          className="btn-search">
           Search
         </button>
-        </div>
+        </form>
 
       <ul className="gallery-list">
         {filteredData.length > 0 ? (

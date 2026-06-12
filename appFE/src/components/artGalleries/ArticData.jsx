@@ -98,7 +98,14 @@ const ArticData = ({ searchValue = "" }) => {
 
       <h2>Art Institute of Chicago</h2>
 
-      <div className="searchMenu">
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
         <label className="label">
           Search artworks
           <input
@@ -130,10 +137,10 @@ const ArticData = ({ searchValue = "" }) => {
           />
           Only show artworks with images
         </label>
-        <button aria-label="Search Art Institute of Chicago artworks" onClick={handleSearch} className="btn-search">
+        <button type="submit" aria-label="Search Art Institute of Chicago artworks" className="btn-search">
           Search
         </button>
-      </div>
+      </form>
 
 
       <ul className="gallery-list">

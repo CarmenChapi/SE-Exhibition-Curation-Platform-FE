@@ -105,7 +105,14 @@ const RijksMData = () => {
       </nav>
       <h2>Rijksmuseum</h2>
 
-      <div className="searchMenu">
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
         <label className="label">Search artworks
           <input
             type="text"
@@ -131,10 +138,10 @@ const RijksMData = () => {
           />
           Only show artworks with images
         </label>
-        <button aria-label="Search Rijksmuseum artworks" onClick={handleSearch} className="btn-search">
+        <button type="submit" aria-label="Search Rijksmuseum artworks" className="btn-search">
           Search
         </button>
-      </div>
+      </form>
 
 
       <ul className="gallery-list">
