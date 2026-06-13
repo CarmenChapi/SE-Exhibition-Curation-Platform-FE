@@ -266,6 +266,16 @@ footer a:hover {
   opacity: 1;
   filter: none;
 }
+.userProfile .userPhoto {
+  width: 92px;
+  height: 92px;
+  flex: 0 0 92px;
+  padding: 4 px;
+  object-fit: cover;
+  border: 3px solid rgba(0, 73, 153, 0.16);
+  border-radius: 50%;
+  box-shadow: 0 5px 14px rgba(0, 73, 153, 0.18);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .home-showcase-link,
@@ -554,16 +564,7 @@ button:disabled {
   transform: none;
 }
 
-.userProfile .userPhoto {
-  width: 72px;
-  height: 72px;
-  flex: 0 0 72px;
-  padding: 0;
-  object-fit: cover;
-  border: 3px solid rgba(0, 73, 153, 0.16);
-  border-radius: 50%;
-  box-shadow: 0 5px 14px rgba(0, 73, 153, 0.18);
-}
+
 
 .userProfile .userInitial {
   display: inline-flex;
@@ -701,9 +702,10 @@ button:disabled {
 }
 
 .loading-wrapper {
-  min-height: calc(100dvh - 4rem);
+  min-height: calc(120dvh - 4rem);
   display: grid;
   place-items: center;
+  box-sizing: border-box;
   width: 100%;
   padding: clamp(1rem, 4vw, 2rem);
 }
@@ -714,7 +716,8 @@ button:disabled {
   align-items: center;
   justify-content: center;
   gap: clamp(0.75rem, 2vw, 1.25rem);
-  width: min(90vw, 420px);
+  box-sizing: border-box;
+  width: min(100%, 420px);
   padding: clamp(1.5rem, 5vw, 3rem);
   text-align: center;
   background: rgba(255, 255, 255, 0.88);
@@ -760,7 +763,7 @@ button:disabled {
   }
 
   .home-user {
-    width: min(100% - 1rem, 1400px);
+    width: min(100% - 1rem, 600px);
   }
 
   .home-showcase {
@@ -826,4 +829,12 @@ button:disabled {
   margin: 5px;
   gap: 20px
 }
+
+
+.userProfile .userPhoto {
+  width: 42px;
+  height: 42px;
+   flex: 0 0 42px;
+}
+
 }

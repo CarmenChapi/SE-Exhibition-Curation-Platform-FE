@@ -95,7 +95,7 @@ const HarvardData = () => {
   filteredData = [...filteredData].sort(handleSort);
 
    if (isLoading)
-    return <Loading pageLoading="Loading Harvard Art Museum..." />;
+    return <Loading pageLoading="Loading Harvard Art..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
@@ -118,7 +118,7 @@ const HarvardData = () => {
       <label className="label">Search artworks
         <input
           type="text"
-          placeholder="Search for artworks..."
+          placeholder="Search in Harvard..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="collection-input"

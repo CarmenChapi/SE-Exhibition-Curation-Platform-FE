@@ -87,7 +87,7 @@ const ArticData = ({ searchValue = "" }) => {
   filteredData = [...filteredData].sort(handleSort);
 
    if (isLoading)
-    return <Loading pageLoading="Loading Chicago Art Institute..." />;
+    return <Loading pageLoading="Loading Chicago Art..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
@@ -111,7 +111,7 @@ const ArticData = ({ searchValue = "" }) => {
           <input
             type="text"
             className="collection-input"
-            placeholder="Search Art Institute of Chicago Art..."
+            placeholder="Search in Chicago..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -167,7 +167,7 @@ const ArticData = ({ searchValue = "" }) => {
             </li>
           ))
         ) : (
-          <p>No results found</p>
+          <p><strong>No results found. Try again</strong></p>
         )}
       </ul>
 

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
+import UserProfile from "../UserProfile"
 
 const apiList = [
   {
@@ -45,6 +46,9 @@ const ListApiArtGalleries = () => {
 
   return (
     <>
+        <nav className="home-user">
+        <UserProfile />
+      </nav>
       <nav className="topMenu">
         <MenuCollections />
       </nav>

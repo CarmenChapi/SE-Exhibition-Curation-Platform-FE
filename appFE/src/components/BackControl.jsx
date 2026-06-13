@@ -12,7 +12,7 @@ const BackControl = () => {
       };
 return(
 <button aria-label="Go back" onClick={handleBack} className="btn-back">
-<IoCaretBack /> Cancel
+<IoCaretBack />
 </button>
 )
 }

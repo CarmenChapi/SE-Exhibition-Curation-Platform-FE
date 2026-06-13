@@ -103,7 +103,7 @@ const SmithData = () => {
   filteredData = [...filteredData].sort(handleSort);
 
    if (isLoading)
-    return <Loading pageLoading="Loading Smithsonian Institution..." />;
+    return <Loading pageLoading="Loading Smithsonian..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
@@ -126,7 +126,7 @@ const SmithData = () => {
         <label className="label">Search artworks
         <input
           type="text"
-          placeholder="Search Smithsonian Art..."
+          placeholder="Search Smithsonian..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="collection-input"
@@ -185,7 +185,7 @@ const SmithData = () => {
             </li>
           ))
         ) : (
-          <p>No results found</p>
+                  <p><strong>No results found. Try again</strong></p>
         )}
       </ul>
 
