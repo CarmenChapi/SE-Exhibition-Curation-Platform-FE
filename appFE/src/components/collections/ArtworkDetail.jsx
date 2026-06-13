@@ -12,7 +12,7 @@ import "./Collections.css";
 import { IoCaretBack } from "react-icons/io5";
 
 const ArtworkDetail = () => {
-  const { collectionId, nameCollection,artworkId } = useParams();
+  const { collectionId, nameCollection, artworkId } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [artwork, setArtwork] = useState([]);
@@ -21,20 +21,18 @@ const ArtworkDetail = () => {
   const [updatedArtwork, setUpdatedArtwork] = useState({});
   const [editing, setEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArtworkById = () => {
       setIsLoading(true);
       getArtworkByIdArtwork(artworkId)
         .then((artwork) => {
-
           setArtwork(artwork);
           setUpdatedArtwork(artwork);
           setIsLoading(false);
         })
         .catch((err) => {
-
           if (err.response?.status === 404) {
             setArtwork([]);
             setError(null);
@@ -91,13 +89,10 @@ const ArtworkDetail = () => {
   };
 
   const handleBack = () => {
+    navigate(`/home/collections/${nameCollection}/${collectionId}`);
+  };
 
-      navigate(`/home/collections/${nameCollection}/${collectionId}`);
-  }
-
-
-  if (isLoading)
-    return <Loading pageLoading="Loading artwork" />;
+  if (isLoading) return <Loading pageLoading="Loading artwork" />;
   if (validationError)
     return (
       <ErrorPage
@@ -109,18 +104,13 @@ const ArtworkDetail = () => {
 
   return (
     <>
-
       <nav className="topMenu">
         <UserProfile />
         <MenuCollections />
       </nav>
 
-
-             <div>
-        <Link
-          to={`/home/collections`}
-          className="link-menu"
-        >
+      <div>
+        <Link to={`/home/collections`} className="link-menu">
           <h2>{nameCollection}</h2>
         </Link>
       </div>
@@ -186,7 +176,12 @@ const ArtworkDetail = () => {
               </label>
             </div>
             <div className="button-group">
-              <button aria-label="Save artwork changes" className="btn-back" type="submit" disabled={isSaving}>
+              <button
+                aria-label="Save artwork changes"
+                className="btn-back"
+                type="submit"
+                disabled={isSaving}
+              >
                 {isSaving ? "Saving..." : "Save"}
               </button>
               <button
@@ -202,7 +197,6 @@ const ArtworkDetail = () => {
           </form>
         ) : (
           <>
-
             <h2>
               <strong>{artwork.title}</strong>
             </h2>
@@ -219,7 +213,8 @@ const ArtworkDetail = () => {
             )}
 
             <p className="description-artwork">
-              <strong>Title:</strong> {artwork.title ? artwork.title : "Unknown"}
+              <strong>Title:</strong>{" "}
+              {artwork.title ? artwork.title : "Unknown"}
             </p>
 
             <p className="description-artwork">
@@ -236,20 +231,26 @@ const ArtworkDetail = () => {
               {artwork.description ? artwork.description : "Unknown"}
             </p>
             <div>
-            <button aria-label="Edit artwork" className="btn-back description-artwork" onClick={handleEdit}>
-              Edit
-            </button>
-               <button aria-label="Back to artwork list" className="btn-back description-artwork" onClick={handleBack}>
-              <IoCaretBack /> Back
-            </button>
+              <button
+                aria-label="Edit artwork"
+                className="btn-back description-artwork"
+                onClick={handleEdit}
+              >
+                Edit
+              </button>
+              <button
+                aria-label="Back to artwork list"
+                className="btn-back description-artwork"
+                onClick={handleBack}
+              >
+                <IoCaretBack /> Back
+              </button>
             </div>
           </>
         )}
       </section>
-
-
     </>
   );
-}
+};
 
 export default ArtworkDetail;

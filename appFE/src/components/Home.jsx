@@ -27,16 +27,12 @@ const Home = () => {
           to="/home/artgalleries"
           className="home-showcase-card home-showcase-link"
         >
-          <img
-            src={ArtGalleriesImg}
-            className="home-showcase-icon"
-            alt=""
-          />
+          <img src={ArtGalleriesImg} className="home-showcase-icon" alt="" />
           <div>
             <h2>Explore Art Galleries</h2>
             <p>
-              Discover a world of inspiration. Explore thousands of
-              masterpieces from world-renowned museums.
+              Discover a world of inspiration. Explore thousands of masterpieces
+              from world-renowned museums.
             </p>
           </div>
         </Link>
@@ -67,11 +63,7 @@ const Home = () => {
           to="/home/collections"
           className="home-showcase-card home-showcase-link"
         >
-          <img
-            src={CollectionImg}
-            className="home-showcase-icon"
-            alt=""
-          />
+          <img src={CollectionImg} className="home-showcase-icon" alt="" />
           <div>
             <h2>Create your Collections</h2>
             <p>

@@ -9,14 +9,17 @@ import Loading from "../Loading";
 const fetchArticData = async ({ queryKey }) => {
   const [, { page, query }] = queryKey;
 
-  const { data } = await axios.get("https://api.artic.edu/api/v1/artworks/search", {
-    params: {
-      q: query || "art",
-      limit: 10,
-      page,
-      fields: "id,title,image_id,artist_display",
+  const { data } = await axios.get(
+    "https://api.artic.edu/api/v1/artworks/search",
+    {
+      params: {
+        q: query || "art",
+        limit: 10,
+        page,
+        fields: "id,title,image_id,artist_display",
+      },
     },
-  });
+  );
 
   return data;
 };
@@ -25,7 +28,8 @@ const ArticData = ({ searchValue = "" }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
   const pageFromUrl = Number(searchParams.get("page"));
-  const page = Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const page =
+    Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
   const [searchTerm, setSearchTerm] = useState(query || searchValue);
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
@@ -78,16 +82,13 @@ const ArticData = ({ searchValue = "" }) => {
 
   let filteredData = data?.data || [];
 
-
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.image_id);
   }
 
-
   filteredData = [...filteredData].sort(handleSort);
 
-   if (isLoading)
-    return <Loading pageLoading="Loading Chicago Art..." />;
+  if (isLoading) return <Loading pageLoading="Loading Chicago Art..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
@@ -137,11 +138,14 @@ const ArticData = ({ searchValue = "" }) => {
           />
           Only show artworks with images
         </label>
-        <button type="submit" aria-label="Search Art Institute of Chicago artworks" className="btn-search">
+        <button
+          type="submit"
+          aria-label="Search Art Institute of Chicago artworks"
+          className="btn-search"
+        >
           Search
         </button>
       </form>
-
 
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
@@ -167,11 +171,11 @@ const ArticData = ({ searchValue = "" }) => {
             </li>
           ))
         ) : (
-          <p><strong>No results found. Try again</strong></p>
+          <p>
+            <strong>No results found. Try again</strong>
+          </p>
         )}
       </ul>
-
-
 
       <div className="pagination-controls">
         <button

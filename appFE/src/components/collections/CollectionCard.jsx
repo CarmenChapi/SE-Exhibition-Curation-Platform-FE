@@ -18,7 +18,6 @@ const CollectionCard = ({
   setListCollections,
   onValidationError,
 }) => {
-
   const [editing, setEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(collection.title);
   const [pendingAction, setPendingAction] = useState(null);
@@ -38,7 +37,9 @@ const CollectionCard = ({
     getArtworksByCollection(collection.id_collection)
       .then((artworks) => {
         if (isActive) {
-          const artworkWithImage = artworks.find((artwork) => artwork.image_url);
+          const artworkWithImage = artworks.find(
+            (artwork) => artwork.image_url,
+          );
           setPreviewImage(artworkWithImage?.image_url || null);
         }
       })
@@ -61,9 +62,12 @@ const CollectionCard = ({
 
     setPendingAction("saving");
     try {
-      const updatedCollection = await updateCollection(collection.id_collection, {
-        title: updatedTitle,
-      });
+      const updatedCollection = await updateCollection(
+        collection.id_collection,
+        {
+          title: updatedTitle,
+        },
+      );
       setListCollections((currentCollections) =>
         currentCollections.map((col) =>
           col.id_collection === updatedCollection.id ? updatedCollection : col,
@@ -95,14 +99,12 @@ const CollectionCard = ({
   };
 
   const handleOpenCollection = () => {
-
     navigate(
       `/home/collections/${collection.title}/${collection.id_collection}`,
     );
   };
 
-    const handleAddCollection = () => {
-
+  const handleAddCollection = () => {
     navigate(
       `/home/collections/${collection.title}/${collection.id_collection}/add`,
     );
@@ -124,35 +126,65 @@ const CollectionCard = ({
       />
       {editing ? (
         <form onSubmit={handleUpdate}>
-          <label>
-            Edit title    </label>
-            <input
-              className="collection-input"
-              type="text"
-              value={updatedTitle}
-              onChange={(e) => setUpdatedTitle(e.target.value)}
-            />
+          <label>Edit title </label>
+          <input
+            className="collection-input"
+            type="text"
+            value={updatedTitle}
+            onChange={(e) => setUpdatedTitle(e.target.value)}
+          />
 
-          <button aria-label="Save collection changes" className="btn-back" type="submit" disabled={Boolean(pendingAction)}>
+          <button
+            aria-label="Save collection changes"
+            className="btn-back"
+            type="submit"
+            disabled={Boolean(pendingAction)}
+          >
             {pendingAction === "saving" ? "Saving..." : "Save"}
           </button>
-          <button aria-label="Cancel editing collection" className="btn-back" type="button" disabled={Boolean(pendingAction)} onClick={() => setEditing(false)}>
+          <button
+            aria-label="Cancel editing collection"
+            className="btn-back"
+            type="button"
+            disabled={Boolean(pendingAction)}
+            onClick={() => setEditing(false)}
+          >
             Cancel
           </button>
         </form>
       ) : (
         <div className="button-group">
-          <button aria-label="Edit collection" className="btn-add-art" onClick={() => setEditing(true)}>
+          <button
+            aria-label="Edit collection"
+            className="btn-add-art"
+            onClick={() => setEditing(true)}
+          >
             <RiEditLine />
           </button>
-          <button aria-label="Add artwork to collection" className="btn-add-art" onClick={handleAddCollection}>
+          <button
+            aria-label="Add artwork to collection"
+            className="btn-add-art"
+            onClick={handleAddCollection}
+          >
             <TiPlusOutline />
           </button>
-            {collection.art_count >= 1 ?
-                <button aria-label="Open collection" className="btn-add-art" onClick={handleOpenCollection}>
-            <VscFolderOpened /></button> : null}
-          <button aria-label="Delete collection" className="btn-add-art" disabled={Boolean(pendingAction)} onClick={handleDelete}>
-            <AiOutlineDelete /> {pendingAction === "deleting" ? "Deleting..." : ""}
+          {collection.art_count >= 1 ? (
+            <button
+              aria-label="Open collection"
+              className="btn-add-art"
+              onClick={handleOpenCollection}
+            >
+              <VscFolderOpened />
+            </button>
+          ) : null}
+          <button
+            aria-label="Delete collection"
+            className="btn-add-art"
+            disabled={Boolean(pendingAction)}
+            onClick={handleDelete}
+          >
+            <AiOutlineDelete />{" "}
+            {pendingAction === "deleting" ? "Deleting..." : ""}
           </button>
         </div>
       )}

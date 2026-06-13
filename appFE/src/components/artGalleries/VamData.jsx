@@ -11,11 +11,10 @@ const ITEMS_PER_PAGE = 6;
 const fetchVAMData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
 
-
   const searchQuery = query ? encodeURIComponent(query) : "painting";
 
   const { data } = await axios.get(
-    `https://api.vam.ac.uk/v2/objects/search?q=${searchQuery}&images_exist=true&limit=30`
+    `https://api.vam.ac.uk/v2/objects/search?q=${searchQuery}&images_exist=true&limit=30`,
   );
 
   return data;
@@ -27,7 +26,9 @@ const VAMData = () => {
   const pageFromUrl = Number(searchParams.get("page"));
   const currentPage =
     Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
-  const [searchTerm, setSearchTerm] = useState(query === "painting" ? "" : query);
+  const [searchTerm, setSearchTerm] = useState(
+    query === "painting" ? "" : query,
+  );
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const VAMData = () => {
   const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
   const paginatedItems = allItems.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const handleSearch = () => {
@@ -91,7 +92,7 @@ const VAMData = () => {
   }
 
   filteredData = [...filteredData].sort(handleSort);
-   if (isLoading)
+  if (isLoading)
     return <Loading pageLoading="Loading Victoria & Albert Museum..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
@@ -141,22 +142,26 @@ const VAMData = () => {
           />
           Only show artworks with images
         </label>
-        <button type="submit" aria-label="Search Victoria and Albert Museum artworks" className="btn-search">
+        <button
+          type="submit"
+          aria-label="Search Victoria and Albert Museum artworks"
+          className="btn-search"
+        >
           Search
         </button>
       </form>
-
 
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li
-            className="gallery-card"
+              className="gallery-card"
               key={art.systemNumber}
               onClick={() =>
                 navigate(`/home/artgallery/vam/${art.systemNumber}`)
               }
-              title={`Click to see more info+`}>
+              title={`Click to see more info+`}
+            >
               {art._primaryTitle ? (
                 <h3>{art._primaryTitle}</h3>
               ) : (
@@ -183,10 +188,11 @@ const VAMData = () => {
             </li>
           ))
         ) : (
-                  <p><strong>No results found. Try again</strong></p>
+          <p>
+            <strong>No results found. Try again</strong>
+          </p>
         )}
       </ul>
-
 
       <div className="pagination-controls">
         <button

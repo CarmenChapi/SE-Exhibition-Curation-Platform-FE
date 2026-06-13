@@ -20,7 +20,6 @@ const UserLogin = () => {
     }
   }, [location.state, navigate, user]);
 
-
   const handleEmailAuth = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -35,7 +34,6 @@ const UserLogin = () => {
         await loginWithEmail(email, password);
       }
     } catch (error) {
-
       switch (error.code) {
         case "auth/email-already-in-use":
           setErrorMessage("This email is already registered.");
@@ -55,7 +53,6 @@ const UserLogin = () => {
     }
   };
 
-
   return (
     <section className="SignIn">
       <div className="login-heading">
@@ -64,8 +61,6 @@ const UserLogin = () => {
       </div>
       <div className="signin-wrapper">
         <div className="signin-card user-login-card">
-
-
           <form onSubmit={handleEmailAuth} className="email-form">
             <h2>{isRegistering ? "Create new account" : "Welcome back"}</h2>
             <p className="login-form-intro">
@@ -93,7 +88,11 @@ const UserLogin = () => {
               required
             />
 
-            <button type="submit" className="email-auth-btn" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="email-auth-btn"
+              disabled={isSubmitting}
+            >
               {isSubmitting
                 ? isRegistering
                   ? "Creating account..."
@@ -104,22 +103,22 @@ const UserLogin = () => {
             </button>
           </form>
 
-
           <button
             type="button"
             className="toggle-auth"
             disabled={isSubmitting}
             onClick={() => setIsRegistering(!isRegistering)}
           >
-            {isRegistering ? "Already have an account? Sign in" : "Don't have an account? Sign up here"}
+            {isRegistering
+              ? "Already have an account? Sign in"
+              : "Don't have an account? Sign up here"}
           </button>
 
           <div className="login-divider">
             <span>or continue with</span>
           </div>
 
-         <GoogleLogin/>
-
+          <GoogleLogin />
         </div>
       </div>
     </section>

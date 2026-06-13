@@ -10,9 +10,8 @@ import Loading from "../Loading";
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 
 const fetchArtworkDetails = async (artworkId) => {
-
   const { data } = await axios.get(
-    `https://data.rijksmuseum.nl/api/en/collection/${artworkId}?key=${apikeyRM}`
+    `https://data.rijksmuseum.nl/api/en/collection/${artworkId}?key=${apikeyRM}`,
   );
   return data;
 };
@@ -25,15 +24,13 @@ const RijksMCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-   if (isLoading)
-    return <Loading pageLoading="Loading Rijksmuseum..." />;
-  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isLoading) return <Loading pageLoading="Loading Rijksmuseum..." />;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   if (isSuccess && !data?.artObject) {
-    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;
   }
 
   const artwork = data.artObject;
-
 
   const webUrl = `https://www.rijksmuseum.nl/en/collection/${artwork.objectNumber}`;
   const newArtwork = {
@@ -75,16 +72,16 @@ const RijksMCard = () => {
           {artwork.description || "No description available."}
         </p>
         <p className="description-artwork">
-          <strong>Medium:</strong>{" "}
-          {artwork.physicalMedium || "Unknown"}
+          <strong>Medium:</strong> {artwork.physicalMedium || "Unknown"}
         </p>
         <p className="description-artwork">
           <strong>Techniques:</strong>{" "}
-          {artwork.techniques?.length > 0 ? artwork.techniques.join(", ") : "Unknown"}
+          {artwork.techniques?.length > 0
+            ? artwork.techniques.join(", ")
+            : "Unknown"}
         </p>
         <p className="description-artwork">
-          <strong>Date:</strong>{" "}
-          {artwork.dating?.presentingDate || "Unknown"}
+          <strong>Date:</strong> {artwork.dating?.presentingDate || "Unknown"}
         </p>
 
         <p className="description-artwork">

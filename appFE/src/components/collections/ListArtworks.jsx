@@ -29,12 +29,10 @@ const ListArtworks = () => {
       setIsLoading(true);
       getArtworksByCollection(collectionId)
         .then((artworks) => {
-
           setArtworks(artworks);
           setIsLoading(false);
         })
         .catch((err) => {
-
           if (err.response?.status === 404) {
             setArtworks([]);
             setError(null);
@@ -59,10 +57,8 @@ const ListArtworks = () => {
     );
   };
 
-    const handleBack = () => {
-    navigate(
-      `/home/collections`,
-    );
+  const handleBack = () => {
+    navigate(`/home/collections`);
   };
 
   const handleDeleteArtwork = async (id) => {
@@ -81,8 +77,7 @@ const ListArtworks = () => {
     }
   };
 
-   if (isLoading)
-    return <Loading pageLoading="Loading Collection..." />;
+  if (isLoading) return <Loading pageLoading="Loading Collection..." />;
   if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
@@ -91,28 +86,31 @@ const ListArtworks = () => {
         <UserProfile />
         <MenuCollections />
       </nav>
-   <div>
-        <Link
-          to={`/home/collections`}
-          className="link-menu"
-        >
+      <div>
+        <Link to={`/home/collections`} className="link-menu">
           <h2>{nameCollection}</h2>
         </Link>
       </div>
 
-
       <div className="collection-card2">
-
         {artworks.length === 0 ? (
           <div>
             <p>Collection is empty</p>
-            <button aria-label="Add artwork" className="btn-add-art" onClick={handleAddArtwork}>
+            <button
+              aria-label="Add artwork"
+              className="btn-add-art"
+              onClick={handleAddArtwork}
+            >
               <TiPlusOutline /> Artwork
             </button>
           </div>
         ) : (
           <div>
-            <button aria-label="Add artwork" className="btn-add-art" onClick={handleAddArtwork}>
+            <button
+              aria-label="Add artwork"
+              className="btn-add-art"
+              onClick={handleAddArtwork}
+            >
               <TiPlusOutline /> Artwork
             </button>
             <ul>
@@ -161,21 +159,19 @@ const ListArtworks = () => {
                 ))}
               </div>
             </ul>
-
           </div>
         )}
-
       </div>
       <div>
-                    <button
-                        aria-label="Back to collections"
-                        className="btn-add-art"
-                        onClick={() => handleBack()}
-                      >
-                        Collections
-                      </button>
-            <TopButton />
-            </div>
+        <button
+          aria-label="Back to collections"
+          className="btn-add-art"
+          onClick={() => handleBack()}
+        >
+          Collections
+        </button>
+        <TopButton />
+      </div>
     </>
   );
 };

@@ -1,4 +1,3 @@
-
 import { addArtwork } from "../../utils/api";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -70,8 +69,6 @@ const AddToCollection = () => {
         </Link>
       </div>
 
-
-
       <h3>Add an artwork in this collection</h3>
       <section className="collection-add-main">
         <form className="artwork-form" onSubmit={handleAddArtwork}>
@@ -140,13 +137,23 @@ const AddToCollection = () => {
             </label>
           </div>
           <div className="main-menu">
-
-          <button aria-label="Add artwork" type="submit" className="btn-add" disabled={isAdding}>
-               <TiPlusOutline /> {isAdding ? "Adding..." : "Artwork"}
-          </button>
-            <button aria-label="Cancel adding artwork" type="button" className="btn-add" disabled={isAdding} onClick={handleCancel}>
-            Cancel
-          </button>
+            <button
+              aria-label="Add artwork"
+              type="submit"
+              className="btn-add"
+              disabled={isAdding}
+            >
+              <TiPlusOutline /> {isAdding ? "Adding..." : "Artwork"}
+            </button>
+            <button
+              aria-label="Cancel adding artwork"
+              type="button"
+              className="btn-add"
+              disabled={isAdding}
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </section>

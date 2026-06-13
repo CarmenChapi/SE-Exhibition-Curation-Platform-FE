@@ -78,7 +78,7 @@ const EuropeanaData = () => {
   const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
   const paginatedItems = allItems.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const handleSort = (a, b) => {
@@ -92,21 +92,18 @@ const EuropeanaData = () => {
 
   let filteredData = paginatedItems || [];
 
-
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.edmIsShownBy);
   }
 
-
   filteredData = [...filteredData].sort(handleSort);
 
-     if (isLoading)
-    return <Loading pageLoading="Loading Europeana..." />;
+  if (isLoading) return <Loading pageLoading="Loading Europeana..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>
-    <nav className="topMenu">
+      <nav className="topMenu">
         <MenuCollections />
       </nav>
 
@@ -120,24 +117,26 @@ const EuropeanaData = () => {
           handleSearch();
         }}
       >
-        <label className="label">Search artworks
-        <input
-          type="text"
-          placeholder="Search Europeana Art..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="collection-input"
-        />
+        <label className="label">
+          Search artworks
+          <input
+            type="text"
+            placeholder="Search Europeana Art..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="collection-input"
+          />
         </label>
-      <label>Sort by
-        <select
-          onChange={(e) => setSortBy(e.target.value)}
-          className="sort-dropdown"
-        >
-          <option value="">Sort By</option>
-          <option value="title">Title (A-Z)</option>
-          <option value="artist">Title (Z-A)</option>
-        </select>
+        <label>
+          Sort by
+          <select
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
+            <option value="">Sort By</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="artist">Title (Z-A)</option>
+          </select>
         </label>
 
         <label>
@@ -149,21 +148,24 @@ const EuropeanaData = () => {
           />
           Only show artworks with images
         </label>
-        <button type="submit" aria-label="Search Europeana artworks" className="btn-search">
+        <button
+          type="submit"
+          aria-label="Search Europeana artworks"
+          className="btn-search"
+        >
           Search
         </button>
       </form>
-
 
       <ul className="gallery-list">
         {filteredData.length > 0 ? (
           filteredData.map((art) => (
             <li
-            className="gallery-card"
+              className="gallery-card"
               key={art.id}
               onClick={() =>
                 navigate(
-                  `/home/artgallery/europeana/${encodeURIComponent(art.id)}`
+                  `/home/artgallery/europeana/${encodeURIComponent(art.id)}`,
                 )
               }
               title={`Click to see more info+`}
@@ -176,7 +178,7 @@ const EuropeanaData = () => {
                   alt={art.title ? art.title[0] : "photo-artwork"}
                   onClick={() =>
                     navigate(
-                      `/home/artgallery/europeana/${encodeURIComponent(art.id)}`
+                      `/home/artgallery/europeana/${encodeURIComponent(art.id)}`,
                     )
                   }
                 />
@@ -189,7 +191,6 @@ const EuropeanaData = () => {
           <p>No results found</p>
         )}
       </ul>
-
 
       <div className="pagination-controls">
         <button
