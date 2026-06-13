@@ -38,17 +38,17 @@ const UserLogin = () => {
 
       switch (error.code) {
         case "auth/email-already-in-use":
-          setErrorMessage("Este correo ya está registrado.");
+          setErrorMessage("This email is already registered.");
           break;
         case "auth/wrong-password":
         case "auth/invalid-credential":
-          setErrorMessage("Correo o contraseña incorrectos.");
+          setErrorMessage("Incorrect email or password.");
           break;
         case "auth/weak-password":
-          setErrorMessage("La contraseña debe tener al menos 6 caracteres.");
+          setErrorMessage("The password must be at least 6 characters.");
           break;
         default:
-          setErrorMessage("Ocurrió un error. Inténtalo de nuevo.");
+          setErrorMessage("An error has occurred. Please try again.");
       }
     } finally {
       setIsSubmitting(false);

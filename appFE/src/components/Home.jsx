@@ -73,7 +73,7 @@ const Home = () => {
             alt=""
           />
           <div>
-            <h2>My Collections</h2>
+            <h2>Create your Collections</h2>
             <p>
               Curate your own exhibitions by selecting and organizing artworks
               into personalized collections.

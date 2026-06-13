@@ -183,7 +183,7 @@ const VAMData = () => {
             </li>
           ))
         ) : (
-          <p>No results found</p>
+                  <p><strong>No results found. Try again</strong></p>
         )}
       </ul>
 

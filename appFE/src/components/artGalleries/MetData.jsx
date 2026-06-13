@@ -7,6 +7,7 @@ import ErrorPage from "../ErrorPage";
 
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
+  const [totalResults, setTotalResults] = useState(0);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +16,7 @@ const METData = () => {
   const page = Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
   const [searchTerm, setSearchTerm] = useState(query === "painting" ? "" : query);
   const ITEMS_PER_PAGE = 6;
+  const totalPages = Math.ceil(totalResults / ITEMS_PER_PAGE);
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
@@ -35,9 +37,11 @@ const METData = () => {
 
         if (!idsData.objectIDs) {
           setArtworks([]);
+          setTotalResults(0);
           return;
         }
 
+        setTotalResults(idsData.objectIDs.length);
         const startIdx = (page - 1) * ITEMS_PER_PAGE;
         const objectIDs = idsData.objectIDs.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
@@ -51,8 +55,11 @@ const METData = () => {
           return response.json();
         });
 
-        const artworks = await Promise.all(artworkPromises);
-        const artworksWithImages = artworks.filter((art) => art.primaryImage);
+        const artworkResults = await Promise.allSettled(artworkPromises);
+        const artworksWithImages = artworkResults
+          .filter((result) => result.status === "fulfilled")
+          .map((result) => result.value)
+          .filter((art) => art.primaryImage);
 
         setArtworks(artworksWithImages);
       } catch (error) {
@@ -69,6 +76,22 @@ const METData = () => {
   useEffect(() => {
     setSearchTerm(query === "painting" ? "" : query);
   }, [query]);
+
+  useEffect(() => {
+    if (totalPages === 0 || page <= totalPages) return;
+
+    const params = new URLSearchParams();
+
+    if (query.trim() && query.trim() !== "painting") {
+      params.set("q", query.trim());
+    }
+
+    if (totalPages > 1) {
+      params.set("page", String(totalPages));
+    }
+
+    setSearchParams(params);
+  }, [page, query, setSearchParams, totalPages]);
 
   const updateUrlParams = ({ nextPage = page, nextQuery = query }) => {
     const params = new URLSearchParams();
@@ -93,7 +116,7 @@ const METData = () => {
   };
 
   const handleNextPage = () => {
-    updateUrlParams({ nextPage: page + 1 });
+    updateUrlParams({ nextPage: Math.min(page + 1, totalPages) });
   };
 
   const handleSort = (a, b) => {
@@ -115,7 +138,7 @@ const METData = () => {
 
   filteredData = [...filteredData].sort(handleSort);
   if (isLoading)
-    return <Loading pageLoading="Loading The Metropolitan Museum of Art..." />;
+    return <Loading pageLoading="Loading MET..." />;
   if (error)
     return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
@@ -125,7 +148,7 @@ const METData = () => {
       <nav className="topMenu">
         <MenuCollections />
       </nav>
-      <div>
+    
         <h2>The Metropolitan Museum of Art</h2>
         <form
           className="searchMenu"
@@ -194,7 +217,7 @@ const METData = () => {
               </li>
             ))
           ) : (
-            <p>No results found</p>
+            <p><strong>No results found. Try again</strong></p>
           )}
         </ul>
 
@@ -207,16 +230,19 @@ const METData = () => {
           >
             Previous
           </button>
-          <span className="pagination-status">Page {page}</span>
+          <span className="pagination-status">
+            Page {page} of {totalPages || 1}
+          </span>
           <button
             aria-label="Next page"
             onClick={handleNextPage}
+            disabled={totalPages === 0 || page >= totalPages}
             className="bg-gray-500 text-white px-4 py-2 rounded"
           >
             Next
           </button>
         </div>
-      </div>
+      
 
       <TopButton />
 

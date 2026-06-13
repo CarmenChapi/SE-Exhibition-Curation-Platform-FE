@@ -9,7 +9,7 @@ import Loading from "../Loading";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
-    `https://api.artic.edu/api/v1/artworks/${artworkId}`
+    `https://api.artic.edu/api/v1/artworks/${artworkId}`,
   );
   return data;
 };
@@ -17,17 +17,15 @@ const fetchArtworkDetails = async (artworkId) => {
 const ArticCard = () => {
   const { artId } = useParams();
 
-  const { data, error, isLoading ,  isError, isSuccess} = useQuery({
+  const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-
-    if (isLoading)
-    return <Loading pageLoading="Loading Chicago Art Institute..." />;
-  if (isError) return <ErrorPage errorMsg={error.message}/>;
+  if (isLoading) return <Loading pageLoading={`Loading ${artId}...`} />;
+  if (isError) return <ErrorPage errorMsg={error.message} />;
   if (isSuccess && !data?.data) {
-    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;
   }
 
   const artwork = data.data;
@@ -58,11 +56,7 @@ const ArticCard = () => {
         <h2>{artwork.title}</h2>
 
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={artwork.title}
-            className="detail-photo"
-          />
+          <img src={imageUrl} alt={artwork.title} className="detail-photo" />
         ) : (
           <p>No Image Available</p>
         )}
@@ -89,8 +83,7 @@ const ArticCard = () => {
           <strong>Credit line:</strong> {artwork.credit_line || "Unknown"}
         </p>
         <p className="description-artwork">
-          <strong>Department:</strong>{" "}
-          {artwork.department_title || "Unknown"}
+          <strong>Department:</strong> {artwork.department_title || "Unknown"}
         </p>
         <p className="description-artwork">
           <strong>URL:</strong>{" "}
@@ -115,10 +108,7 @@ const ArticCard = () => {
           ✨ Add to My Collections ✨
         </Link>
       </div>
-      <ShareArtwork
-        title={artwork.title}
-        url={artworkUrl}
-      />
+      <ShareArtwork title={artwork.title} url={artworkUrl} />
       <TopButton />
     </>
   );
