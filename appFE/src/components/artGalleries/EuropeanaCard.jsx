@@ -20,18 +20,15 @@ const fetchArtworkDetails = async (artworkId) => {
 
 const EuropeanaCard = () => {
   const { artId } = useParams();
-  const { data, error, isLoading, isError, isSuccess} = useQuery({
+  const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["artworkDetails", artId],
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-
-
-    if (isLoading)
-    return <Loading pageLoading="Loading Europeana..." />;
-  if (isError) return<ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isLoading) return <Loading pageLoading="Loading Europeana..." />;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   if (isSuccess && !data?.object) {
-    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;
   }
 
   const artwork = data.object;
@@ -70,11 +67,7 @@ const EuropeanaCard = () => {
       <section className="description-section">
         <h2>{title}</h2>
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={title}
-            className="detail-photo"
-          />
+          <img src={imageUrl} alt={title} className="detail-photo" />
         ) : (
           <p>No Image Available</p>
         )}
@@ -83,19 +76,19 @@ const EuropeanaCard = () => {
         </p>
         <p className="description-artwork">
           <strong>Type:</strong>{" "}
-           {artwork?.proxies?.[0]?.edmType?.en?.[0] ??
+          {artwork?.proxies?.[0]?.edmType?.en?.[0] ??
             artwork?.proxies?.[1]?.edmType?.en?.[0] ??
             "Unknown"}
         </p>
         <p className="description-artwork">
           <strong>Medium:</strong>{" "}
-           {artwork?.proxies?.[0]?.dctermsMedium?.en?.[0]?.toString() ??
+          {artwork?.proxies?.[0]?.dctermsMedium?.en?.[0]?.toString() ??
             artwork?.proxies?.[1]?.dctermsMedium?.en?.[0]?.toString() ??
             "Unknown"}
         </p>
         <p className="description-artwork">
           <strong>Date:</strong>{" "}
-           {artwork?.proxies?.[0]?.dcDate?.def?.[0]??
+          {artwork?.proxies?.[0]?.dcDate?.def?.[0] ??
             artwork?.proxies?.[1]?.dcDate?.def?.[0] ??
             "Unknown"}
         </p>

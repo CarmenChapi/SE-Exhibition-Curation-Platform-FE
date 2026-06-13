@@ -13,8 +13,11 @@ const METData = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") || "painting";
   const pageFromUrl = Number(searchParams.get("page"));
-  const page = Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
-  const [searchTerm, setSearchTerm] = useState(query === "painting" ? "" : query);
+  const page =
+    Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
+  const [searchTerm, setSearchTerm] = useState(
+    query === "painting" ? "" : query,
+  );
   const ITEMS_PER_PAGE = 6;
   const totalPages = Math.ceil(totalResults / ITEMS_PER_PAGE);
   const [sortBy, setSortBy] = useState("");
@@ -25,10 +28,12 @@ const METData = () => {
     const fetchArtworks = async () => {
       setIsLoading(true);
       setError(null);
-      const searchQuery = query ? `q=${encodeURIComponent(query)}` : "q=painting";
+      const searchQuery = query
+        ? `q=${encodeURIComponent(query)}`
+        : "q=painting";
       try {
         const idsResponse = await fetch(
-          `https://collectionapi.metmuseum.org/public/collection/v1/search?${searchQuery}&hasImages=true`
+          `https://collectionapi.metmuseum.org/public/collection/v1/search?${searchQuery}&hasImages=true`,
         );
         if (!idsResponse.ok) {
           throw new Error("The Metropolitan Museum API could not be reached.");
@@ -43,11 +48,14 @@ const METData = () => {
 
         setTotalResults(idsData.objectIDs.length);
         const startIdx = (page - 1) * ITEMS_PER_PAGE;
-        const objectIDs = idsData.objectIDs.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+        const objectIDs = idsData.objectIDs.slice(
+          startIdx,
+          startIdx + ITEMS_PER_PAGE,
+        );
 
         const artworkPromises = objectIDs.map(async (id) => {
           const response = await fetch(
-            `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`
+            `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`,
           );
           if (!response.ok) {
             throw new Error(`Artwork ${id} could not be loaded.`);
@@ -130,44 +138,39 @@ const METData = () => {
 
   let filteredData = artworks || [];
 
-
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.primaryImage);
   }
 
-
   filteredData = [...filteredData].sort(handleSort);
-  if (isLoading)
-    return <Loading pageLoading="Loading MET..." />;
-  if (error)
-    return <ErrorPage errorMsg={`Error: ${error.message}`} />;
-
+  if (isLoading) return <Loading pageLoading="Loading MET..." />;
+  if (error) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>
       <nav className="topMenu">
         <MenuCollections />
       </nav>
-    
-        <h2>The Metropolitan Museum of Art</h2>
-        <form
-          className="searchMenu"
-          role="search"
-          onSubmit={(event) => {
-            event.preventDefault();
-            handleSearch();
-          }}
-        >
-          <label className="label">
-            Search artworks
-            <input
-              type="text"
-              placeholder="Search MET Art..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="collection-input"
-            />
-          </label>
+
+      <h2>The Metropolitan Museum of Art</h2>
+      <form
+        className="searchMenu"
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSearch();
+        }}
+      >
+        <label className="label">
+          Search artworks
+          <input
+            type="text"
+            placeholder="Search MET Art..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="collection-input"
+          />
+        </label>
         <label>
           Sort by
           <select
@@ -189,63 +192,64 @@ const METData = () => {
           />
           Only show artworks with images
         </label>
-          <button type="submit" aria-label="Search MET artworks" className="btn-search">
-            Search
-          </button>
+        <button
+          type="submit"
+          aria-label="Search MET artworks"
+          className="btn-search"
+        >
+          Search
+        </button>
       </form>
 
-
-        <ul className="gallery-list">
-          {filteredData.length > 0 ? (
-            filteredData.map((art) => (
-              <li
-                key={art.objectID}
+      <ul className="gallery-list">
+        {filteredData.length > 0 ? (
+          filteredData.map((art) => (
+            <li
+              key={art.objectID}
+              onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}
+              title={`Click to see more info+`}
+              className="gallery-card"
+            >
+              <h3>{art.title || "Untitled"}</h3>
+              <p>{art.artistDisplayName || "Unknown"}</p>
+              <img
+                src={art.primaryImage}
+                alt={art.title}
+                className="gallery-photo"
                 onClick={() => navigate(`/home/artgallery/met/${art.objectID}`)}
-                title={`Click to see more info+`}
-                className="gallery-card"
-              >
-                <h3>{art.title || "Untitled"}</h3>
-                <p>{art.artistDisplayName || "Unknown"}</p>
-                <img
-                  src={art.primaryImage}
-                  alt={art.title}
-                  className="gallery-photo"
-                  onClick={() =>
-                    navigate(`/home/artgallery/met/${art.objectID}`)
-                  }
-                />
-              </li>
-            ))
-          ) : (
-            <p><strong>No results found. Try again</strong></p>
-          )}
-        </ul>
+              />
+            </li>
+          ))
+        ) : (
+          <p>
+            <strong>No results found. Try again</strong>
+          </p>
+        )}
+      </ul>
 
-        <div className="pagination-controls">
-          <button
-            aria-label="Previous page"
-            onClick={handlePreviousPage}
-            disabled={page === 1}
-            className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="pagination-status">
-            Page {page} of {totalPages || 1}
-          </span>
-          <button
-            aria-label="Next page"
-            onClick={handleNextPage}
-            disabled={totalPages === 0 || page >= totalPages}
-            className="bg-gray-500 text-white px-4 py-2 rounded"
-          >
-            Next
-          </button>
-        </div>
-      
+      <div className="pagination-controls">
+        <button
+          aria-label="Previous page"
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="pagination-status">
+          Page {page} of {totalPages || 1}
+        </span>
+        <button
+          aria-label="Next page"
+          onClick={handleNextPage}
+          disabled={totalPages === 0 || page >= totalPages}
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Next
+        </button>
+      </div>
 
       <TopButton />
-
     </>
   );
 };

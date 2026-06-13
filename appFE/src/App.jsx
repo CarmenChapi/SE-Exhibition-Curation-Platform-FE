@@ -28,43 +28,83 @@ import UserLogin from "./components/UserLogin";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-
 function App() {
   return (
     <>
-     <Header />
+      <Header />
       <Router>
         <Routes>
           <Route path="/" element={<UserLogin />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/home/collections" element={<ListCollections />} />
-            <Route path="/home/collections/:nameCollection/:collectionId" element={<ListArworks />} />
-            <Route path="/home/collections/:nameCollection/:collectionId/add" element={<AddToCollection />} />
-            <Route path="/home/collections/:nameCollection/:collectionId/artworks/:artworkId" element={<ArtworkDetail />} />
-            <Route path="/home/artgalleries/" element={<ListApiArtGalleries/>} />
-            <Route path="/home/artgallery/chicago" element={<ArticData/>} />
-            <Route path="/home/artgallery/europeana" element={<EuropeanaData/>} />
-            <Route path="/home/artgallery/harvard" element={<HarvardData/>} />
-            <Route path="/home/artgallery/addToCollectionFromApi" element={<AddToCollectionFromApi/>} />
-            <Route path="/home/artgallery/met" element={<METData/>} />
-            <Route path="/home/artgallery/rijksmuseum" element={<RijksMData/>} />
-            <Route path="/home/artgallery/smithsonian" element={<SmithData/>} />
-            <Route path="/home/artgallery/vam" element={<VAMData/>} />
-            <Route path="/home/artgallery/chicago/:artId" element={<ArticCard/>} />
-            <Route path="/home/artgallery/europeana/:artId" element={<EuropeanaCard/>} />
-            <Route path="/home/artgallery/harvard/:artId" element={<HarvardCard/>} />
-            <Route path="/home/artgallery/met/:artId" element={<MetCard/>} />
-            <Route path="/home/artgallery/rijksmuseum/:artId" element={<RijksMCard/>} />
-            <Route path="/home/artgallery/vam/:artId" element={<VAMCard/>} />
-            <Route path="/home/artgallery/smithsonian/:artId" element={<SmithsonianCard/>} />
+            <Route
+              path="/home/collections/:nameCollection/:collectionId"
+              element={<ListArworks />}
+            />
+            <Route
+              path="/home/collections/:nameCollection/:collectionId/add"
+              element={<AddToCollection />}
+            />
+            <Route
+              path="/home/collections/:nameCollection/:collectionId/artworks/:artworkId"
+              element={<ArtworkDetail />}
+            />
+            <Route
+              path="/home/artgalleries/"
+              element={<ListApiArtGalleries />}
+            />
+            <Route path="/home/artgallery/chicago" element={<ArticData />} />
+            <Route
+              path="/home/artgallery/europeana"
+              element={<EuropeanaData />}
+            />
+            <Route path="/home/artgallery/harvard" element={<HarvardData />} />
+            <Route
+              path="/home/artgallery/addToCollectionFromApi"
+              element={<AddToCollectionFromApi />}
+            />
+            <Route path="/home/artgallery/met" element={<METData />} />
+            <Route
+              path="/home/artgallery/rijksmuseum"
+              element={<RijksMData />}
+            />
+            <Route
+              path="/home/artgallery/smithsonian"
+              element={<SmithData />}
+            />
+            <Route path="/home/artgallery/vam" element={<VAMData />} />
+            <Route
+              path="/home/artgallery/chicago/:artId"
+              element={<ArticCard />}
+            />
+            <Route
+              path="/home/artgallery/europeana/:artId"
+              element={<EuropeanaCard />}
+            />
+            <Route
+              path="/home/artgallery/harvard/:artId"
+              element={<HarvardCard />}
+            />
+            <Route path="/home/artgallery/met/:artId" element={<MetCard />} />
+            <Route
+              path="/home/artgallery/rijksmuseum/:artId"
+              element={<RijksMCard />}
+            />
+            <Route path="/home/artgallery/vam/:artId" element={<VAMCard />} />
+            <Route
+              path="/home/artgallery/smithsonian/:artId"
+              element={<SmithsonianCard />}
+            />
           </Route>
 
-
-        <Route path="*" element={<ErrorPage errorMsg={"404 Not Found Invalid URL"}/>} />
+          <Route
+            path="*"
+            element={<ErrorPage errorMsg={"404 Not Found Invalid URL"} />}
+          />
         </Routes>
       </Router>
-      <Footer/>
+      <Footer />
     </>
   );
 }

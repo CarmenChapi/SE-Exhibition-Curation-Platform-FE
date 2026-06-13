@@ -13,9 +13,8 @@ const fetchRijksMData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
   const searchQuery = query ? `&q=${encodeURIComponent(query)}` : "";
 
-
   const { data } = await axios.get(
-    `https://data.rijksmuseum.nl/api/en/collection?key=${apikeyRM}${searchQuery}&limit=30`
+    `https://data.rijksmuseum.nl/api/en/collection?key=${apikeyRM}${searchQuery}&limit=30`,
   );
 
   return data;
@@ -74,34 +73,35 @@ const RijksMData = () => {
     if (sortBy === "title") {
       return (a.title || "").localeCompare(b.title || "");
     } else if (sortBy === "artist") {
-      return (a.principalOrFirstMaker || "").localeCompare(b.principalOrFirstMaker || "");
+      return (a.principalOrFirstMaker || "").localeCompare(
+        b.principalOrFirstMaker || "",
+      );
     }
     return 0;
   };
 
-
   let filteredData = [...allItems];
 
   if (filterByImage) {
-    filteredData = filteredData.filter((art) => art.webImage && art.webImage.url);
+    filteredData = filteredData.filter(
+      (art) => art.webImage && art.webImage.url,
+    );
   }
 
   filteredData.sort(handleSort);
 
-
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
   const paginatedItems = filteredData.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
-   if (isLoading)
-    return <Loading pageLoading="Loading Rijksmuseum..." />;
+  if (isLoading) return <Loading pageLoading="Loading Rijksmuseum..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>
       <nav className="topMenu">
-        <MenuCollections/>
+        <MenuCollections />
       </nav>
       <h2>Rijksmuseum</h2>
 
@@ -113,7 +113,8 @@ const RijksMData = () => {
           handleSearch();
         }}
       >
-        <label className="label">Search artworks
+        <label className="label">
+          Search artworks
           <input
             type="text"
             placeholder="Search Rijksmuseum Art..."
@@ -122,8 +123,12 @@ const RijksMData = () => {
             className="collection-input"
           />
         </label>
-        <label>Sort by
-          <select onChange={(e) => setSortBy(e.target.value)} className="sort-dropdown">
+        <label>
+          Sort by
+          <select
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
             <option value="">Sort By</option>
             <option value="title">Title (A-Z)</option>
             <option value="artist">Artist (A-Z)</option>
@@ -138,11 +143,14 @@ const RijksMData = () => {
           />
           Only show artworks with images
         </label>
-        <button type="submit" aria-label="Search Rijksmuseum artworks" className="btn-search">
+        <button
+          type="submit"
+          aria-label="Search Rijksmuseum artworks"
+          className="btn-search"
+        >
           Search
         </button>
       </form>
-
 
       <ul className="gallery-list">
         {paginatedItems.length > 0 ? (
@@ -150,7 +158,9 @@ const RijksMData = () => {
             <li
               key={art.id}
               className="gallery-card"
-              onClick={() => navigate(`/home/artgallery/rijksmuseum/${art.objectNumber}`)}
+              onClick={() =>
+                navigate(`/home/artgallery/rijksmuseum/${art.objectNumber}`)
+              }
               title="Click to see more info+"
             >
               <h3>{art.title || "Untitled"}</h3>
@@ -170,7 +180,6 @@ const RijksMData = () => {
           <p>No results found</p>
         )}
       </ul>
-
 
       <div className="pagination-controls">
         <button

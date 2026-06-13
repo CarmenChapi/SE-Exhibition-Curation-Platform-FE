@@ -12,7 +12,7 @@ import Loading from "../Loading";
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
-    `https://api.harvardartmuseums.org/object/${artworkId}?apikey=${apikeyHarvard}`
+    `https://api.harvardartmuseums.org/object/${artworkId}?apikey=${apikeyHarvard}`,
   );
   if (!data) {
     throw new Error("Artwork not found");
@@ -28,8 +28,7 @@ const HarvardCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-    if (isLoading)
-    return <Loading pageLoading="Loading Harvard Art Museum..." />;
+  if (isLoading) return <Loading pageLoading="Loading Harvard Art Museum..." />;
   if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   if (isSuccess && !data) {
     return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;
@@ -48,16 +47,12 @@ const HarvardCard = () => {
     <>
       <nav className="topMenu">
         <MenuCollections />
-
-
       </nav>
       <div>
-           <Link to="/home/artgallery/harvard" className="link-menu">
-             <h2>⬅ Harvard Art Museum</h2>
-
-      </Link>
+        <Link to="/home/artgallery/harvard" className="link-menu">
+          <h2>⬅ Harvard Art Museum</h2>
+        </Link>
       </div>
-
 
       <section className="description-section">
         <h2>{artwork.title}</h2>
@@ -111,23 +106,19 @@ const HarvardCard = () => {
         </p>
       </section>
 
-
-     <div>
-
-<Link
-      to="/home/artgallery/addToCollectionFromApi"
-      state={{ artwork: newArtwork }}
-      className="btn-add-curator"
-    >
-      ✨ Add to My Collections ✨
-    </Link>
-
-       </div>
+      <div>
+        <Link
+          to="/home/artgallery/addToCollectionFromApi"
+          state={{ artwork: newArtwork }}
+          className="btn-add-curator"
+        >
+          ✨ Add to My Collections ✨
+        </Link>
+      </div>
 
       <ShareArtwork title={artwork.title} url={artwork.url} />
 
       <TopButton />
-
     </>
   );
 };

@@ -29,7 +29,6 @@ const AddToCollectionFromApi = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       if (user?.email) {
         setIsLoading(true);
         try {
@@ -41,7 +40,6 @@ const AddToCollectionFromApi = () => {
           setIsLoading(false);
         }
       } else {
-
         setIsLoading(false);
       }
     };
@@ -85,8 +83,6 @@ const AddToCollectionFromApi = () => {
     event.preventDefault();
     event.stopPropagation();
 
-
-
     if (!artwork) {
       setError({ message: "No artwork selected to add." });
       return;
@@ -105,8 +101,7 @@ const AddToCollectionFromApi = () => {
     }
   };
 
-  if (isLoading)
-    return <Loading pageLoading="Loading collections..." />;
+  if (isLoading) return <Loading pageLoading="Loading collections..." />;
   if (validationError)
     return (
       <ErrorPage
@@ -130,10 +125,8 @@ const AddToCollectionFromApi = () => {
         </strong>
       </p>
 
-
       <div className="collection-card2">
         <label className="label">
-
           <input
             type="text"
             className="collection-input"
@@ -150,39 +143,40 @@ const AddToCollectionFromApi = () => {
         >
           <strong>
             <TiPlusOutline />{" "}
-            {pendingAction === "new" ? "Creating and adding..." : "New Collection"}
+            {pendingAction === "new"
+              ? "Creating and adding..."
+              : "New Collection"}
           </strong>
         </button>
       </div>
-
 
       {listCollections.length === 0 ? (
         <p>No collections created yet.</p>
       ) : (
         <ul className="collections-grid">
-            {listCollections.map((collection) => (
-              <li className="collection-card" key={collection.id_collection}>
-                <button
-                  aria-label={`Add artwork to ${collection.title}`}
-                  type="button"
-                  className="btn-add-art btn-select-collection"
-                  disabled={Boolean(pendingAction)}
-                  onClick={(event) => handleAddToCollection(event, collection)}
-                >
-                  <strong>
-                    {pendingAction === collection.id_collection
-                      ? "Adding..."
-                      : collection.title}
-                  </strong>
-                  <TiPlusOutline />
-                </button>
-              </li>
-            ))}
+          {listCollections.map((collection) => (
+            <li className="collection-card" key={collection.id_collection}>
+              <button
+                aria-label={`Add artwork to ${collection.title}`}
+                type="button"
+                className="btn-add-art btn-select-collection"
+                disabled={Boolean(pendingAction)}
+                onClick={(event) => handleAddToCollection(event, collection)}
+              >
+                <strong>
+                  {pendingAction === collection.id_collection
+                    ? "Adding..."
+                    : collection.title}
+                </strong>
+                <TiPlusOutline />
+              </button>
+            </li>
+          ))}
         </ul>
       )}
       <div>
-      <BackControl/>
-      <TopButton />
+        <BackControl />
+        <TopButton />
       </div>
     </>
   );

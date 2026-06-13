@@ -8,7 +8,6 @@ footer {
 footer a {
   color: inherit;
   text-decoration: none;
-
 }
 
 footer a:hover {
@@ -60,7 +59,6 @@ footer a:hover {
   padding: 10px;
 }
 
-
 .mainMenu {
   display: flex;
   justify-content: center;
@@ -69,27 +67,26 @@ footer a:hover {
   padding: 15px;
 }
 
-
 .link-menu {
   display: inline-block;
   text-decoration: none;
   border: none;
   background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
-
 
 .link-menu:hover {
   transform: scale(1.05);
   opacity: 0.9;
 }
 
-
 .menu-img {
   display: block;
   height: 200px;
-   width: auto;
+  width: auto;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -104,7 +101,6 @@ footer a:hover {
   gap: 80px;
 }
 
-
 .detail-photo {
   display: block;
   max-width: 80vw;
@@ -114,8 +110,8 @@ footer a:hover {
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.detail-photo:hover{
-    transform: none;
+.detail-photo:hover {
+  transform: none;
   opacity: 1;
   filter: none;
 }
@@ -303,9 +299,9 @@ footer a:hover {
   align-items: flex-end;
   max-width: 82vw;
   margin: 4rem auto;
-  padding:3rem 1rem;
+  padding: 3rem 1rem;
   box-sizing: border-box;
-    object-fit: contain;
+  object-fit: contain;
 }
 
 .description-section > * {
@@ -313,7 +309,6 @@ footer a:hover {
   margin-right: 0;
   text-align: right;
 }
-
 
 .SignIn {
   position: relative;
@@ -564,8 +559,6 @@ button:disabled {
   transform: none;
 }
 
-
-
 .userProfile .userInitial {
   display: inline-flex;
   align-items: center;
@@ -587,7 +580,11 @@ button:disabled {
   min-height: calc(100dvh - 4rem);
   padding: clamp(1rem, 5vw, 3rem);
   background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 42%),
+    radial-gradient(
+      circle at top left,
+      rgba(255, 255, 255, 0.9),
+      transparent 42%
+    ),
     linear-gradient(135deg, #bde0fe, #a2d2ff);
   box-sizing: border-box;
 }
@@ -794,47 +791,43 @@ button:disabled {
     padding: 5px;
   }
   .collection-input {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  font-size: 1rem;
-  margin: 0.5rem;
-  align-items: center;
-  font-display: center;
-}
-.description-artwork{
-  margin : 0.3rem;
-  padding: 0.3rem;
-}
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 1rem;
+    margin: 0.5rem;
+    align-items: center;
+    font-display: center;
+  }
+  .description-artwork {
+    margin: 0.3rem;
+    padding: 0.3rem;
+  }
 
-.description-section {
-  width: 100%;
-  padding: 0 0.75rem;
-}
+  .description-section {
+    width: 100%;
+    padding: 0 0.75rem;
+  }
 
-.menu-img {
-
-  height: 60px;
-}
-.mainMenu {
-
-  gap: 15px;
-  padding: 5px;
-}
+  .menu-img {
+    height: 60px;
+  }
+  .mainMenu {
+    gap: 15px;
+    padding: 5px;
+  }
   .topMenu {
-   flex-direction: column;
-  align-items: center;
-  max-width: 700px;
-  padding: 5px;
-  margin: 5px;
-  gap: 20px
-}
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    padding: 5px;
+    margin: 5px;
+    gap: 20px;
+  }
 
-
-.userProfile .userPhoto {
-  width: 42px;
-  height: 42px;
-   flex: 0 0 42px;
-}
-
+  .userProfile .userPhoto {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
 }

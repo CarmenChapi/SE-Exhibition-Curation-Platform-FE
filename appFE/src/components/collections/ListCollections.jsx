@@ -32,7 +32,6 @@ const ListCollections = () => {
           setIsLoading(false);
         }
       } else {
-
         setIsLoading(false);
       }
     };
@@ -69,8 +68,7 @@ const ListCollections = () => {
     }
   };
 
-  if (isLoading)
-    return <Loading pageLoading="Loading Collections..." />;
+  if (isLoading) return <Loading pageLoading="Loading Collections..." />;
   if (validationError)
     return (
       <ErrorPage
@@ -95,7 +93,6 @@ const ListCollections = () => {
         </strong>
       </p>
 
-
       <div className="collection-card2">
         <label className="label">
           Create a new collection
@@ -117,21 +114,18 @@ const ListCollections = () => {
         </button>
       </div>
 
-
       {listCollections.length === 0 ? (
         <p>No collections created yet.</p>
       ) : (
         <ul className="collections-grid">
-
-            {listCollections.map((collection) => (
-              <CollectionCard
-                key={collection.id_collection}
-                collection={collection}
-                setListCollections={setListCollections}
-                onValidationError={setValidationError}
-              />
-            ))}
-
+          {listCollections.map((collection) => (
+            <CollectionCard
+              key={collection.id_collection}
+              collection={collection}
+              setListCollections={setListCollections}
+              onValidationError={setValidationError}
+            />
+          ))}
         </ul>
       )}
       <TopButton />

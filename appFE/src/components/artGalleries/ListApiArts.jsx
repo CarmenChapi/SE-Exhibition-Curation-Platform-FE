@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
-import UserProfile from "../UserProfile"
+import UserProfile from "../UserProfile";
 
 const apiList = [
   {
@@ -14,10 +14,6 @@ const apiList = [
     path: "/harvard",
     src: "https://harvardartmuseums.org/assets/icons/fb-og-image-400x400.png",
   },
-
-
-
-
 
   {
     name: "Smithsonian Art Institution",
@@ -46,7 +42,7 @@ const ListApiArtGalleries = () => {
 
   return (
     <>
-        <nav className="home-user">
+      <nav className="home-user">
         <UserProfile />
       </nav>
       <nav className="topMenu">
@@ -67,7 +63,6 @@ const ListApiArtGalleries = () => {
                 alt={`logo of ${artCollection.name}`}
                 title={`Explore ${artCollection.name} collections`}
               />
-
             </li>
           ))}
         </ul>

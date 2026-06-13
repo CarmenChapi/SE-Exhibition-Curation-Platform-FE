@@ -12,13 +12,10 @@ const ITEMS_PER_PAGE = 5;
 const fetchSmithData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
 
-
   const searchQuery = query ? encodeURIComponent(query) : "art";
   const { data } = await axios.get(
-    `https://api.si.edu/openaccess/api/v1.0/category/art_design/search?q=${searchQuery}&api_key=${apiKeySmith}&rows=30&fq=online_media_type:image`
+    `https://api.si.edu/openaccess/api/v1.0/category/art_design/search?q=${searchQuery}&api_key=${apiKeySmith}&rows=30&fq=online_media_type:image`,
   );
-
-
 
   return data;
 };
@@ -29,7 +26,9 @@ const SmithData = () => {
   const pageFromUrl = Number(searchParams.get("page"));
   const currentPage =
     Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1;
-  const [searchTerm, setSearchTerm] = useState(query === "painting" ? "" : query);
+  const [searchTerm, setSearchTerm] = useState(
+    query === "painting" ? "" : query,
+  );
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
   const navigate = useNavigate();
@@ -62,7 +61,7 @@ const SmithData = () => {
   const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
   const paginatedItems = allItems.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const handleSearch = () => {
@@ -91,25 +90,21 @@ const SmithData = () => {
 
   let filteredData = paginatedItems || [];
 
-
   if (filterByImage) {
     filteredData = filteredData.filter(
       (art) =>
-        art.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content
+        art.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content,
     );
   }
 
-
   filteredData = [...filteredData].sort(handleSort);
 
-   if (isLoading)
-    return <Loading pageLoading="Loading Smithsonian..." />;
+  if (isLoading) return <Loading pageLoading="Loading Smithsonian..." />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <>
-
-    <nav className="topMenu">
+      <nav className="topMenu">
         <MenuCollections />
       </nav>
 
@@ -123,24 +118,26 @@ const SmithData = () => {
           handleSearch();
         }}
       >
-        <label className="label">Search artworks
-        <input
-          type="text"
-          placeholder="Search Smithsonian..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="collection-input"
-        />
+        <label className="label">
+          Search artworks
+          <input
+            type="text"
+            placeholder="Search Smithsonian..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="collection-input"
+          />
         </label>
-        <label>Sort by
-        <select
-          onChange={(e) => setSortBy(e.target.value)}
-          className="sort-dropdown"
-        >
-          <option value="">Sort By</option>
-          <option value="title">Title (A-Z)</option>
-          <option value="artist">Artist (A-Z)</option>
-        </select>
+        <label>
+          Sort by
+          <select
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
+            <option value="">Sort By</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="artist">Artist (A-Z)</option>
+          </select>
         </label>
         <label>
           <input
@@ -151,7 +148,11 @@ const SmithData = () => {
           />
           Only show artworks with images
         </label>
-        <button type="submit" aria-label="Search Smithsonian artworks" className="btn-search">
+        <button
+          type="submit"
+          aria-label="Search Smithsonian artworks"
+          className="btn-search"
+        >
           Search
         </button>
       </form>
@@ -163,7 +164,8 @@ const SmithData = () => {
               key={art.id}
               className="gallery-card"
               onClick={() => navigate(`/home/artgallery/smithsonian/${art.id}`)}
-              title={`Click to see more info+`}>
+              title={`Click to see more info+`}
+            >
               {art.title ? <h3>{art.title}</h3> : <h3>Untitled</h3>}
               <p>{getArtistName(art)}</p>
               {art.content.descriptiveNonRepeating.online_media?.media[0]
@@ -185,10 +187,11 @@ const SmithData = () => {
             </li>
           ))
         ) : (
-                  <p><strong>No results found. Try again</strong></p>
+          <p>
+            <strong>No results found. Try again</strong>
+          </p>
         )}
       </ul>
-
 
       <div className="pagination-controls">
         <button

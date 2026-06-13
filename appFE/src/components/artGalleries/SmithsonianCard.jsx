@@ -11,7 +11,7 @@ const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 
 const fetchArtworkDetails = async (artworkId) => {
   const { data } = await axios.get(
-    `https://api.si.edu/openaccess/api/v1.0/content/${artworkId}?api_key=${apiKeySmith}`
+    `https://api.si.edu/openaccess/api/v1.0/content/${artworkId}?api_key=${apiKeySmith}`,
   );
   return data;
 };
@@ -24,18 +24,18 @@ const SmithsonianCard = () => {
     queryFn: () => fetchArtworkDetails(artId),
   });
 
-   if (isLoading)
+  if (isLoading)
     return <Loading pageLoading="Loading Smithsonian Institution..." />;
-  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`}/>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
   if (isSuccess && !data?.response) {
-    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`}/>;
+    return <ErrorPage errorMsg={`No artwork found for ID ${artId}`} />;
   }
 
   const artwork = data.response;
   const artist = artwork.content?.freetext?.name?.[0]?.content || "Unknown";
   const imageUrl =
-    artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]?.content ||
-    "";
+    artwork.content?.descriptiveNonRepeating?.online_media?.media?.[0]
+      ?.content || "";
   const description =
     artwork.content?.freetext?.notes?.[1]?.content || "No description";
   const artworkUrl =
@@ -50,62 +50,62 @@ const SmithsonianCard = () => {
 
   return (
     <>
-    <nav className="topMenu">
-      <MenuCollections />
-    </nav>
-    <div>
-      <Link to="/home/artgallery/smithsonian" className="link-menu">
-        <h2>⬅ Smithsonian Institution</h2>
-      </Link>
-    </div>
-  <section className="description-section">
-      <h2>{artwork.title ? artwork.title : "Untitle"}</h2>
-      {imageUrl && (
-    <img
-      src={imageUrl}
-      alt={artwork.title || "Artwork Image"}
-      className="detail-photo"
-    />
-  )
-}
+      <nav className="topMenu">
+        <MenuCollections />
+      </nav>
+      <div>
+        <Link to="/home/artgallery/smithsonian" className="link-menu">
+          <h2>⬅ Smithsonian Institution</h2>
+        </Link>
+      </div>
+      <section className="description-section">
+        <h2>{artwork.title ? artwork.title : "Untitle"}</h2>
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt={artwork.title || "Artwork Image"}
+            className="detail-photo"
+          />
+        )}
 
-{!imageUrl && (
-    <p>No Image Available</p>
-)}
+        {!imageUrl && <p>No Image Available</p>}
 
-      <p className="description-artwork">
-        <strong>Artist:</strong> {artist}
-      </p>
-      <p className="description-artwork">
-        <strong>Description:</strong>
-        {description}
-      </p>
-      <p className="description-artwork">
-        <strong>Type:</strong>
-        {artwork.content?.indexedStructured?.object_type?.[0] || "Unknown"}
-      </p>
-      <p className="description-artwork">
-        <strong>Topic:</strong>
-        {artwork.content?.freetext?.setName?.[1]?.content ??
-          artwork.content?.freetext?.setName?.[0]?.content ??
-          "Unknown"}
-      </p>
-      <p className="description-artwork">
-        <strong>Date:</strong>
-        {artwork.content?.indexedStructured?.date?.join?.(", ") ??
-          artwork.content?.indexedStructured?.date ??
-          "Unknown"}
-      </p>
+        <p className="description-artwork">
+          <strong>Artist:</strong> {artist}
+        </p>
+        <p className="description-artwork">
+          <strong>Description:</strong>
+          {description}
+        </p>
+        <p className="description-artwork">
+          <strong>Type:</strong>
+          {artwork.content?.indexedStructured?.object_type?.[0] || "Unknown"}
+        </p>
+        <p className="description-artwork">
+          <strong>Topic:</strong>
+          {artwork.content?.freetext?.setName?.[1]?.content ??
+            artwork.content?.freetext?.setName?.[0]?.content ??
+            "Unknown"}
+        </p>
+        <p className="description-artwork">
+          <strong>Date:</strong>
+          {artwork.content?.indexedStructured?.date?.join?.(", ") ??
+            artwork.content?.indexedStructured?.date ??
+            "Unknown"}
+        </p>
 
-      <p className="description-artwork">
+        <p className="description-artwork">
           <strong>URL:</strong>{" "}
           <a
-      href={artworkUrl}
-      title="See the item in the oficial website"
-        target="_blank"
+            href={artworkUrl}
+            title="See the item in the oficial website"
+            target="_blank"
             rel="noopener noreferrer"
             className="detail-link"
-          >      Visit this artwork on Smithsonian</a>
+          >
+            {" "}
+            Visit this artwork on Smithsonian
+          </a>
         </p>
       </section>
       <div>
