@@ -85,15 +85,20 @@ const ListCollections = () => {
         <UserProfile />
         <MenuCollections />
       </nav>
-      <h2>Collections</h2>
+      <h2>My private Exhibitions</h2>
       <p>
         <strong>
-          Organize your private gallery by creating collections and adding your
-          artwork.
+          Organize your private gallery by creating collections and adding artworks
         </strong>
       </p>
 
-      <div className="collection-card2">
+      <form
+        className="collection-card2"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleAddCollection();
+        }}
+      >
         <label className="label">
           Create a new collection
           <input
@@ -101,18 +106,18 @@ const ListCollections = () => {
             className="collection-input"
             value={newCollectionTitle}
             onChange={(e) => setNewCollectionTitle(e.target.value)}
-            placeholder="Title"
+            placeholder="Add Name"
           />
         </label>
         <button
+          type="submit"
           aria-label="Create collection"
           className="btn-add-art"
-          onClick={handleAddCollection}
           disabled={isAddingCollection}
         >
           <TiPlusOutline /> {isAddingCollection ? "Creating..." : "Create"}
         </button>
-      </div>
+      </form>
 
       {listCollections.length === 0 ? (
         <p>No collections created yet.</p>

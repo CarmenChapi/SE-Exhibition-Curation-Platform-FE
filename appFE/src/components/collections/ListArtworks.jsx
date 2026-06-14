@@ -13,6 +13,8 @@ import { MdOutlineImageNotSupported } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import "./Collections.css";
+import { IoCaretBack } from "react-icons/io5";
+
 
 const ListArtworks = () => {
   const { collectionId, nameCollection } = useParams();
@@ -88,11 +90,11 @@ const ListArtworks = () => {
       </nav>
       <div>
         <Link to={`/home/collections`} className="link-menu">
-          <h2>{nameCollection}</h2>
+          <h2><IoCaretBack />{nameCollection}</h2>
         </Link>
       </div>
 
-      <div className="collection-card2">
+      <div className="collection-card2 list-artworks-container">
         {artworks.length === 0 ? (
           <div>
             <p>Collection is empty</p>
@@ -108,21 +110,20 @@ const ListArtworks = () => {
           <div>
             <button
               aria-label="Add artwork"
-              className="btn-add-art"
+              className="btn-add-art list-art-add"
               onClick={handleAddArtwork}
             >
-              <TiPlusOutline /> Artwork
+              <TiPlusOutline /> Add Artwork
             </button>
-            <ul>
-              <div className="collections-grid">
-                {artworks.map((artwork) => (
-                  <li className="collection-card" key={artwork.id_artwork}>
+            <ul className="collections-grid">
+              {artworks.map((artwork) => (
+                <li className="collection-card" key={artwork.id_artwork}>
                     <p className="collection-title">{artwork.title}</p>
                     {artwork.image_url ? (
                       <img
                         src={artwork.image_url}
                         alt="Collection preview"
-                        className="card-image"
+                        className="card-image card-preview"
                       />
                     ) : (
                       <div className="no-image">
@@ -155,9 +156,8 @@ const ListArtworks = () => {
                           : ""}
                       </button>
                     </div>
-                  </li>
-                ))}
-              </div>
+                </li>
+              ))}
             </ul>
           </div>
         )}
@@ -168,7 +168,7 @@ const ListArtworks = () => {
           className="btn-add-art"
           onClick={() => handleBack()}
         >
-          Collections
+         <IoCaretBack />
         </button>
         <TopButton />
       </div>

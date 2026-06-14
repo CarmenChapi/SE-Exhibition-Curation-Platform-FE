@@ -183,6 +183,55 @@ The app will be available at http://localhost:5173/.
 
 ---
 
+## Testing
+
+The frontend tests use **Vitest**, **React Testing Library**, and
+**jest-dom**. External services such as Firebase, museum APIs, and the
+curation backend are mocked so that the tests run without making real network
+requests.
+
+Current test suites:
+
+- `ProtectedRoute.test.jsx`: verifies authenticated, unauthenticated, and
+  loading route states.
+- `UserLogin.test.jsx`: verifies login, registration, validation errors,
+  loading states, and authenticated-user redirects.
+- `HarvardData.test.jsx`: verifies loading, API results, searching, image
+  filtering, and API errors.
+- `AddToCollectionFromApi.test.jsx`: verifies loading collections, creating a
+  collection, adding an API artwork, validation, navigation, and errors.
+- `ListCollections.test.jsx`: verifies loading and displaying collections,
+  creating a collection with the button or Enter, validation, and errors.
+- `CollectionCard.test.jsx`: verifies the default preview, available actions,
+  navigation, editing, validation, updating, and deleting.
+
+Run tests in watch mode:
+
+```bash
+npm test
+```
+
+Run the complete test suite once:
+
+```bash
+npm test -- --run
+```
+
+Run a specific test file:
+
+```bash
+npm test -- --run src/components/collections/CollectionCard.test.jsx
+```
+
+Run the linter and production build:
+
+```bash
+npm run lint
+npm run build
+```
+
+---
+
 ## Node version required
 
 v>=18.0.0

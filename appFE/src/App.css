@@ -122,15 +122,6 @@ footer a:hover {
   filter: none;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  padding: 10px;
-}
-
 .home-user {
   display: flex;
   justify-content: flex-end;
@@ -266,7 +257,6 @@ footer a:hover {
   width: 92px;
   height: 92px;
   flex: 0 0 92px;
-  padding: 4 px;
   object-fit: cover;
   border: 3px solid rgba(0, 73, 153, 0.16);
   border-radius: 50%;
@@ -516,12 +506,6 @@ footer a:hover {
   border-radius: 10px;
 }
 
-.signin-subtitle {
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  color: #545454;
-}
-
 .signin-btn {
   display: flex;
   align-items: center;
@@ -633,14 +617,6 @@ button:disabled {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.error-title {
-  margin: 0;
-  padding: 0;
-  color: #17324d;
-  font-size: clamp(1.8rem, 6vw, 3rem);
-  line-height: 1.1;
 }
 
 .error-message {
@@ -796,8 +772,6 @@ button:disabled {
     border-radius: 2px;
     font-size: 1rem;
     margin: 0.5rem;
-    align-items: center;
-    font-display: center;
   }
   .description-artwork {
     margin: 0.3rem;

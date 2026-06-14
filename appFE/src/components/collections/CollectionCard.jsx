@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
-import {
-  updateCollection,
-  deleteCollection,
-  getArtworksByCollection,
-} from "../../utils/api";
+import { useState } from "react";
+import { updateCollection, deleteCollection } from "../../utils/api";
 
 import { useNavigate } from "react-router-dom";
 import { RiEditLine } from "react-icons/ri";
@@ -21,36 +17,7 @@ const CollectionCard = ({
   const [editing, setEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(collection.title);
   const [pendingAction, setPendingAction] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    let isActive = true;
-
-    if (collection.art_count < 1) {
-      setPreviewImage(null);
-      return () => {
-        isActive = false;
-      };
-    }
-
-    getArtworksByCollection(collection.id_collection)
-      .then((artworks) => {
-        if (isActive) {
-          const artworkWithImage = artworks.find(
-            (artwork) => artwork.image_url,
-          );
-          setPreviewImage(artworkWithImage?.image_url || null);
-        }
-      })
-      .catch(() => {
-        if (isActive) setPreviewImage(null);
-      });
-
-    return () => {
-      isActive = false;
-    };
-  }, [collection.art_count, collection.id_collection]);
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -115,14 +82,9 @@ const CollectionCard = ({
       <p className="collection-title">{collection.title}</p>
 
       <img
-        src={previewImage || CollectionPreview}
-        alt={
-          previewImage
-            ? `${collection.title} collection preview`
-            : "Empty collection preview"
-        }
+        src={CollectionPreview}
+        alt={`${collection.title} collection preview`}
         className="card-image"
-        onError={() => setPreviewImage(null)}
       />
       {editing ? (
         <form onSubmit={handleUpdate}>

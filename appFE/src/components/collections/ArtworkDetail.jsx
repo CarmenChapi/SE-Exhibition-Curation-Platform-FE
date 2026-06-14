@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import "./Collections.css";
 import { IoCaretBack } from "react-icons/io5";
+import TopButton from "../TopButton";
 
 const ArtworkDetail = () => {
   const { collectionId, nameCollection, artworkId } = useParams();
@@ -111,6 +112,9 @@ const ArtworkDetail = () => {
 
       <div>
         <Link to={`/home/collections`} className="link-menu">
+          <h2>Collections/</h2>
+        </Link>
+        <Link to={`/home/collections/${nameCollection}/${collectionId}`} className="link-menu">
           <h2>{nameCollection}</h2>
         </Link>
       </div>
@@ -231,6 +235,15 @@ const ArtworkDetail = () => {
               {artwork.description ? artwork.description : "Unknown"}
             </p>
             <div>
+
+       <button
+                aria-label="Back to artwork list"
+                className="btn-back description-artwork"
+                onClick={handleBack}
+              >
+                <IoCaretBack />
+              </button>
+
               <button
                 aria-label="Edit artwork"
                 className="btn-back description-artwork"
@@ -238,17 +251,12 @@ const ArtworkDetail = () => {
               >
                 Edit
               </button>
-              <button
-                aria-label="Back to artwork list"
-                className="btn-back description-artwork"
-                onClick={handleBack}
-              >
-                <IoCaretBack /> Back
-              </button>
+
             </div>
           </>
         )}
       </section>
+      <TopButton/>
     </>
   );
 };
