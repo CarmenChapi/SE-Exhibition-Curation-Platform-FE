@@ -143,7 +143,7 @@ const AddToCollection = () => {
               className="btn-add"
               disabled={isAdding}
             >
-              <TiPlusOutline /> {isAdding ? "Adding..." : "Artwork"}
+              <TiPlusOutline /> {isAdding ? "Adding..." : "Add"}
             </button>
             <button
               aria-label="Cancel adding artwork"

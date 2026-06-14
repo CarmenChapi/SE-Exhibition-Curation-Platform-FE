@@ -39,13 +39,11 @@ h2 {
   font-size: 6ch;
   color: black;
   font-weight: 500;
-  font-display: center;
 }
 h3 {
   font-size: 3ch;
   color: black;
   font-weight: 500;
-  font-display: center;
 }
 
 button {
@@ -83,7 +81,6 @@ label {
 
 .userProfile {
   display: flex;
-  flex-direction: items-center;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -147,7 +144,6 @@ label {
     color: black;
     margin: 10px;
     font-weight: 300;
-    font-display: center;
   }
 
   button {
