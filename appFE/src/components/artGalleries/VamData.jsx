@@ -5,6 +5,7 @@ import axios from "axios";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
 import Loading from "../Loading";
+import ErrorPage from "../ErrorPage";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -94,7 +95,7 @@ const VAMData = () => {
   filteredData = [...filteredData].sort(handleSort);
   if (isLoading)
     return <Loading pageLoading="Loading Victoria & Albert Museum..." />;
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>

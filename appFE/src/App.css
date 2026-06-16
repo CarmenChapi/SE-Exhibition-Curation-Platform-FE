@@ -675,7 +675,6 @@ button:disabled {
 }
 
 .loading-wrapper {
-  min-height: calc(120dvh - 4rem);
   display: grid;
   place-items: center;
   box-sizing: border-box;
@@ -693,7 +692,7 @@ button:disabled {
   width: min(100%, 420px);
   padding: clamp(1.5rem, 5vw, 3rem);
   text-align: center;
-  background: rgba(255, 255, 255, 0.88);
+  background: white;
   border-radius: clamp(16px, 3vw, 28px);
   box-shadow: 0 14px 40px rgba(0, 73, 153, 0.14);
 }

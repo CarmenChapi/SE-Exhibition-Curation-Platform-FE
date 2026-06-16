@@ -5,6 +5,7 @@ import MenuCollections from "../MenuCollections";
 import axios from "axios";
 import TopButton from "../TopButton";
 import Loading from "../Loading";
+import ErrorPage from "../ErrorPage";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 const ITEMS_PER_PAGE = 5;
@@ -100,7 +101,7 @@ const SmithData = () => {
   filteredData = [...filteredData].sort(handleSort);
 
   if (isLoading) return <Loading pageLoading="Loading Smithsonian..." />;
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>

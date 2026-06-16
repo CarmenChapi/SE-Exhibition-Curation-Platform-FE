@@ -5,6 +5,7 @@ import axios from "axios";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
 import Loading from "../Loading";
+import ErrorPage from "../ErrorPage";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
@@ -96,7 +97,7 @@ const RijksMData = () => {
     currentPage * ITEMS_PER_PAGE,
   );
   if (isLoading) return <Loading pageLoading="Loading Rijksmuseum..." />;
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>

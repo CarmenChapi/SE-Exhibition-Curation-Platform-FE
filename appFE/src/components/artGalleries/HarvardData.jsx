@@ -5,6 +5,7 @@ import axios from "axios";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
 import Loading from "../Loading";
+import ErrorPage from "../ErrorPage";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 6;
@@ -90,7 +91,7 @@ const HarvardData = () => {
   filteredData = [...filteredData].sort(handleSort);
 
   if (isLoading) return <Loading pageLoading="Loading Harvard Art..." />;
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>

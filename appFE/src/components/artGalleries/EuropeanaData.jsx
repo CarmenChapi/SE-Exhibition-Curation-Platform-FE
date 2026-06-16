@@ -5,26 +5,56 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import MenuCollections from "../MenuCollections";
 import TopButton from "../TopButton";
 import Loading from "../Loading";
+import ErrorPage from "../ErrorPage";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
 
+const getEuropeanaErrorMessage = (error) => {
+  if (axios.isAxiosError(error)) {
+    if (error.code === "ECONNABORTED") {
+      return "Europeana is taking too long to respond. Please try again.";
+    }
+
+    if (error.response?.status) {
+      return `Europeana request failed (${error.response.status}). Please try again.`;
+    }
+
+    return "Europeana is currently unavailable. Please try again.";
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Europeana is currently unavailable. Please try again.";
+};
+
 const fetchEuroData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
-  const { data } = await axios.get(
-    "https://api.europeana.eu/record/v2/search.json",
-    {
-      params: {
-        wskey: apiKeyEuro,
-        query: query || "art",
-        media: true,
-        qf: "TYPE:IMAGE",
-        rows: 30,
+  try {
+    const { data } = await axios.get(
+      "https://api.europeana.eu/record/v2/search.json",
+      {
+        params: {
+          wskey: apiKeyEuro,
+          query: query || "art",
+          media: true,
+          qf: "TYPE:IMAGE",
+          rows: 30,
+        },
+        timeout: 10000,
       },
-    },
-  );
+    );
 
-  return data;
+    if (data?.success === false) {
+      throw new Error(data.error || "Europeana returned an error.");
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(getEuropeanaErrorMessage(error));
+  }
 };
 
 const EuropeanaData = () => {
@@ -42,6 +72,7 @@ const EuropeanaData = () => {
     queryKey: ["euro", { query }],
     queryFn: fetchEuroData,
     keepPreviousData: true,
+    retry: false,
   });
 
   useEffect(() => {
@@ -99,7 +130,7 @@ const EuropeanaData = () => {
   filteredData = [...filteredData].sort(handleSort);
 
   if (isLoading) return <Loading pageLoading="Loading Europeana..." />;
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isError) return <ErrorPage errorMsg={`Error: ${error.message}`} />;
 
   return (
     <>
