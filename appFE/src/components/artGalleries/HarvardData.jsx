@@ -9,17 +9,21 @@ import ErrorPage from "../ErrorPage";
 
 const apikeyHarvard = import.meta.env.VITE_API_KEY_HARVARD;
 const ITEMS_PER_PAGE = 6;
+const RESULTS_PER_REQUEST = 30;
+
+const getHarvardTitle = (art) => art.title || "Untitled";
+
+const getHarvardArtist = (art) => art.people?.[0]?.displayname || "Unknown";
 
 const fetchHarvardData = async ({ queryKey }) => {
-  const [, { query, page }] = queryKey;
+  const [, { query }] = queryKey;
   const { data } = await axios.get("https://api.harvardartmuseums.org/object", {
     params: {
       apikey: apikeyHarvard,
       hasimage: 1,
-      size: ITEMS_PER_PAGE,
+      size: RESULTS_PER_REQUEST,
       sort: "random",
       fields: "id,title,primaryimageurl,people,dated",
-      page,
       ...(query && { q: query }),
     },
   });
@@ -38,7 +42,7 @@ const HarvardData = () => {
   const navigate = useNavigate();
 
   const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["harvard", { query, page }],
+    queryKey: ["harvard", { query }],
     queryFn: fetchHarvardData,
     keepPreviousData: true,
   });
@@ -70,19 +74,25 @@ const HarvardData = () => {
   };
 
   const handleNextPage = () => {
-    updateUrlParams({ nextPage: page + 1 });
+    updateUrlParams({ nextPage: Math.min(page + 1, totalPages) });
   };
 
   const handleSort = (a, b) => {
     if (sortBy === "title") {
-      return a.title.localeCompare(b.title);
+      return getHarvardTitle(a).localeCompare(getHarvardTitle(b));
     } else if (sortBy === "artist") {
-      return a.people[0].displayname.localeCompare(b.people[0].displayname);
+      return getHarvardArtist(a).localeCompare(getHarvardArtist(b));
     }
     return 0;
   };
 
-  let filteredData = data?.records || [];
+  const allItems = data?.records || [];
+  const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE) || 1;
+  const paginatedItems = allItems.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE,
+  );
+  let filteredData = paginatedItems || [];
 
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.primaryimageurl);
@@ -157,12 +167,12 @@ const HarvardData = () => {
               onClick={() => navigate(`/home/artgallery/harvard/${art.id}`)}
               title={`Click to see more info+`}
             >
-              <h3>{art.title || "Untitled"}</h3>
-              <p>{art.people ? art.people[0].displayname : "Unknown"}</p>
+              <h3>{getHarvardTitle(art)}</h3>
+              <p>{getHarvardArtist(art)}</p>
               {art.primaryimageurl ? (
                 <img
                   src={art.primaryimageurl}
-                  alt={art.title}
+                  alt={getHarvardTitle(art)}
                   className="gallery-photo"
                   onClick={() => navigate(`/home/artgallery/harvard/${art.id}`)}
                 />
@@ -185,10 +195,13 @@ const HarvardData = () => {
         >
           Previous
         </button>
-        <span className="pagination-status">Page {page}</span>
+        <span className="pagination-status">
+          Page {page} of {totalPages}
+        </span>
         <button
           aria-label="Next page"
           onClick={handleNextPage}
+          disabled={page >= totalPages}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >
           Next

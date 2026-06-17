@@ -7,16 +7,18 @@ import TopButton from "../TopButton";
 import Loading from "../Loading";
 import ErrorPage from "../ErrorPage";
 
+const ITEMS_PER_PAGE = 6;
+const RESULTS_PER_REQUEST = 30;
+
 const fetchArticData = async ({ queryKey }) => {
-  const [, { page, query }] = queryKey;
+  const [, { query }] = queryKey;
 
   const { data } = await axios.get(
     "https://api.artic.edu/api/v1/artworks/search",
     {
       params: {
         q: query || "art",
-        limit: 10,
-        page,
+        limit: RESULTS_PER_REQUEST,
         fields: "id,title,image_id,artist_display",
       },
     },
@@ -37,7 +39,7 @@ const ArticData = ({ searchValue = "" }) => {
   const navigate = useNavigate();
 
   const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["artic", { page, query }],
+    queryKey: ["artic", { query }],
     queryFn: fetchArticData,
     keepPreviousData: true,
   });
@@ -69,7 +71,7 @@ const ArticData = ({ searchValue = "" }) => {
   };
 
   const handleNextPage = () => {
-    updateUrlParams({ nextPage: page + 1 });
+    updateUrlParams({ nextPage: Math.min(page + 1, totalPages) });
   };
 
   const handleSort = (a, b) => {
@@ -81,7 +83,13 @@ const ArticData = ({ searchValue = "" }) => {
     return 0;
   };
 
-  let filteredData = data?.data || [];
+  const allItems = data?.data || [];
+  const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE) || 1;
+  const paginatedItems = allItems.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE,
+  );
+  let filteredData = paginatedItems || [];
 
   if (filterByImage) {
     filteredData = filteredData.filter((art) => art.image_id);
@@ -187,10 +195,13 @@ const ArticData = ({ searchValue = "" }) => {
         >
           Previous
         </button>
-        <span className="pagination-status">Page {page}</span>
+        <span className="pagination-status">
+          Page {page} of {totalPages}
+        </span>
         <button
           aria-label="Next page"
           onClick={handleNextPage}
+          disabled={page >= totalPages}
           className="bg-gray-500 text-white px-4 py-2 rounded"
         >
           Next

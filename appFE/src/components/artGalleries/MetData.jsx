@@ -5,6 +5,9 @@ import TopButton from "../TopButton";
 import Loading from "../Loading";
 import ErrorPage from "../ErrorPage";
 
+const ITEMS_PER_PAGE = 6;
+const RESULTS_PER_REQUEST = 30;
+
 const METData = () => {
   const [artworks, setArtworks] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
@@ -18,7 +21,6 @@ const METData = () => {
   const [searchTerm, setSearchTerm] = useState(
     query === "painting" ? "" : query,
   );
-  const ITEMS_PER_PAGE = 6;
   const totalPages = Math.ceil(totalResults / ITEMS_PER_PAGE);
   const [sortBy, setSortBy] = useState("");
   const [filterByImage, setFilterByImage] = useState(false);
@@ -46,9 +48,11 @@ const METData = () => {
           return;
         }
 
-        setTotalResults(idsData.objectIDs.length);
+        const limitedObjectIDs = idsData.objectIDs.slice(0, RESULTS_PER_REQUEST);
+
+        setTotalResults(limitedObjectIDs.length);
         const startIdx = (page - 1) * ITEMS_PER_PAGE;
-        const objectIDs = idsData.objectIDs.slice(
+        const objectIDs = limitedObjectIDs.slice(
           startIdx,
           startIdx + ITEMS_PER_PAGE,
         );

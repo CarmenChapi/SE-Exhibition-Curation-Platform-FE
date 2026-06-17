@@ -9,13 +9,14 @@ import ErrorPage from "../ErrorPage";
 
 const apiKeySmith = import.meta.env.VITE_API_KEY_SMITHSONIAN;
 const ITEMS_PER_PAGE = 5;
+const RESULTS_PER_REQUEST = 30;
 
 const fetchSmithData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
 
   const searchQuery = query ? encodeURIComponent(query) : "art";
   const { data } = await axios.get(
-    `https://api.si.edu/openaccess/api/v1.0/category/art_design/search?q=${searchQuery}&api_key=${apiKeySmith}&rows=30&fq=online_media_type:image`,
+    `https://api.si.edu/openaccess/api/v1.0/category/art_design/search?q=${searchQuery}&api_key=${apiKeySmith}&rows=${RESULTS_PER_REQUEST}&fq=online_media_type:image`,
   );
 
   return data;

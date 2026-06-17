@@ -8,6 +8,7 @@ import Loading from "../Loading";
 import ErrorPage from "../ErrorPage";
 
 const ITEMS_PER_PAGE = 6;
+const RESULTS_PER_REQUEST = 30;
 
 const fetchVAMData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
@@ -15,7 +16,7 @@ const fetchVAMData = async ({ queryKey }) => {
   const searchQuery = query ? encodeURIComponent(query) : "painting";
 
   const { data } = await axios.get(
-    `https://api.vam.ac.uk/v2/objects/search?q=${searchQuery}&images_exist=true&limit=30`,
+    `https://api.vam.ac.uk/v2/objects/search?q=${searchQuery}&images_exist=true&limit=${RESULTS_PER_REQUEST}`,
   );
 
   return data;

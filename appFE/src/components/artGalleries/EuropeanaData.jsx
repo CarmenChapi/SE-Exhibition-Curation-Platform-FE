@@ -9,6 +9,7 @@ import ErrorPage from "../ErrorPage";
 
 const apiKeyEuro = import.meta.env.VITE_API_KEY_EUROPEANA;
 const ITEMS_PER_PAGE = 6;
+const RESULTS_PER_REQUEST = 30;
 
 const getEuropeanaErrorMessage = (error) => {
   if (axios.isAxiosError(error)) {
@@ -41,7 +42,7 @@ const fetchEuroData = async ({ queryKey }) => {
           query: query || "art",
           media: true,
           qf: "TYPE:IMAGE",
-          rows: 30,
+          rows: RESULTS_PER_REQUEST,
         },
         timeout: 10000,
       },

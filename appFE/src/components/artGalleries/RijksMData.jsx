@@ -9,13 +9,14 @@ import ErrorPage from "../ErrorPage";
 
 const apikeyRM = import.meta.env.VITE_API_KEY_RIJKS;
 const ITEMS_PER_PAGE = 6;
+const RESULTS_PER_REQUEST = 30;
 
 const fetchRijksMData = async ({ queryKey }) => {
   const [, { query }] = queryKey;
   const searchQuery = query ? `&q=${encodeURIComponent(query)}` : "";
 
   const { data } = await axios.get(
-    `https://data.rijksmuseum.nl/api/en/collection?key=${apikeyRM}${searchQuery}&limit=30`,
+    `https://data.rijksmuseum.nl/api/en/collection?key=${apikeyRM}${searchQuery}&limit=${RESULTS_PER_REQUEST}`,
   );
 
   return data;
