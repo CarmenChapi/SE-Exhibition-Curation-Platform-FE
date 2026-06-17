@@ -9,6 +9,9 @@ import { VscFolderOpened } from "react-icons/vsc";
 import CollectionPreview from "/src/assets/collectionPreview.png";
 import "./Collections.css";
 
+const getCollectionId = (collectionItem) =>
+  collectionItem?.id_collection ?? collectionItem?.id;
+
 const CollectionCard = ({
   collection,
   setListCollections,
@@ -35,11 +38,25 @@ const CollectionCard = ({
           title: updatedTitle,
         },
       );
+      const savedCollection = Array.isArray(updatedCollection)
+        ? updatedCollection[0]
+        : updatedCollection;
+      const collectionToDisplay = {
+        ...collection,
+        ...savedCollection,
+        id_collection:
+          getCollectionId(savedCollection) ?? collection.id_collection,
+        title: savedCollection?.title ?? updatedTitle.trim(),
+      };
+
       setListCollections((currentCollections) =>
         currentCollections.map((col) =>
-          col.id_collection === updatedCollection.id ? updatedCollection : col,
+          getCollectionId(col) === collection.id_collection
+            ? collectionToDisplay
+            : col,
         ),
       );
+      setUpdatedTitle(collectionToDisplay.title);
       setEditing(false);
     } catch (err) {
       console.error("Error updating collection:", err);

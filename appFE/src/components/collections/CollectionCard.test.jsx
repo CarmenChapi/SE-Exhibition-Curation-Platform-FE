@@ -125,7 +125,6 @@ describe("Test Set for CollectionCard component", () => {
 
   it("Test 6 => Updates the collection title", async () => {
     const updatedCollection = {
-      id: 10,
       id_collection: 10,
       title: "Masterpieces",
       art_count: 2,
@@ -154,7 +153,31 @@ describe("Test Set for CollectionCard component", () => {
     expect(updateState([collection])).toEqual([updatedCollection]);
   });
 
-  it("Test 7 => Deletes the collection", async () => {
+  it("Test 7 => Updates the visible title when the API only returns the title", async () => {
+    updateCollection.mockResolvedValue({ title: "Masterpieces" });
+    const props = renderCard();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /edit collection/i }),
+    );
+    fireEvent.change(screen.getByDisplayValue("Favourites"), {
+      target: { value: "Masterpieces" },
+    });
+    fireEvent.click(
+      screen.getByRole("button", { name: /save collection changes/i }),
+    );
+
+    await waitFor(() => {
+      expect(props.setListCollections).toHaveBeenCalled();
+    });
+
+    const updateState = props.setListCollections.mock.calls[0][0];
+    expect(updateState([collection])).toEqual([
+      { ...collection, title: "Masterpieces" },
+    ]);
+  });
+
+  it("Test 8 => Deletes the collection", async () => {
     deleteCollection.mockResolvedValue("201");
     const props = renderCard();
 
