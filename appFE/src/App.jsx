@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import ListArworks from "./components/collections/ListArtworks";
 import ErrorPage from "./components/ErrorPage";
 import "./App.css";
@@ -28,11 +34,22 @@ import UserLogin from "./components/UserLogin";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+const ScrollToTop = () => {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+
+  return null;
+};
+
 function App() {
   return (
     <>
       <Header />
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<UserLogin />} />
           <Route element={<ProtectedRoute />}>
