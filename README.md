@@ -183,7 +183,7 @@ npm run lint
 npm run build
 ```
  
-![Test output screenshot](src/demo/test.png)
+![Test output screenshot](appFE/src/demo/test.png)
  
 ---
  
@@ -199,15 +199,15 @@ Stack: Node.js, Express, PostgreSQL — deployed on Supabase and Render.
  
 ## 🧩 Technical Challenges
  
-![App screenshot](src/demo/main.png)
+![App screenshot](appFE/src/demo/main.png)
  
 **Firebase Authentication** — implementing both Google Sign-In and email/password flows, handling persistence, and adapting behaviour across desktop and mobile required careful attention to different auth states and redirect strategies.
  
-![Login screenshot](src/demo/login.png)
+![Login screenshot](appFE/src/demo/login.png)
  
 **Six different museum APIs** — each returned data in a completely different shape. Building a normalisation layer to extract a consistent set of fields (title, artist, image, description) across all sources was one of the core architectural challenges.
  
-![API screenshot](src/demo/apis.png)
+![API screenshot](appFE/src/demo/apis.png)
  
 **Collection UX** — designing a clear, intuitive flow for organising collections, displaying saved artworks, and managing additions and deletions took significant iteration.
  
